@@ -25,26 +25,27 @@ class Dame {
     
     get(url, options) {
 		
-		const req = https.request({
-			hostname: this.config.default.baseUrl,
-			port: 443,
-			path: url,
-			method: "GET",
-		}, (res) => {
+		const baseUrl = this.config.default.baseUrl;
+				
+		https.get(baseUrl + url, res => {
 			
-			console.log("statusCode:", res.statusCode);
-			console.log("headers:", res.headers);
-
-			res.on("data", (d) => {
-				process.stdout.write(d);
+			let data = [];
+			
+			const headerDate = res.headers && res.headers.date ? res.headers.date : 'no response date';
+			
+			console.log('Status Code:', res.statusCode);
+			
+			res.on('data', chunk => {
+				data.push(chunk);
 			});
+			
+			res.on('end', () => {
+				const res = JSON.parse(Buffer.concat(data).toString());
+			});
+			
+		}).on('error', err => {
+			console.log('Error: ', err.message);
 		});
-		
-		req.on("error", (e) => {
-			console.error(e);
-		});
-		
-		req.end();
 		
 	};
 	

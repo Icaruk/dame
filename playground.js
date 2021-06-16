@@ -3,21 +3,16 @@ const dame = require("./index");
 
 
 
-dame.setConfig("default", "baseUrl", "https://ganaenergia.com/api");
-dame.setConfig("default", "token", "JWT");
-dame.setConfig("crm", "baseUrl", "https://crm.ganaenergia.com");
-dame.setConfig("crm", "token", "JWT_2");
+dame.setConfig("default", "baseUrl", "https://rickandmortyapi.com/api");
+// dame.setConfig("default", "token", "JWT");
 
 
 
-console.log( "dame", `(${typeof dame}): `, dame);
+dame.get("/character/12");
+
+
 
 return;
-
-
-
-const {response, isError} = dame.post("/algo", objAlgo);
-if (isError) return console.log(response.message);
 
 
 // 200
