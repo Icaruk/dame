@@ -1,0 +1,36 @@
+{
+	"name": "dame",
+	"version": "1.0.0",
+	"description": "minimalistic HTTP request",
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Icaruk/dame"
+	},
+	"bugs": {
+		"url": "https://github.com/Icaruk/dame"
+	},
+	"homepage": "https://github.com/Icaruk",
+	"scripts": {
+		"test": "jest",
+		"declaration:build": "tsc -b"
+	},
+	"keywords": [
+		"javascript",
+		"node",
+		"http",
+		"https",
+		"request",
+		"fetch"
+	],
+	"contributors": [
+		"Icaruk <adrian@icaruk.dev>",
+		"Artur <artur.develop@gmail.com>"
+	],
+	"license": "ISC",
+	"devDependencies": {
+		"jest": "^26.5.3",
+		"typescript": "^4.1.3"
+	},
+	"types": "index.d.ts"
+}
