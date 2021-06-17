@@ -5,16 +5,14 @@
 </div>
 
 
-[![install size](https://packagephobia.com/badge?p=validame@latest)](https://packagephobia.com/result?p=validame@latest)
+[![install size](https://packagephobia.com/badge?p=validame@latest)](https://packagephobia.com/result?p=dame@latest)
 
 
-**validame** is a javascript **string validator** that returns the error message.
+**dame** minimalistic HTTP client for the browser and Node.js
 
-- 🚀 Lightweight (12 kB packed and 53 kB unpacked).
+- 🚀 Lightweight.
 - ⚪️ Zero dependencies.
 - 🔧 Totally customizable.
-- 🧩 Modular.
-- 🌍 Multilanguage.
 
 
 
@@ -23,7 +21,6 @@
 
 <!-- TOC ignore:true -->
 # Table of contents
-<a id="markdown-table-of-contents" name="table-of-contents"></a>
 
 
 <!-- TOC -->
@@ -37,9 +34,12 @@
 - [Symbols ✳️](#symbols-)
 - [Language 🌍](#language-)
 - [Editing symbols and rules 🧾](#editing-symbols-and-rules-%F0%9F%A7%BE)
+    - [➡️ symbols property](#-symbols-property)
+    - [➡️ rules property](#-rules-property)
 - [Creating your own rules ⚗️](#creating-your-own-rules-)
 - [Creating your own symbols ⚗️](#creating-your-own-symbols-)
 - [Advanced examples 🔮](#advanced-examples-)
+        - [<a name='table-of-contents'></a>⏫](#a-nametable-of-contentsa)
 
 <!-- /TOC -->
 
@@ -48,7 +48,6 @@
 
 
 # Import ⬇️
-<a id="markdown-import-%E2%AC%87%EF%B8%8F" name="import-%E2%AC%87%EF%B8%8F"></a>
 
 ```js
 const {validame} = require("validame");
@@ -61,7 +60,6 @@ const {validame} = require("validame");
 
 
 # Basic examples 🔮
-<a id="markdown-basic-examples-%F0%9F%94%AE" name="basic-examples-%F0%9F%94%AE"></a>
 
 ```js
 
@@ -133,7 +131,6 @@ let error = validame("My name is Mike", {
 
 
 # Usage 🧭
-<a id="markdown-usage-%F0%9F%A7%AD" name="usage-%F0%9F%A7%AD"></a>
 
 **Returns** an empty string if the validation is correct, otherwise it returns an string explaining the error.
 
@@ -151,7 +148,6 @@ validame (stringToValidate, rules);
 
 
 # Rules 📏
-<a id="markdown-rules-%F0%9F%93%8F" name="rules-%F0%9F%93%8F"></a>
 
 ```js
 {
@@ -199,7 +195,6 @@ The rules will be checked in the same order they are listed, example:
 
 
 # allow rule 🏳️
-<a id="markdown-allow-rule-%F0%9F%8F%B3%EF%B8%8F" name="allow-rule-%F0%9F%8F%B3%EF%B8%8F"></a>
 
 - The allow rule reads a list of **symbols** *(explained below)*.
 - The symbol list must be **separated with spaces**.
@@ -219,7 +214,6 @@ The rules will be checked in the same order they are listed, example:
 <br/>
 
 # allowOr rule 🏳️
-<a id="markdown-allowor-rule-%F0%9F%8F%B3%EF%B8%8F" name="allowor-rule-%F0%9F%8F%B3%EF%B8%8F"></a>
 
 - Same mechanics than `allow` rule, but this one needs **all symbols failing** to return an error.
 - The returned error it's from the first failed symbol.
@@ -234,7 +228,6 @@ The rules will be checked in the same order they are listed, example:
 
 
 # Symbols ✳️
-<a id="markdown-symbols-%E2%9C%B3%EF%B8%8F" name="symbols-%E2%9C%B3%EF%B8%8F"></a>
 
 Each symbol is unique and has a **regex or function** associated.
 
@@ -283,7 +276,6 @@ Each symbol is unique and has a **regex or function** associated.
 
 
 # Language 🌍
-<a id="markdown-language-%F0%9F%8C%8D" name="language-%F0%9F%8C%8D"></a>
 
 ```js
 const {validameConfig} = require("validame");
@@ -305,7 +297,6 @@ But you can add your own language and translations.
 
 
 # Editing symbols and rules 🧾
-<a id="markdown-editing-symbols-and-rules-%F0%9F%A7%BE" name="editing-symbols-and-rules-%F0%9F%A7%BE"></a>
 
 ```js
 const {validameConfig} = require("validame");
@@ -406,7 +397,6 @@ min: {
 
 
 # Creating your own rules ⚗️
-<a id="markdown-creating-your-own-rules-%E2%9A%97%EF%B8%8F" name="creating-your-own-rules-%E2%9A%97%EF%B8%8F"></a>
 
 ```js
 // Import
@@ -478,7 +468,6 @@ let error2 = validame("Mike", {
 
 
 # Creating your own symbols ⚗️
-<a id="markdown-creating-your-own-symbols-%E2%9A%97%EF%B8%8F" name="creating-your-own-symbols-%E2%9A%97%EF%B8%8F"></a>
 
 ```js
 // Import
@@ -543,7 +532,6 @@ let error2 = validame("17", {
 
 
 # Advanced examples 🔮
-<a id="markdown-advanced-examples-%F0%9F%94%AE" name="advanced-examples-%F0%9F%94%AE"></a>
 
 ```js
 

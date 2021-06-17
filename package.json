@@ -2,7 +2,7 @@
 	"name": "dame",
 	"version": "1.0.0",
 	"description": "minimalistic HTTP request",
-	"main": "index.js",
+	"main": "./lib/dame.js",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/Icaruk/dame"

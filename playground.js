@@ -1,14 +1,61 @@
 
-const dame = require("./index");
+const dame = require("./lib/dame");
 
 
 
 dame.setConfig("default", "baseUrl", "https://rickandmortyapi.com/api");
-// dame.setConfig("default", "token", "JWT");
 
 
 
-dame.get("/character/12");
+(async() => {
+	
+	
+	// console.log( await dame.get("/character/99999999") );
+	// a = {
+	// 	response: { error: 'Character not found' },
+	// 	code: 404,
+	// 	status: 'Not Found',
+	// 	isError: true
+	// }
+	
+	
+	
+	// console.log ( await dame.get("/character/12") );
+	// a = {
+	// 	response: {
+	// 	  id: 12,
+	// 	  name: 'Alexander',
+	// 	  status: 'Dead',
+	// 	  species: 'Human',
+	// 	  type: '',
+	// 	  gender: 'Male',
+	// 	  origin: {
+	// 		name: 'Earth (C-137)',
+	// 		url: 'https://rickandmortyapi.com/api/location/1'
+	// 	  },
+	// 	  location: {
+	// 		name: 'Anatomy Park',
+	// 		url: 'https://rickandmortyapi.com/api/location/5'
+	// 	  },
+	// 	  image: 'https://rickandmortyapi.com/api/character/avatar/12.jpeg',
+	// 	  episode: [ 'https://rickandmortyapi.com/api/episode/3' ],
+	// 	  url: 'https://rickandmortyapi.com/api/character/12',
+	// 	  created: '2017-11-04T20:32:33.144Z'
+	// 	},
+	// 	code: 200,
+	// 	status: 'OK',
+	// 	isError: true
+	//   }
+	
+	
+	
+})();
+
+
+
+
+
+
 
 
 
@@ -17,30 +64,30 @@ return;
 
 // 200
 res200 = {
-    response: {
-        message: "whatever",
-    },
-    code: 200,
-    status: "OK",
+	response: {
+		message: "whatever",
+	},
+	code: 200,
+	status: "OK",
 	isError: false,
 };
 
 // 500
 res500 = {
-    response: null,
-    code: 500,
-    status: "Internal server error server error",
+	response: null,
+	code: 500,
+	status: "Internal server error server error",
 	isError: true,
 };
 // 500
 res500_2 = {
-    response: {
+	response: {
 		message: {
 			error: "mongoerror: sadjkldjasklja"
 		}
 	},
-    code: 500,
-    status: "Internal server error server error",
+	code: 500,
+	status: "Internal server error server error",
 	isError: true,
 };
 
