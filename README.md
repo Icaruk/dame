@@ -25,9 +25,9 @@
 <!-- TOC -->
 
 - [Features](#features)
-- [Import ⬇️](#import-)
-- [Basic examples 🔮](#basic-examples-)
-        - [<a name='table-of-contents'></a>⏫](#a-nametable-of-contentsa)
+- [Import](#import)
+- [Basic examples](#basic-examples)
+        - [<a name='table-of-contents'></a>Return to top](#a-nametable-of-contentsareturn-to-top)
 
 <!-- /TOC -->
 
@@ -41,7 +41,7 @@
 
 
 
-# Import ⬇️
+# Import
 
 ```js
 const dame = require("dame");
@@ -53,7 +53,7 @@ const dame = require("dame");
 
 
 
-# Basic examples 🔮
+# Basic examples
 
 ```js
 let {response, isError, code, status} = dame.get("/url");

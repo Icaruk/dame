@@ -19,7 +19,6 @@ dame.setConfig("default", "baseUrl", "https://rickandmortyapi.com/api");
 	// }
 	
 	
-	
 	// console.log ( await dame.get("/character/12") );
 	// a = {
 	// 	response: {
@@ -47,7 +46,28 @@ dame.setConfig("default", "baseUrl", "https://rickandmortyapi.com/api");
 	// 	isError: true
 	//   }
 	
+    
+    
+	// console.log ( await dame.post("http://localhost:4000/echo", {
+    //     username: "Icaruk",
+    //     password: "asdf",
+    //     email: "adrian@icaruk.dev",
+    // }, {
+    //     ignoreBase: true,
+    // }));
 	
+	// a = {
+	// 	isError: false,
+	// 	code: 200,
+	// 	status: 'OK',
+	// 	response: {
+	// 	  body: {
+	// 		username: 'Icaruk',
+	// 		password: 'asdf',
+	// 		email: 'adrian@icaruk.dev'
+	// 	  }
+	// 	}
+	// }	
 	
 })();
 
