@@ -11,7 +11,6 @@ const url = "https://rickandmortyapi.com/api/character/12";
 
 
 
-
 bench("await axios", async (b) => {
 	b.start();
 	
@@ -21,20 +20,6 @@ bench("await axios", async (b) => {
 	
 	b.end();
 });
-bench("axios", (b) => {
-	b.start();
-	
-	for (let i = 0; i < times; i++) {
-		axios.get(url);
-	};
-	
-	b.end();
-});
-
-
-
-
-
 bench("await phin", async (b) => {
 	b.start();
 	
@@ -48,6 +33,27 @@ bench("await phin", async (b) => {
 	
 	b.end();
 });
+bench("await dame", async (b) => {
+	b.start();
+	
+	for (let i = 0; i < times; i++) {
+		await dame.get(url, {ignoreBase: true});
+	};
+	
+	b.end();
+});
+
+
+
+bench("axios", (b) => {
+	b.start();
+	
+	for (let i = 0; i < times; i++) {
+		axios.get(url);
+	};
+	
+	b.end();
+});
 bench("phin", (b) => {
 	b.start();
 	
@@ -57,19 +63,6 @@ bench("phin", (b) => {
 			method: "GET",
 			parse: "JSON",
 		});
-	};
-	
-	b.end();
-});
-
-
-
-
-bench("await dame", async (b) => {
-	b.start();
-	
-	for (let i = 0; i < times; i++) {
-		await dame.get(url, {ignoreBase: true});
 	};
 	
 	b.end();
