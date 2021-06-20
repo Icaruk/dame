@@ -6,16 +6,27 @@ const dame = require("../lib/dame");
 
 
 
-const times = 100;
+const times = 1000;
 const url = "https://rickandmortyapi.com/api/character/12";
 
 
 
+bench("await dame", async (b) => {
+	b.start();
+	
+	for (let i = 0; i < times; i++) {
+		const res = await dame.get(url, {ignoreBase: true});
+		res.response.name;
+	};
+	
+	b.end();
+});
 bench("await axios", async (b) => {
 	b.start();
 	
 	for (let i = 0; i < times; i++) {
-		await axios.get(url);
+		const res = await axios.get(url);
+		res.data.name;
 	};
 	
 	b.end();
@@ -24,27 +35,30 @@ bench("await phin", async (b) => {
 	b.start();
 	
 	for (let i = 0; i < times; i++) {
-		await phin({
+		const res = await phin({
 			url: url,
 			method: "GET",
-			parse: "JSON",
+			parse: "json",
 		});
+		res.body.name;
 	};
 	
 	b.end();
 });
-bench("await dame", async (b) => {
+
+
+return;
+
+
+bench("dame", (b) => {
 	b.start();
 	
 	for (let i = 0; i < times; i++) {
-		await dame.get(url, {ignoreBase: true});
+		dame.get(url, {ignoreBase: true});
 	};
 	
 	b.end();
 });
-
-
-
 bench("axios", (b) => {
 	b.start();
 	
@@ -67,12 +81,4 @@ bench("phin", (b) => {
 	
 	b.end();
 });
-bench("dame", (b) => {
-	b.start();
-	
-	for (let i = 0; i < times; i++) {
-		dame.get(url, {ignoreBase: true});
-	};
-	
-	b.end();
-});
+

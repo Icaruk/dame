@@ -4,6 +4,27 @@ const http = require("http");
 
 
 
+/**
+ * @typedef Options
+ * @property {"GET" | "POST" | "PUT" | "DELETE" | "PATCH"} method
+ * @property {string} fullUrl
+ * @property {*} headers
+ * @property {*} body
+*/
+
+/**
+ * @typedef Response
+ * @property {boolean} isError
+ * @property {number} code
+ * @property {string} status
+ * @property {*} response
+ * @property {* | null} error
+*/
+
+/**
+ * @param {Options}
+ * @returns {Promise<Response>}
+*/
 module.exports = function requestNode({
 	method,
 	fullUrl,
@@ -63,7 +84,7 @@ module.exports = function requestNode({
 					});
 					
 				});
-			
+				
 			});
 			
 			
@@ -100,7 +121,8 @@ module.exports = function requestNode({
 				isError: true,
 				code: -999,
 				status: "Exception",
-				response: err,
+				response: null,
+				error: err,
 			});
 		};
 		
