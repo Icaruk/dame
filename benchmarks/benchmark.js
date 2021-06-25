@@ -6,7 +6,7 @@ const dame = require("../lib/dame");
 
 
 
-const times = 1000;
+const times = 100;
 const url = "https://rickandmortyapi.com/api/character/12";
 
 
