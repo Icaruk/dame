@@ -1,8 +1,7 @@
 {
 	"name": "dame",
-	"version": "1.0.0",
-	"description": "minimalistic HTTP request",
-	"main": "./lib/dame.js",
+	"version": "0.0.1",
+	"description": "minimalistic HTTP client for browser and node",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/Icaruk/dame"
@@ -38,8 +37,9 @@
 		"phin": "^3.6.0",
 		"typescript": "^4.1.3"
 	},
+	"main": "./lib/dame.js",
 	"files": [
-		"lib",
+		"lib/dame.js",
 		"utils"
 	],
 	"types": "index.d.ts"

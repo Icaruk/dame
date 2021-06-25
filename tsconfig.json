@@ -1,6 +1,6 @@
 {
 	"files": [
-		"index.js"
+		"lib/dame.js"
 	],
 	"compilerOptions": {
 		"module": "ES2020",

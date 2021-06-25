@@ -11,7 +11,7 @@
 */
 
 /**
- * @typedef Response
+ * @typedef ResponseWeb
  * @property {boolean} isError
  * @property {number} code
  * @property {string} status
@@ -21,7 +21,7 @@
 
 /**
  * @param {Options}
- * @returns {Promise<Response>}
+ * @returns {Promise<ResponseWeb>}
 */
 // module.exports = function requestWeb({
 function requestWeb({

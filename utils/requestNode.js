@@ -13,7 +13,7 @@ const http = require("http");
 */
 
 /**
- * @typedef Response
+ * @typedef ResponseNode
  * @property {boolean} isError
  * @property {number} code
  * @property {string} status
@@ -23,7 +23,7 @@ const http = require("http");
 
 /**
  * @param {Options}
- * @returns {Promise<Response>}
+ * @returns {Promise<ResponseNode>}
 */
 module.exports = function requestNode({
 	method,

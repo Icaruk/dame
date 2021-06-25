@@ -33,7 +33,8 @@
 
 
 
-<script src="../utils/requestWeb.js"></script>
+<!-- <script src="../utils/requestWeb.js"></script> -->
+<script src="../lib/dame.js"></script>
 <script>
 	
 	const pulsa = async (ev) => {
@@ -43,11 +44,14 @@
 		const body = document.querySelector("#body").value;
 		
 		
-		const res = await requestWeb({
-			method: method,
-			fullUrl: url,
-			body: body,
-		});
+		const res = await dame[method](url);
+		
+		
+		// const res = await requestWeb({
+		// 	method: method,
+		// 	fullUrl: url,
+		// 	body: body,
+		// });
 		
 		console.log( res );
 		

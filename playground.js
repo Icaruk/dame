@@ -4,15 +4,17 @@ const dame = require("./lib/dame");
 
 
 dame.setConfig("default", "baseUrl", "https://rickandmortyapi.com/api");
+
 dame.setConfig("default", "headers", {
 	Authorization: "bearer a4jkl.q345a.a45a.a45"
-})
+});
+
 
 
 (async() => {
 	
 	
-	console.log( await dame.get("/character/99999") );
+	// console.log( await dame.get("/character/99999") );
 	// a = {
 	// 	response: { error: 'Character not found' },
 	// 	code: 404,
@@ -21,7 +23,7 @@ dame.setConfig("default", "headers", {
 	// }
 	
 	
-	// console.log ( await dame.get("/character/12") );
+	console.log ( await dame.get("/character/12") );
 	// a = {
 	// 	response: {
 	// 	  id: 12,
