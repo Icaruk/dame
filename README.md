@@ -27,7 +27,8 @@
 - [Features](#features)
 - [Import](#import)
 - [Basic examples](#basic-examples)
-        - [<a name='table-of-contents'></a>Return to top](#a-nametable-of-contentsareturn-to-top)
+	- [dame vs. others](#dame-vs-others)
+		- [<a name='table-of-contents'></a>Return to top](#a-nametable-of-contentsareturn-to-top)
 
 <!-- /TOC -->
 
@@ -59,6 +60,20 @@ const dame = require("dame");
 let {response, isError, code, status} = dame.get("/url");
 ```
 
+
+
+## dame vs. others
+
+
+Package | Browser | Node | Size
+:---: | :---: | :---: | ---
+**dame** 	|	✅ | ✅ | [![dame package size](https://packagephobia.now.sh/badge?p=dame)](https://packagephobia.now.sh/result?p=dame)
+phin 		|	❌ | ✅ | [![phin package size](https://packagephobia.now.sh/badge?p=phin)](https://packagephobia.now.sh/result?p=phin)
+node-fetch 	|	❌ | ✅ | [![node-fetch package size](https://packagephobia.now.sh/badge?p=node-fetch)](https://packagephobia.now.sh/result?p=node-fetch)
+axios 		|	✅ | ✅ | [![axios package size](https://packagephobia.now.sh/badge?p=axios)](https://packagephobia.now.sh/result?p=axios)
+got 		|	❌ | ✅ | [![got package size](https://packagephobia.now.sh/badge?p=got)](https://packagephobia.now.sh/result?p=got)
+superagent 	|	✅ | ✅ | [![superagent package size](https://packagephobia.now.sh/badge?p=superagent)](https://packagephobia.now.sh/result?p=superagent)
+request 	|	❌ | ✅ | [![request package size](https://packagephobia.now.sh/badge?p=request)](https://packagephobia.now.sh/result?p=request)
 
 
 ---
