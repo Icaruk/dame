@@ -23,8 +23,8 @@
  * @param {Options}
  * @returns {Promise<ResponseWeb>}
 */
-// module.exports = function requestWeb({
-function requestWeb({
+module.exports = function requestWeb({
+// function requestWeb({
 	method,
 	fullUrl,
 	headers,
