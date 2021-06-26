@@ -17,7 +17,7 @@ dame.setConfig("test", "headers", {
 
 (async() => {
 	
-	await dame.get("/", "test", {
+	await dame.get("/", {
 		headers: {
 			"authorization": "soy un token JWT",
 		}

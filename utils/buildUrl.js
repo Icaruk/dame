@@ -1,9 +1,11 @@
 
-module.exports = function buildUrl(base, path) {
-    
-	if (path.startsWith("http://") || path.startsWith("https://")) return path;
-	if (!base) return path;
+module.exports = function buildUrl(url, config = {}) {
 	
-    return base + path;
+	if (url.startsWith("http://") || url.startsWith("https://")) return url;
+	
+	const configBaseUrl = config.baseUrl;
+	if (configBaseUrl) return configBaseUrl + url;
+	
+	return url;
 	
 };
