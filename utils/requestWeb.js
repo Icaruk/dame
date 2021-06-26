@@ -43,6 +43,7 @@ module.exports = function requestWeb({
 			
 			const options = {
 				method: method,
+				headers: headers,
 			};
 			if (method !== "GET") options.body = body;
 			
