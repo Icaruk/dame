@@ -1,6 +1,9 @@
 
-module.exports = function buildUrl(base, path, ignoreBase = false) {
-    if (!base) return path;
-    if (ignoreBase) return path;
+module.exports = function buildUrl(base, path) {
+    
+	if (path.startsWith("http")) return path;
+	if (!base) return path;
+	
     return base + path;
+	
 };
