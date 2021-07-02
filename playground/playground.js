@@ -5,12 +5,12 @@ const dame = require("../lib/dame");
 
 dame.setConfig("default", "baseUrl", "https://rickandmortyapi.com/api");
 dame.setConfig("default", "headers", {
-	authorization: "bearer a4jkl.q345a.a45a.a45"
+	Authorization: "Bearer a4jkl.q345a.a45a.a45"
 });
 
 dame.setConfig("test", "baseUrl", "http://localhost:3000");
 dame.setConfig("test", "headers", {
-	authorization: "bearer a4jkl.q345a.a45a.a45"
+	Authorization: "Bearer a4jkl.q345a.a45a.a45"
 });
 
 
@@ -19,13 +19,17 @@ dame.setConfig("test", "headers", {
 	
 	// await dame.get("/", {
 	// 	headers: {
-	// 		"authorization": "soy un token JWT",
+	// 		"Authorization": "soy un token JWT",
 	// 	}
 	// });
 	
 	const res = await dame.post("/ruta", {
 		user: "",
 		password: "",
+	}, {
+		headers: {
+			Authorization: "Bearer dos"
+		}
 	});
 	
 	

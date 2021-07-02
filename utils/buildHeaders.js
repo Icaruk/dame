@@ -1,9 +1,9 @@
 
 module.exports = function buildHeaders(headers, config = {}) {
 	
-	if (headers) return headers;
-	
 	const configHeaders = config.headers;
+	
+	if (headers && configHeaders) return {...configHeaders, ...headers};
 	return configHeaders;
 	
 };
