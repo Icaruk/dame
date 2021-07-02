@@ -41,8 +41,9 @@
 	},
 	"main": "./lib/dame.js",
 	"files": [
-		"lib/dame.js",
-		"utils"
+		"lib",
+		"utils",
+		"types"
 	],
 	"types": "index.d.ts"
 }

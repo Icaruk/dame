@@ -1,2 +1,2 @@
-declare function _exports(base: any, path: any, ignoreBase?: boolean): any;
+declare function _exports(url: any, config?: {}): any;
 export = _exports;

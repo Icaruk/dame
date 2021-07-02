@@ -1,11 +1,3 @@
-/**
- * Full URL you want to request
- */
-export type Url = string;
-export type Body = any;
-export type Options = {
-    method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
-};
 export type Response = {
     isError: boolean;
     code: number;
@@ -13,3 +5,8 @@ export type Response = {
     response: any;
     error: any | null;
 };
+export type Options = {
+    headers: any;
+};
+export type GetFnc = (url: any, configGroup?: string | Options, options?: Options) => Promise<Response>;
+export type PostFnc = (url: any, body: any, configGroup?: string | Options, options?: Options) => Promise<Response>;
