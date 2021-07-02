@@ -17,10 +17,15 @@ dame.setConfig("test", "headers", {
 
 (async() => {
 	
-	await dame.get("/", {
-		headers: {
-			"authorization": "soy un token JWT",
-		}
+	// await dame.get("/", {
+	// 	headers: {
+	// 		"authorization": "soy un token JWT",
+	// 	}
+	// });
+	
+	const res = await dame.post("/ruta", {
+		user: "",
+		password: "",
 	});
 	
 	

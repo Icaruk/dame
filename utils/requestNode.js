@@ -44,7 +44,7 @@ module.exports = function requestNode({
 	} else if (fullUrl.startsWith("http")) {
 		protocol = http;
 	} else {
-		return console.log(`Protocol not valid.`)
+		return console.log(`Protocol not valid. URL: ${fullUrl}`)
 	};
 	
 	
