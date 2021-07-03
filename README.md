@@ -27,18 +27,34 @@
 - [Features](#features)
 - [Import](#import)
 - [Basic examples](#basic-examples)
-	- [dame vs. others](#dame-vs-others)
-		- [<a name='table-of-contents'></a>Return to top](#a-nametable-of-contentsareturn-to-top)
+- [Methods](#methods)
+	- [get](#get)
+	- [post, put, delete, patch](#post-put-delete-patch)
+	- [setConfig](#setconfig)
+		- [Usage](#usage)
+		- [Examples](#examples)
+	- [getConfig](#getconfig)
+- [dame vs. others](#dame-vs-others)
+- [<a name='table-of-contents'></a>☝ Return to top](#a-nametable-of-contentsa-return-to-top)
 
 <!-- /TOC -->
+
+
+
+<br>
+
+---
 
 <br>
 
 
+
 # Features
 
-- Methods: GET, POST, PUT, DELETE, PATCH
-- **PENDIENTE**
+- **Node** (http & https) and **browser** (Fetch).
+- **Promise** API.
+- Automatic transforms to **JSON** data.
+- **Config groups** for base URL, authorization headers or anything you need.
 
 
 
@@ -52,32 +68,174 @@ const dame = require("dame");
 
 <br>
 
+---
+
+<br>
 
 
 # Basic examples
 
+`GET`
 ```js
-let {response, isError, code, status} = dame.get("/url");
+let {response, isError} = dame.get("https://rickandmortyapi.com/api/location/1");
+```
+
+`POST`
+```js
+let {response, isError} = dame.post("https://your.api.com/login", {
+	username: "Username",
+	password: "****",
+});
 ```
 
 
 
-## dame vs. others
-
-
-Package | Browser | Node | Size
-:---: | :---: | :---: | ---
-**dame** 	|	✅ | ✅ | [![dame package size](https://packagephobia.now.sh/badge?p=dame)](https://packagephobia.now.sh/result?p=dame)
-phin 		|	❌ | ✅ | [![phin package size](https://packagephobia.now.sh/badge?p=phin)](https://packagephobia.now.sh/result?p=phin)
-node-fetch 	|	❌ | ✅ | [![node-fetch package size](https://packagephobia.now.sh/badge?p=node-fetch)](https://packagephobia.now.sh/result?p=node-fetch)
-axios 		|	✅ | ✅ | [![axios package size](https://packagephobia.now.sh/badge?p=axios)](https://packagephobia.now.sh/result?p=axios)
-got 		|	❌ | ✅ | [![got package size](https://packagephobia.now.sh/badge?p=got)](https://packagephobia.now.sh/result?p=got)
-superagent 	|	✅ | ✅ | [![superagent package size](https://packagephobia.now.sh/badge?p=superagent)](https://packagephobia.now.sh/result?p=superagent)
-request 	|	❌ | ✅ | [![request package size](https://packagephobia.now.sh/badge?p=request)](https://packagephobia.now.sh/result?p=request)
-
+<br>
 
 ---
 
-###  <a name='table-of-contents'></a>[Return to top](#table-of-contents)
+<br>
+
+
+
+# Methods
+
+## `get`
+
+```js
+const {response} = dame.get(url, options);
+// or
+const {response} = dame.get(url, configGroup, options);
+```
+
+Param | Type | Description
+:---: | :---: | :---:
+**url** | `string` | Full URL or path. If it starts with `http` or `https` it will be treated as full URL. Otherwise it will be concatenated with `baseUrl` from config.
+**configGroup** | `object` | Skip this param if you want to use "default" configGroup.
+**options** | `object` | Options: {headers}
+
+
+
+<br>
+
+
+
+## `post`, `put`, `delete`, `patch`
+
+```js
+const {response} = dame.post(url, body, options);
+// or
+const {response} = dame.post(url, body, configGroup, options);
+```
+
+
+Param | Type | Description
+:---: | :---: | :---:
+**url** | `string` | Full URL or path. If it starts with `http` or `https` it will be treated as full URL. Otherwise it will be concatenated with `baseUrl` from config.
+**body** | `object` | Request body.
+**configGroup** | `object` | Skip this param if you want to use "default" configGroup.
+**options** | `object` | Options: {headers}
+
+
+
+<br>
+
+
+
+## `setConfig`
+
+- They key `baseUrl` from the `default` config group will be used as base URL.
+- They key `headers` from the `default` config group will be used as headers.
+
+
+
+### Usage
+
+```js
+dame.setConfig("configGroup", "key", "data");
+```
+
+Param | Type | Description
+:---: | :---: | :---:
+**configGroup** | `string` | Default is `default`.
+**key** | `object` | `baseUrl` or  `headers`
+**data** | `object` | value
+
+<br>
+
+### Examples
+
+```js
+
+// Set default base URL and auth
+dame.setConfig("default", "baseUrl", "http://localhost:3000");
+dame.setConfig("default", "headers", {
+	Authorization: "Bearer your_token"
+});
+
+// Using default config
+
+dame.get("/endpoint");
+// http://localhost:3000/endpoint
+// Authorization: "Bearer your_token".
+
+```
+
+```js
+// Set base URL and auth
+dame.setConfig("rick", "baseUrl", "https://rickandmortyapi.com/api");
+dame.setConfig("rick", "headers", {
+	Authorization: "Bearer another_token"
+});
+
+// Using rick config
+
+dame.get("/character/12");
+// https://rickandmortyapi.com/api/character/12
+// Authorization: "Bearer another_token".
+
+```
+
+
+
+## `getConfig`
+
+```js
+dame.getConfig(); // all
+dame.getConfig("default"); // get default config
+dame.getConfig("yourConfig"); // get yourConfig config
+```
+
+
+
+<br>
+
+---
+
+<br>
+
+
+
+# dame vs. others
+
+
+Package | Browser 	| Node 	| Dependencies 	| Size
+:---: 	| :---: 	| :---: | :---:			| :---:
+**dame** 	|	✅ | ✅ | <span style="color:green;font-weight:bold">Zero</span> | [![dame package size](https://packagephobia.now.sh/badge?p=dame)](https://packagephobia.now.sh/result?p=dame)
+phin 		|	❌ | ✅ | <span style="color:red">1</span> | [![phin package size](https://packagephobia.now.sh/badge?p=phin)](https://packagephobia.now.sh/result?p=phin)
+node-fetch 	|	❌ | ✅ | <span style="color:green">Zero</span> | [![node-fetch package size](https://packagephobia.now.sh/badge?p=node-fetch)](https://packagephobia.now.sh/result?p=node-fetch)
+axios 		|	✅ | ✅ | <span style="color:red">1</span> | [![axios package size](https://packagephobia.now.sh/badge?p=axios)](https://packagephobia.now.sh/result?p=axios)
+got 		|	❌ | ✅ | <span style="color:red">11</span> | [![got package size](https://packagephobia.now.sh/badge?p=got)](https://packagephobia.now.sh/result?p=got)
+superagent 	|	✅ | ✅ | <span style="color:red">11</span> | [![superagent package size](https://packagephobia.now.sh/badge?p=superagent)](https://packagephobia.now.sh/result?p=superagent)
+request 	|	❌ | ✅ | <span style="color:red">20</span> | [![request package size](https://packagephobia.now.sh/badge?p=request)](https://packagephobia.now.sh/result?p=request)
+
+
+<br>
+
+---
+
+<br>
+
+#  <a name='table-of-contents'></a>[☝ Return to top](#table-of-contents)
 
 
