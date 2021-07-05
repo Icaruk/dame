@@ -42,7 +42,7 @@
 	},
 	"main": "./lib/dame.min.js",
 	"files": [
-		"dame.min.js"
+		"./lib/dame.min.js"
 	],
 	"types": "index.d.ts"
 }
