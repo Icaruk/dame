@@ -1,6 +1,6 @@
 {
 	"name": "dame",
-	"version": "0.0.19",
+	"version": "0.0.20",
 	"description": "minimalistic HTTP client for browser and node",
 	"repository": {
 		"type": "git",
