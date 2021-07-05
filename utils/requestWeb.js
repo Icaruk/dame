@@ -36,6 +36,15 @@ module.exports = function requestWeb({
 	};
 	
 	
+	if (!window.navigator.onLine) return {
+		isError: true,
+		code: -2,
+		status: "No internet connection",
+		response: null,
+		error: err,
+	};
+	
+	
 	
 	return new Promise( async resolve => {
 		
@@ -62,41 +71,23 @@ module.exports = function requestWeb({
 				response: json,
 			});
 			
-			
 		} catch (err) {
-			
-			console.log( err );
-			
-			// error de sin internet net::ERR_INTERNET_DISCONNECTED
-			// error de sin acceso al servidor net::ERR_NAME_NOT_RESOLVED,
-			
-			
-			
-			// resolve({
-			// 	isError: true,
-			// 	code: -1,
-			// 	status: "No response from server",
-			// 	response: null,
-			// 	error: err,
-			// });
-			
-			// resolve({
-			// 	isError: true,
-			// 	code: -2,
-			// 	status: "No internet connection",
-			// 	response: null,
-			// 	error: err,
-			// });
-			
-			
 			
 			resolve({
 				isError: true,
-				code: -999,
-				status: "Exception",
+				code: -1,
+				status: "No response from server",
 				response: null,
 				error: err,
 			});
+			
+			// resolve({
+			// 	isError: true,
+			// 	code: -999,
+			// 	status: "Exception",
+			// 	response: null,
+			// 	error: err,
+			// });
 		};
 		
 	});
