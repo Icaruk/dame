@@ -41,10 +41,10 @@
 		"phin": "^3.6.0",
 		"typescript": "^4.1.3"
 	},
-	"main": "index.js",
+	"main": "index.min.js",
 	"files": [
 		"index.min.js",
-		"types/dame.d.ts"
+		"types"
 	],
 	"types": "index.d.ts"
 }
