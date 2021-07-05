@@ -2,6 +2,9 @@
 	"files": [
 		"lib/dame.js"
 	],
+	"exclude": [
+		"utils"
+	],
 	"compilerOptions": {
 		"module": "ES2020",
 		"moduleResolution": "Node",

@@ -45,7 +45,8 @@
 	"main": "lib/dame.js",
 	"files": [
 		"lib",
+		"utils",
 		"types"
 	],
-	"types": "./lib/dame.d.ts"
+	"types": "types/lib/dame.d.ts"
 }

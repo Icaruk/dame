@@ -64,15 +64,8 @@ module.exports = function requestWeb({
 			
 			
 		} catch (err) {
-
-
-			console.log('instanceof: ',err instanceof TypeError)  // true
-  			console.log('message: ',err.message)               // "null has no properties"
-  			console.log('name: ',err.name)                  // "TypeError"
-  			console.log('fileName: ',err.fileName)              // "Scratchpad/1"
-  			console.log('lineNumber: ',err.lineNumber)            // 2
-  			console.log('columnNumber: ',err.columnNumber)          // 2
-  			console.log('stack: ',err.stack)                 // "@Scratchpad/2:2:3\n"
+			
+			console.log( err );
 			
 			// error de sin internet net::ERR_INTERNET_DISCONNECTED
 			// error de sin acceso al servidor net::ERR_NAME_NOT_RESOLVED,

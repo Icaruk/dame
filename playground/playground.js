@@ -23,15 +23,12 @@ dame.setConfig("test", "headers", {
 	// 	}
 	// });
 	
-	const res = await dame.post("/ruta", {
+	const res = await dame.post("http://localhost:3000/asd", {
 		user: "",
 		password: "",
-	}, {
-		headers: {
-			Authorization: "Bearer dos"
-		}
 	});
 	
+	console.log( res );
 	
 	
 	// console.log( await dame.get("/character/99999") );
