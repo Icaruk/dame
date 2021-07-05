@@ -47,6 +47,5 @@
 		"lib",
 		"utils",
 		"types"
-	],
-	"types": "types/lib/dame.d.ts"
+	]
 }
