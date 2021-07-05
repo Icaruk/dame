@@ -15,7 +15,7 @@
 		"benchmark": "node ./benchmarks/benchmark.js",
 		"declaration:build": "tsc -b",
 		"build": "node ./build.js",
-		"publish": "npm version patch && git push && npm publish"
+		"version": "npm version patch && git push"
 	},
 	"keywords": [
 		"https",
@@ -42,9 +42,9 @@
 		"phin": "^3.6.0",
 		"typescript": "^4.1.3"
 	},
-	"main": "index.js",
+	"main": "lib/dame.js",
 	"files": [
-		"index.js",
+		"lib",
 		"types"
 	],
 	"types": "./lib/dame.d.ts"
