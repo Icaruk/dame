@@ -17,12 +17,13 @@
 		"declaration:build": "tsc -b"
 	},
 	"keywords": [
-		"javascript",
-		"node",
-		"http",
 		"https",
+		"http",
 		"request",
-		"fetch"
+		"fetch",
+		"ajax",
+		"javascript",
+		"node"
 	],
 	"contributors": [
 		"Icaruk <adrian@icaruk.dev>",
@@ -40,9 +41,10 @@
 		"phin": "^3.6.0",
 		"typescript": "^4.1.3"
 	},
-	"main": "./lib/dame.min.js",
+	"main": "index.js",
 	"files": [
-		"./lib/dame.min.js"
+		"index.min.js",
+		"types/dame.d.ts"
 	],
 	"types": "index.d.ts"
 }

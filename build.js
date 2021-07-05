@@ -1,8 +1,8 @@
 require('esbuild').build({
-	entryPoints: ['lib/dame.js'],
+	entryPoints: ['index.js'],
 	bundle: true,
 	minify: true,
 	format: "esm",
 	external: ["http", "https", "dns"],
-	outfile: 'lib/out.js',
+	outfile: 'index.min.js',
 }).catch(() => process.exit(1))

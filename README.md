@@ -5,7 +5,7 @@
 </div>
 
 
-[![install size](https://packagephobia.com/badge?p=validame@latest)](https://packagephobia.com/result?p=dame@latest)
+[![dame package size](https://packagephobia.now.sh/badge?p=dame)](https://packagephobia.now.sh/result?p=dame)
 
 
 **dame** minimalistic HTTP client for the browser and Node.js
