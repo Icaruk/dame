@@ -12,9 +12,10 @@
 	"homepage": "https://github.com/Icaruk",
 	"scripts": {
 		"server": "nodemon ./playground/server.js",
-		"test": "jest",
 		"benchmark": "node ./benchmarks/benchmark.js",
-		"declaration:build": "tsc -b"
+		"declaration:build": "tsc -b",
+		"build": "node ./build.js",
+		"publish": "npm version patch && git push && npm publish"
 	},
 	"keywords": [
 		"https",
