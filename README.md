@@ -222,13 +222,13 @@ dame.getConfig("yourConfig"); // get yourConfig config
 
 Package | Browser + Node 		| Dependencies 	| Size
 :---: 	| :---: 				| :---:			| :---:
-**dame** 	|	✅ | **Zero** 	| [![dame package size](https://packagephobia.now.sh/badge?p=dame)](https://packagephobia.now.sh/result?p=dame)
-phin 		|	❌ | 1 		| [![phin package size](https://packagephobia.now.sh/badge?p=phin)](https://packagephobia.now.sh/result?p=phin)
-node-fetch 	|	❌ | Zero 	| [![node-fetch package size](https://packagephobia.now.sh/badge?p=node-fetch)](https://packagephobia.now.sh/result?p=node-fetch)
-axios 		|	✅ | 1		| [![axios package size](https://packagephobia.now.sh/badge?p=axios)](https://packagephobia.now.sh/result?p=axios)
-got 		|	❌ | 11 		| [![got package size](https://packagephobia.now.sh/badge?p=got)](https://packagephobia.now.sh/result?p=got)
-superagent 	|	✅ | 11 		| [![superagent package size](https://packagephobia.now.sh/badge?p=superagent)](https://packagephobia.now.sh/result?p=superagent)
-request 	|	❌ | 20 		| [![request package size](https://packagephobia.now.sh/badge?p=request)](https://packagephobia.now.sh/result?p=request)
+**dame** 	|	✅ | **0** 	| [![dame package size](https://packagephobia.now.sh/badge?p=dame)](https://packagephobia.now.sh/result?p=dame)
+phin 		|	❌ | ![](https://badgen.net/bundlephobia/dependency-count/phin) 		| [![phin package size](https://packagephobia.now.sh/badge?p=phin)](https://packagephobia.now.sh/result?p=phin)
+node-fetch 	|	❌ | ![](https://badgen.net/bundlephobia/dependency-count/node-fetch) 	| [![node-fetch package size](https://packagephobia.now.sh/badge?p=node-fetch)](https://packagephobia.now.sh/result?p=node-fetch)
+axios 		|	✅ | ![](https://badgen.net/bundlephobia/dependency-count/axios)		| [![axios package size](https://packagephobia.now.sh/badge?p=axios)](https://packagephobia.now.sh/result?p=axios)
+got 		|	❌ | ![](https://badgen.net/bundlephobia/dependency-count/got) 		| [![got package size](https://packagephobia.now.sh/badge?p=got)](https://packagephobia.now.sh/result?p=got)
+superagent 	|	✅ | ![](https://badgen.net/bundlephobia/dependency-count/superagent)		| [![superagent package size](https://packagephobia.now.sh/badge?p=superagent)](https://packagephobia.now.sh/result?p=superagent)
+request 	|	❌ | ![](https://badgen.net/bundlephobia/dependency-count/request) 		| [![request package size](https://packagephobia.now.sh/badge?p=request)](https://packagephobia.now.sh/result?p=request)
 
 
 <br>
