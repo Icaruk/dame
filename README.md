@@ -220,15 +220,15 @@ dame.getConfig("yourConfig"); // get yourConfig config
 # dame vs. others
 
 
-Package | Browser 	| Node 	| Dependencies 	| Size
-:---: 	| :---: 	| :---: | :---:			| :---:
-**dame** 	|	✅ | ✅ | <span style="color:green;font-weight:bold">Zero</span> | [![dame package size](https://packagephobia.now.sh/badge?p=dame)](https://packagephobia.now.sh/result?p=dame)
-phin 		|	❌ | ✅ | <span style="color:red">1</span> | [![phin package size](https://packagephobia.now.sh/badge?p=phin)](https://packagephobia.now.sh/result?p=phin)
-node-fetch 	|	❌ | ✅ | <span style="color:green">Zero</span> | [![node-fetch package size](https://packagephobia.now.sh/badge?p=node-fetch)](https://packagephobia.now.sh/result?p=node-fetch)
-axios 		|	✅ | ✅ | <span style="color:red">1</span> | [![axios package size](https://packagephobia.now.sh/badge?p=axios)](https://packagephobia.now.sh/result?p=axios)
-got 		|	❌ | ✅ | <span style="color:red">11</span> | [![got package size](https://packagephobia.now.sh/badge?p=got)](https://packagephobia.now.sh/result?p=got)
-superagent 	|	✅ | ✅ | <span style="color:red">11</span> | [![superagent package size](https://packagephobia.now.sh/badge?p=superagent)](https://packagephobia.now.sh/result?p=superagent)
-request 	|	❌ | ✅ | <span style="color:red">20</span> | [![request package size](https://packagephobia.now.sh/badge?p=request)](https://packagephobia.now.sh/result?p=request)
+Package | Browser + Node 		| Dependencies 	| Size
+:---: 	| :---: 				| :---:			| :---:
+**dame** 	|	✅ | **Zero** 	| [![dame package size](https://packagephobia.now.sh/badge?p=dame)](https://packagephobia.now.sh/result?p=dame)
+phin 		|	❌ | 1 		| [![phin package size](https://packagephobia.now.sh/badge?p=phin)](https://packagephobia.now.sh/result?p=phin)
+node-fetch 	|	❌ | Zero 	| [![node-fetch package size](https://packagephobia.now.sh/badge?p=node-fetch)](https://packagephobia.now.sh/result?p=node-fetch)
+axios 		|	✅ | 1		| [![axios package size](https://packagephobia.now.sh/badge?p=axios)](https://packagephobia.now.sh/result?p=axios)
+got 		|	❌ | 11 		| [![got package size](https://packagephobia.now.sh/badge?p=got)](https://packagephobia.now.sh/result?p=got)
+superagent 	|	✅ | 11 		| [![superagent package size](https://packagephobia.now.sh/badge?p=superagent)](https://packagephobia.now.sh/result?p=superagent)
+request 	|	❌ | 20 		| [![request package size](https://packagephobia.now.sh/badge?p=request)](https://packagephobia.now.sh/result?p=request)
 
 
 <br>
