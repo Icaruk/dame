@@ -42,7 +42,7 @@
 	},
 	"main": "lib/dame.js",
 	"files": [
-		"out/lib",
+		"out/dame.js",
 		"types"
 	]
 }
