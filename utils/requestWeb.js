@@ -41,7 +41,7 @@ module.exports = function requestWeb({
 		code: -2,
 		status: "No internet connection",
 		response: null,
-		error: err,
+		error: null,
 	};
 	
 	
