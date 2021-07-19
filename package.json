@@ -43,6 +43,7 @@
 	"main": "lib/dame.js",
 	"files": [
 		"lib/dame.js",
+		"utils",
 		"types"
 	]
 }
