@@ -1,6 +1,6 @@
 {
 	"name": "dame",
-	"version": "0.0.30",
+	"version": "0.0.36",
 	"description": "minimalistic HTTP client for browser and node",
 	"repository": {
 		"type": "git",
@@ -31,7 +31,6 @@
 	],
 	"license": "ISC",
 	"devDependencies": {
-		"@size-limit/preset-small-lib": "^4.12.0",
 		"axios": "^0.21.1",
 		"esbuild": "^0.12.14",
 		"express": "^4.17.1",
@@ -43,7 +42,7 @@
 	},
 	"main": "lib/dame.js",
 	"files": [
-		"lib",
+		"lib/dame.js",
 		"utils",
 		"types"
 	]
