@@ -71,12 +71,11 @@ module.exports = function requestNode({
 					
 					
 					// Comprobamos si es un JSON {algo}
-					if (data.startsWith("{") && data.endsWith("}") ) {
-						try {
-							const json = JSON.parse(data);
-							data = json; // sólo asginamos si se ha podido parsear
-						} catch (e) {};
-					};
+					try {
+						const json = JSON.parse(data);
+						data = json; // sólo asginamos si se ha podido parsear
+					} catch (e) {};
+					
 					
 					const is200 = res.statusCode >= 200 && res.statusCode < 300;
 					

@@ -42,11 +42,7 @@
 
 
 
-<br>
-
----
-
-<br>
+<br><br><br>
 
 
 
@@ -54,8 +50,15 @@
 
 - **Node** (http & https) and **browser** (Fetch).
 - **Promise** API.
+- **Offline** detection.
+- Distinction between offline and no response.
+- Custom **timeout**.
 - Automatic transforms to **JSON** data.
-- **Config groups** for base URL, authorization headers or anything you need.
+- **Config groups** for base URL, authorization headers and timeout.
+
+
+
+<br><br><br>
 
 
 
@@ -67,11 +70,8 @@ const dame = require("dame");
 
 
 
-<br>
+<br><br><br>
 
----
-
-<br>
 
 
 # Basic examples
@@ -91,11 +91,7 @@ let {response, isError} = dame.post("https://your.api.com/login", {
 
 
 
-<br>
-
----
-
-<br>
+<br><br><br>
 
 
 
@@ -147,6 +143,7 @@ Param | Type | Description
 
 - They key `baseUrl` from the `default` config group will be used as base URL.
 - They key `headers` from the `default` config group will be used as headers.
+- They key `timeout` from the `default` config group will be used as default timeout.
 
 
 
@@ -209,11 +206,48 @@ dame.getConfig("yourConfig"); // get yourConfig config
 
 
 
-<br>
+<br><br><br>
 
----
 
-<br>
+
+# Custom statuses
+
+## Timeout
+
+```js
+{
+	isError: true,
+	code: 0,
+	status: 'Timed out',
+	response: null
+}
+```
+
+## No response
+
+```js
+{
+	isError: true,
+	code: -1,
+	status: "No response from server",
+	response: null
+}
+```
+
+## Offline
+
+```js
+{
+	isError: true,
+	code: -2,
+	status: "No internet connection",
+	response: null
+}
+```
+
+
+
+<br><br><br>
 
 
 
@@ -231,11 +265,10 @@ superagent 	|	✅ | ![](https://badgen.net/bundlephobia/dependency-count/superag
 request 	|	❌ | ![](https://badgen.net/bundlephobia/dependency-count/request) 		| [![request package size](https://packagephobia.now.sh/badge?p=request)](https://packagephobia.now.sh/result?p=request)
 
 
-<br>
 
----
+<br><br><br>
 
-<br>
+
 
 #  <a name='table-of-contents'></a>[☝ Return to top](#table-of-contents)
 

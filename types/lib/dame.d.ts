@@ -7,6 +7,10 @@ export type Response = {
 };
 export type Options = {
     headers: any;
+    /**
+     * Number of miliseconds for the timeout.
+     */
+    timeout: number;
 };
 export type GetFnc = (url: any, configGroup?: string | Options, options?: Options) => Promise<Response>;
 export type PostFnc = (url: any, body: any, configGroup?: string | Options, options?: Options) => Promise<Response>;

@@ -7,6 +7,7 @@ dame.setConfig("default", "baseUrl", "https://rickandmortyapi.com/api");
 dame.setConfig("default", "headers", {
 	Authorization: "Bearer a4jkl.q345a.a45a.a45"
 });
+dame.setConfig("default", "timeout", 5000);
 
 dame.setConfig("test", "baseUrl", "http://localhost:3000");
 dame.setConfig("test", "headers", {
@@ -17,16 +18,17 @@ dame.setConfig("test", "headers", {
 
 (async() => {
 	
-	// await dame.get("/", {
-	// 	headers: {
-	// 		"Authorization": "soy un token JWT",
-	// 	}
-	// });
-	
-	const res = await dame.post("http://localhost:3000/asd", {
-		user: "",
-		password: "",
+	const res = await dame.get("/", {
+		headers: {
+			"Authorization": "soy un token JWT",
+		},
+		timeout: 5000,
 	});
+	
+	// const res = await dame.post("http://localhost:3000/asd", {
+	// 	user: "",
+	// 	password: "",
+	// });
 	
 	console.log( res );
 	
