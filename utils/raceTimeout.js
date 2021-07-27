@@ -1,5 +1,5 @@
 
-module.exports = function raceTimeout(promise, timeout, config) {
+module.exports = function raceTimeout(promise, timeout, config = {}) {
 	
 	// Timeout
 	let _timeout = timeout;
