@@ -11,17 +11,16 @@
 
 **dame** minimalistic HTTP client for the browser and Node.js
 
-- 🚀 Lightweight.
+- 🚀 Lightweight
 - ⚪️ Zero dependencies.
-- 😀 Easy to use.
-<br>
+- 😀 **Easy** to use.
 - 🟢 **Node** (http & https) and 💻 **browser** (Fetch).
 - 👉 **Promise** API.
 - 🔌 **Offline** detection.
 - 😶 Distinction between offline and no response.
 - ⌛ Custom **timeout**.
 - 🎯 Automatic transforms to **JSON** data.
-- 📁 **Config groups** for base URL, authorization, headers and timeout.
+- 📁 **Config groups** for base URL, headers and timeout.
 
 
 
@@ -43,8 +42,7 @@
   - [`post`, `put`, `delete`, `patch`](#post-put-delete-patch)
 - [Options](#options)
 - [Config](#config)
-  - [Usage](#usage)
-    - [Examples](#examples)
+  - [Config examples](#config-examples)
   - [Getting the config](#getting-the-config)
 - [Special statuses](#special-statuses)
 - [dame vs. others](#dame-vs-others)
@@ -190,14 +188,15 @@ const {response} = dame.post(url, body, configGroup, options);
 
 # Config
 
-Possible keys:
+**Possible keys:**
 
 - baseUrl
 - headers
 - timeout
 
+<br>
 
-## Usage
+**Usage**
 
 ```js
 dame.setConfig("configGroup", "key", "data");
@@ -213,7 +212,7 @@ Param | Type | Description
 <br>
 
 
-### Examples
+## Config examples
 
 
 Set default base URL and auth
