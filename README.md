@@ -13,32 +13,15 @@
 
 - 🚀 Lightweight.
 - ⚪️ Zero dependencies.
-
-
+- 😀 Easy to use.
 <br>
-
-
-
-<!-- TOC ignore:true -->
-# Table of contents
-
-
-<!-- TOC -->
-
-- [Features](#features)
-- [Import](#import)
-- [Basic examples](#basic-examples)
-- [Methods](#methods)
-	- [get](#get)
-	- [post, put, delete, patch](#post-put-delete-patch)
-	- [setConfig](#setconfig)
-		- [Usage](#usage)
-		- [Examples](#examples)
-	- [getConfig](#getconfig)
-- [dame vs. others](#dame-vs-others)
-- [<a name='table-of-contents'></a>☝ Return to top](#a-nametable-of-contentsa-return-to-top)
-
-<!-- /TOC -->
+- 🟢 **Node** (http & https) and 💻 **browser** (Fetch).
+- 👉 **Promise** API.
+- 🔌 **Offline** detection.
+- 😶 Distinction between offline and no response.
+- ⌛ Custom **timeout**.
+- 🎯 Automatic transforms to **JSON** data.
+- 📁 **Config groups** for base URL, authorization, headers and timeout.
 
 
 
@@ -46,15 +29,28 @@
 
 
 
-# Features
+# Table of contents
 
-- **Node** (http & https) and **browser** (Fetch).
-- **Promise** API.
-- **Offline** detection.
-- Distinction between offline and no response.
-- Custom **timeout**.
-- Automatic transforms to **JSON** data.
-- **Config groups** for base URL, authorization headers and timeout.
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+
+- [Table of contents](#table-of-contents)
+- [Import](#import)
+- [Basic examples](#basic-examples)
+- [Response object](#response-object)
+- [Methods](#methods)
+  - [`get`](#get)
+  - [`post`, `put`, `delete`, `patch`](#post-put-delete-patch)
+- [Options](#options)
+- [Config](#config)
+  - [Usage](#usage)
+    - [Examples](#examples)
+  - [Getting the config](#getting-the-config)
+- [Special statuses](#special-statuses)
+- [dame vs. others](#dame-vs-others)
+- [☝ Return to top](#a-nametable-of-contentsa-return-to-toptable-of-contents)
+
+<!-- /code_chunk_output -->
 
 
 
@@ -78,15 +74,48 @@ const dame = require("dame");
 
 `GET`
 ```js
-let {response, isError} = dame.get("https://rickandmortyapi.com/api/location/1");
+let {response} = dame.get("https://rickandmortyapi.com/api/location/1");
 ```
 
 `POST`
 ```js
-let {response, isError} = dame.post("https://your.api.com/login", {
+let {response} = dame.post("https://your.api.com/login", {
 	username: "Username",
 	password: "****",
 });
+```
+
+
+
+<br><br><br>
+
+
+
+# Response object
+
+```js
+{
+	isError: false,
+	code: 200,
+	status: "OK",
+	response: {...},
+	error: null
+}
+```
+
+- **isError** `boolean`: True if code is >= 200 and < 300.
+- **code** `number`: Status code.
+- **status** `string`: Status.
+- **response** `any`: Response of the request.
+- **error** `any`: If there was any error during the request it will be here.
+
+<br>
+
+The response can be destructured like this:
+
+
+```js
+let {isError, code, status, response} = dame.get("https://rickandmortyapi.com/api/location/1");
 ```
 
 
@@ -105,11 +134,13 @@ const {response} = dame.get(url, options);
 const {response} = dame.get(url, configGroup, options);
 ```
 
-Param | Type | Description
-:---: | :---: | :---:
-**url** | `string` | Full URL or path. If it starts with `http` or `https` it will be treated as full URL. Otherwise it will be concatenated with `baseUrl` from config.
-**configGroup** | `object` | Skip this param if you want to use "default" configGroup.
-**options** | `object` | Options: {headers}
+- **url** `string`: Full URL or path.
+	- If you set a `baseUrl`, this `url` will be concatenated to it: `baseUrl + url`.
+	- If `url` starts with `"http://"` or `"https://"` the `baseUrl` from config will be ignored and url will be treated like a full url.
+<br>
+- **configGroup** `object` [optional]: Config group you want to use. If you skip this param "default" configGroup will be used.
+<br>
+- **options** `object`: See Options section.
 
 
 
@@ -126,28 +157,47 @@ const {response} = dame.post(url, body, configGroup, options);
 ```
 
 
-Param | Type | Description
-:---: | :---: | :---:
-**url** | `string` | Full URL or path. If it starts with `http` or `https` it will be treated as full URL. Otherwise it will be concatenated with `baseUrl` from config.
-**body** | `object` | Request body.
-**configGroup** | `object` | Skip this param if you want to use "default" configGroup.
-**options** | `object` | Options: {headers}
-
-
-
+- **url** `string`: Full URL or path.
+	- If you set a `baseUrl`, this `url` will be concatenated to it: `baseUrl + url`.
+	- If `url` starts with `"http://"` or `"https://"` the `baseUrl` from config will be ignored and url will be treated like a full url.
 <br>
+- **body** `object`: The request body.
+<br>
+- **configGroup** `object` [optional]: Config group you want to use. If you skip this param "default" configGroup will be used.
+<br>
+- **options** `object`: See Options section.
 
 
 
-## `setConfig`
-
-- They key `baseUrl` from the `default` config group will be used as base URL.
-- They key `headers` from the `default` config group will be used as headers.
-- They key `timeout` from the `default` config group will be used as default timeout.
+<br><br><br>
 
 
 
-### Usage
+# Options
+
+- **baseUrl** `string`: Base URL that will be concatenated with the `url` of the requests.
+- **headers** `object`: Headers that will be attached to the request.
+- **configGroup** `string`: Config group that will be used. If skipped `"default"` will be used.
+- **timeout** `object`: Number of miliseconds that must pass before timeout the request.
+
+> If you are using a configGroup, the options you set on the request will take preference over the configGroup.
+
+
+
+<br><br><br>
+
+
+
+# Config
+
+Possible keys:
+
+- baseUrl
+- headers
+- timeout
+
+
+## Usage
 
 ```js
 dame.setConfig("configGroup", "key", "data");
@@ -155,48 +205,52 @@ dame.setConfig("configGroup", "key", "data");
 
 Param | Type | Description
 :---: | :---: | :---:
-**configGroup** | `string` | Default is `default`.
-**key** | `object` | `baseUrl` or  `headers`
+**configGroup** | `string` | Default is `"default"`.
+**key** | `object` | See list of possible keys above.
 **data** | `object` | value
+
 
 <br>
 
+
 ### Examples
 
-```js
 
-// Set default base URL and auth
+Set default base URL and auth
+```js
 dame.setConfig("default", "baseUrl", "http://localhost:3000");
 dame.setConfig("default", "headers", {
 	Authorization: "Bearer your_token"
 });
-
-// Using default config
-
-dame.get("/endpoint");
-// http://localhost:3000/endpoint
-// Authorization: "Bearer your_token".
-
 ```
 
+Using default config
 ```js
-// Set base URL and auth
-dame.setConfig("rick", "baseUrl", "https://rickandmortyapi.com/api");
-dame.setConfig("rick", "headers", {
-	Authorization: "Bearer another_token"
+dame.get("/endpoint");
+// The full URL will be ---> http://localhost:3000/endpoint
+// The headers will be ---> Authorization: "Bearer your_token".
+```
+
+
+Set another configGroup
+```js
+dame.setConfig("myConfigGroup", "baseUrl", "https://rickandmortyapi.com/api");
+dame.setConfig("myConfigGroup", "headers", {
+	Authorization: "Bearer your_token"
 });
+```
 
-// Using rick config
-
-dame.get("/character/12");
-// https://rickandmortyapi.com/api/character/12
-// Authorization: "Bearer another_token".
+Using `"myConfigGroup"` config
+```js
+dame.get("/character/12", "myConfigGroup");
+// The full URL will be ---> https://rickandmortyapi.com/api/character/12
+// The headers will be ---> Authorization: "Bearer your_token".
 
 ```
 
 
 
-## `getConfig`
+## Getting the config
 
 ```js
 dame.getConfig(); // all
@@ -210,10 +264,9 @@ dame.getConfig("yourConfig"); // get yourConfig config
 
 
 
-# Custom statuses
+# Special statuses
 
-## Timeout
-
+Timeout
 ```js
 {
 	isError: true,
@@ -223,8 +276,7 @@ dame.getConfig("yourConfig"); // get yourConfig config
 }
 ```
 
-## No response
-
+No response
 ```js
 {
 	isError: true,
@@ -234,8 +286,7 @@ dame.getConfig("yourConfig"); // get yourConfig config
 }
 ```
 
-## Offline
-
+Offline
 ```js
 {
 	isError: true,
