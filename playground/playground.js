@@ -1,6 +1,6 @@
 
 const dame = require("../lib/dame");
-
+// const fs = require("fs");
 
 
 dame.setConfig("default", "baseUrl", "https://rickandmortyapi.com/api");
@@ -18,14 +18,14 @@ dame.setConfig("test", "headers", {
 
 (async() => {
 	
-	const res = await dame.get("/");
+	// const res = await dame.get("/");
 	
 	// const res = await dame.post("http://localhost:3000/asd", {
 	// 	user: "",
 	// 	password: "",
 	// });
 	
-	console.log( res );
+	// console.log( res );
 	
 	
 	// console.log( await dame.get("/character/99999") );
@@ -35,6 +35,20 @@ dame.setConfig("test", "headers", {
 	// 	status: 'Not Found',
 	// 	isError: true
 	// }
+	
+	// const {response} = await dame.get("https://i.blogs.es/c68014/casa-3d/1366_2000.jpeg");
+	// console.log( response );
+	
+	// fs.writeFileSync("test.png", response);
+	
+	
+	const dameRes = await dame.delete(`http://localhost:3000/lead?_id=6103d2c21d069623584d3a68`, null, {
+		headers: {
+			Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM3LCJ1c2VybmFtZSI6ImF0b3J0YWphZGEiLCJuYW1lIjoiQWRyaWFuIFRvcnRhamFkYSIsInJvbGUiOjMsImV4dGVuc2lvbiI6IjMwOSIsImlhdCI6MTYyNzYzMDAxMiwiZXhwIjoxNjI3NjczMjEyfQ.EG55zE8P3hbFr_WtS2iyD263KEVZrgLqmce7ygPXYnY"
+		}
+	});
+	
+	console.log( dameRes );
 	
 	
 	// console.log ( await dame.get("/character/12") );

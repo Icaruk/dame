@@ -57,8 +57,20 @@ module.exports = function requestWeb({
 			if (method !== "GET") options.body = body;
 			
 			
-			let res = await fetch(fullUrl, options);
-			let json = await res.json();
+			let data = await fetch(fullUrl, options);
+			
+			const contentTypeLow = res.headers["Content-Type"].toLowerCase();
+			
+			
+			if (contentTypeLow.startsWith("application/json")) {
+				try {
+					const json = await data.json();
+					data = json;
+				} catch (err) {};
+			} else if (contentTypeLow.startsWith("text")) {
+				data.toString();
+			};
+			
 			
 			
 			const is200 = res.status >= 200 && res.status < 300;
@@ -68,7 +80,7 @@ module.exports = function requestWeb({
 				isError: !is200,
 				code: res.status,
 				status: res.statusText,
-				response: json,
+				response: data,
 			});
 			
 		} catch (err) {
@@ -81,13 +93,6 @@ module.exports = function requestWeb({
 				error: err,
 			});
 			
-			// resolve({
-			// 	isError: true,
-			// 	code: -999,
-			// 	status: "Exception",
-			// 	response: null,
-			// 	error: err,
-			// });
 		};
 		
 	});

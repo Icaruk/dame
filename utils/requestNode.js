@@ -39,12 +39,21 @@ module.exports = function requestNode({
 	
 	let protocol;
 	
-	if (fullUrl.startsWith("https")) {
+	
+	let fullUrlLow = fullUrl.toLowerCase();
+	
+	if (fullUrlLow.startsWith("https://")) {
 		protocol = https;
-	} else if (fullUrl.startsWith("http")) {
+	} else if (fullUrlLow.startsWith("http://")) {
 		protocol = http;
 	} else {
-		return console.log(`Protocol not valid. URL: ${fullUrl}`)
+		return {
+			isError: true,
+			code: -999,
+			status: "Error",
+			response: null,
+			error: `Protocol not valid. URL: ${fullUrl}`
+		};
 	};
 	
 	
@@ -60,21 +69,34 @@ module.exports = function requestNode({
 		
 		try {
 			
+			// const req = protocol.request(fullUrl, options, res => {
 			const req = protocol.request(fullUrl, options, res => {
-						
+				
 				let data = [];
 				
 				res.on('data', chunk => data.push(chunk));
 				res.on('end', () => {
 					
-					data = Buffer.concat(data).toString();
+					data = Buffer.concat(data);
 					
 					
-					// Comprobamos si es un JSON {algo}
-					try {
-						const json = JSON.parse(data);
-						data = json; // sólo asginamos si se ha podido parsear
-					} catch (e) {};
+					const headers = res.headers["content-type"].split("; "); // 'application/json; charset=utf-8'
+					const contentType = headers[0];
+					
+					const contentTypeLow = contentType.toLowerCase();
+					
+					
+					// https://www.iana.org/assignments/media-types/media-types.xhtml
+					
+					if (contentTypeLow.startsWith("application/json")) {
+						try {
+							const json = JSON.parse(data);
+							data = json; // sólo asginamos si se ha podido parsear
+						} catch (e) {};
+					} else if (contentTypeLow.startsWith("text")) {
+						data.toString();
+					};
+					
 					
 					
 					const is200 = res.statusCode >= 200 && res.statusCode < 300;
