@@ -80,26 +80,24 @@ module.exports = function requestNode({
 					data = Buffer.concat(data);
 					
 					
-					const headers = res.headers["content-type"].split("; "); // 'application/json; charset=utf-8'
-					const contentType = headers[0];
-					
-					const contentTypeLow = contentType.toLowerCase();
+					const contentType = res.headers["content-type"].split("; "); // 'application/json; charset=utf-8'
+					const contentTypeLow = contentType[0].toLowerCase();
 					
 					
 					// https://www.iana.org/assignments/media-types/media-types.xhtml
 					
+					try {
 					if (contentTypeLow.startsWith("application/json")) {
-						try {
 							const json = JSON.parse(data);
 							data = json; // sólo asginamos si se ha podido parsear
-						} catch (e) {};
-					} else if (contentTypeLow.startsWith("text")) {
-						data.toString();
-					};
-					
+						} else if (contentTypeLow.startsWith("text")) {
+							data.toString();
+						};
+					} catch (e) {};
 					
 					
 					const is200 = res.statusCode >= 200 && res.statusCode < 300;
+					
 					
 					resolve({
 						isError: !is200,
