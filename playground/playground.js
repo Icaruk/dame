@@ -18,14 +18,18 @@ dame.setConfig("test", "headers", {
 
 (async() => {
 	
+	
+	const dameRes = await dame.get("https://gorest.co.in/public/v1/users/2");
+	console.log( dameRes );
+	
 	// const res = await dame.get("/");
 	
-	const res = await dame.post("http://localhost:3000/login", {
-		user: "asd",
-		password: "123"
-	});
+	// const res = await dame.post("http://localhost:3000/login", {
+	// 	user: "asd",
+	// 	password: "123"
+	// });
 	
-	console.log( res );
+	// console.log( res );
 	
 	
 	// console.log( await dame.get("/character/99999") );

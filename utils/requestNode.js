@@ -1,6 +1,7 @@
 const canReachGoogle = require("./canReachGoogle");
 const https = require("https");
 const http = require("http");
+const checkIsError = require("./checkIsError");
 
 
 
@@ -30,6 +31,8 @@ module.exports = function requestNode({
 	fullUrl,
 	headers,
 	body,
+	options,
+	config
 }) {
 	
 	if (!["GET", "POST", "PUT", "DELETE", "PATCH"].includes(method)) {
@@ -64,7 +67,7 @@ module.exports = function requestNode({
 	
 	
 	
-	const options = {
+	const requestOptions = {
 		method,
 		headers,
 	};
@@ -75,8 +78,7 @@ module.exports = function requestNode({
 		
 		try {
 			
-			// const req = protocol.request(fullUrl, options, res => {
-			const req = protocol.request(fullUrl, options, res => {
+			const req = protocol.request(fullUrl, requestOptions, res => {
 				
 				let data = [];
 				
@@ -105,11 +107,13 @@ module.exports = function requestNode({
 					} catch (e) {};
 					
 					
-					const is200 = res.statusCode >= 200 && res.statusCode < 300;
+					
+					const isError = checkIsError(res.statusCode, options, config);
+					
 					
 					
 					resolve({
-						isError: !is200,
+						isError: isError,
 						code: res.statusCode,
 						status: res.statusMessage,
 						response: data,

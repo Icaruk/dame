@@ -11,6 +11,7 @@
 	},
 	"homepage": "https://github.com/Icaruk",
 	"scripts": {
+		"test": "jest",
 		"server": "nodemon ./playground/server.js",
 		"benchmark": "node ./benchmarks/benchmark.js",
 		"declaration:build": "tsc -b",
