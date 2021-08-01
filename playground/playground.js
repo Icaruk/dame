@@ -19,7 +19,9 @@ dame.setConfig("test", "headers", {
 (async() => {
 	
 	
-	const dameRes = await dame.get("https://gorest.co.in/public/v1/users/2");
+	const dameRes = await dame.get("https://gorest.co.in/public/v1/users/2", {
+		checkIsError: () => true
+	});
 	console.log( dameRes );
 	
 	// const res = await dame.get("/");

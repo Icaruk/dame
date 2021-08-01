@@ -1,15 +1,19 @@
-const dame = require("../lib/dame");
+
 const fetch = require("node-fetch");
-const { get_simple, get_config_baseUrl } = require("./fnc/get");
+const {get_simple, get_config_baseUrl, get_options_checkIsError, get_config_checkIsError} = require("./fnc/get");
 
 
 
-describe("GET", () => {
+describe("GET web", () => {
 	
 	global.fetch = fetch;
 	
 	
 	get_simple();
-	get_config_baseUrl()
+	
+	get_options_checkIsError();
+	get_config_checkIsError();
+	
+	get_config_baseUrl();
 	
 });
