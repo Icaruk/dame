@@ -177,6 +177,8 @@ const {response} = dame.post(url, body, configGroup, options);
 - **headers** `object`: Headers that will be attached to the request.
 - **configGroup** `string`: Config group that will be used. If skipped `"default"` will be used.
 - **timeout** `object`: Number of miliseconds that must pass before timeout the request.
+- **checkIsError** `function<boolean>`: Function that will receive the status code (`number`) and must return `boolean`. Default `isError = !(code >= 200 && < 300)`.
+
 
 > If you are using a configGroup, the options you set on the request will take preference over the configGroup.
 
@@ -188,11 +190,7 @@ const {response} = dame.post(url, body, configGroup, options);
 
 # Config
 
-**Possible keys:**
-
-- baseUrl
-- headers
-- timeout
+The config groups are pre-setted options, explained above.
 
 <br>
 
@@ -205,7 +203,7 @@ dame.setConfig("configGroup", "key", "data");
 Param | Type | Description
 :---: | :---: | :---:
 **configGroup** | `string` | Default is `"default"`.
-**key** | `object` | See list of possible keys above.
+**key** | `object` | Same as the options.
 **data** | `object` | value
 
 

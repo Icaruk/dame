@@ -33,7 +33,7 @@ exports.get_config_baseUrl = async () => {
 		expect(isError).toBe(false);
 		expect(response.data.email).toBe("patricia1234@gmail.com");
 		
-	});	
+	});
 	
 };
 
@@ -52,7 +52,7 @@ exports.get_options_checkIsError = async () => {
 		expect(isError).toBe("abcd1234!");
 		expect(response.data.email).toBe("patricia1234@gmail.com");
 		
-	});	
+	});
 	
 };
 
@@ -72,6 +72,6 @@ exports.get_config_checkIsError = async () => {
 		expect(isError).toBe("abcd1234!");
 		expect(response.data.email).toBe("patricia1234@gmail.com");
 		
-	});	
+	});
 	
 };
