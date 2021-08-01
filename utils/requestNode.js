@@ -33,7 +33,13 @@ module.exports = function requestNode({
 }) {
 	
 	if (!["GET", "POST", "PUT", "DELETE", "PATCH"].includes(method)) {
-		return console.log(`Method ${method} is not valid.`)
+		return {
+			isError: true,
+			code: -999,
+			status: "Error",
+			response: null,
+			error: `Method ${method} is not valid.`,
+		};
 	};
 	
 	
@@ -80,8 +86,11 @@ module.exports = function requestNode({
 					data = Buffer.concat(data);
 					
 					
-					const contentType = res.headers["content-type"].split("; "); // 'application/json; charset=utf-8'
-					const contentTypeLow = contentType[0].toLowerCase();
+					const headers = res.headers;
+					
+					const contentType = headers && headers["content-type"];
+					const arrContentType = contentType && contentType.split("; "); // 'application/json; charset=utf-8'
+					const contentTypeLow = arrContentType && arrContentType.length > 0 && arrContentType[0].toLowerCase();
 					
 					
 					// https://www.iana.org/assignments/media-types/media-types.xhtml
@@ -111,6 +120,7 @@ module.exports = function requestNode({
 			});
 			
 			
+			
 			req.on('error', async err => {
 				
 				if (await canReachGoogle()) {
@@ -134,9 +144,9 @@ module.exports = function requestNode({
 			});
 			
 			
+			
 			if (body) req.write(body);
 			req.end();
-			
 			
 			
 		} catch (err) {

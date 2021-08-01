@@ -20,12 +20,12 @@ dame.setConfig("test", "headers", {
 	
 	// const res = await dame.get("/");
 	
-	// const res = await dame.post("http://localhost:3000/asd", {
-	// 	user: "",
-	// 	password: "",
-	// });
+	const res = await dame.post("http://localhost:3000/login", {
+		user: "asd",
+		password: "123"
+	});
 	
-	// console.log( res );
+	console.log( res );
 	
 	
 	// console.log( await dame.get("/character/99999") );
@@ -42,13 +42,13 @@ dame.setConfig("test", "headers", {
 	// fs.writeFileSync("test.png", response);
 	
 	
-	const dameRes = await dame.delete(`http://localhost:3000/lead?_id=6103d2c21d069623584d3a68`, null, {
-		headers: {
-			Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM3LCJ1c2VybmFtZSI6ImF0b3J0YWphZGEiLCJuYW1lIjoiQWRyaWFuIFRvcnRhamFkYSIsInJvbGUiOjMsImV4dGVuc2lvbiI6IjMwOSIsImlhdCI6MTYyNzYzMDAxMiwiZXhwIjoxNjI3NjczMjEyfQ.EG55zE8P3hbFr_WtS2iyD263KEVZrgLqmce7ygPXYnY"
-		}
-	});
+	// const dameRes = await dame.delete(`http://localhost:3000/lead?_id=6103d2c21d069623584d3a68`, null, {
+	// 	headers: {
+	// 		Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM3LCJ1c2VybmFtZSI6ImF0b3J0YWphZGEiLCJuYW1lIjoiQWRyaWFuIFRvcnRhamFkYSIsInJvbGUiOjMsImV4dGVuc2lvbiI6IjMwOSIsImlhdCI6MTYyNzYzMDAxMiwiZXhwIjoxNjI3NjczMjEyfQ.EG55zE8P3hbFr_WtS2iyD263KEVZrgLqmce7ygPXYnY"
+	// 	}
+	// });
 	
-	console.log( dameRes );
+	// console.log( dameRes );
 	
 	
 	// console.log ( await dame.get("/character/12") );

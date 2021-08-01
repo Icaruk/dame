@@ -14,7 +14,6 @@ module.exports = function canReachGoogle() {
                 };
             });
         } catch ( err) {
-            console.log( err );
             resolve(false);
         };
     });

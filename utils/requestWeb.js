@@ -32,7 +32,13 @@ module.exports = function requestWeb({
 	}) {
 		
 		if (!["GET", "POST", "PUT", "DELETE", "PATCH"].includes(method)) {
-			return console.log(`Method ${method} is not valid.`)
+			return {
+				isError: true,
+				code: -999,
+				status: "Error",
+				response: null,
+				error: `Method ${method} is not valid.`,
+			};
 		};
 		
 		

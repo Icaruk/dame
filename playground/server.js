@@ -2,13 +2,10 @@
 const express = require('express');
 const app = express();
 const port = 3000;
-
+app.use(express.json());
 
 
 app.get("/", (req, res) => {
-	
-	console.log( JSON.stringify(req.headers) );
-	
 	res.send({
 		query: req.query,
 		params: req.params,
@@ -16,7 +13,7 @@ app.get("/", (req, res) => {
 	});
 });
 
-app.post("/", (req, res) => {
+app.post("/login", (req, res) => {
 	res.send({
 		query: req.query,
 		body: req.body,
@@ -28,5 +25,5 @@ app.post("/", (req, res) => {
 
 
 app.listen(port, () => {
-	console.log(`Example app listening at http://localhost:${port}`)
+	console.log(`Listening http://localhost:${port}`)
 })
