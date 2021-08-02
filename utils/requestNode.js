@@ -68,18 +68,22 @@ module.exports = function requestNode({
 	
 	
 	
+	// Merge headers
+	headers = {...headers, ...options.headers};
+	delete options.headers;
+	
+	
 	const _requestOptions = {
 		method,
 		headers,
-		...options.requestOptions,
+		...options,
 	};
-	
 	
 	
 	const totalRedirects = 0;
 	
 	
-	const _request = (fullUrl,) => {
+	const _request = (fullUrl) => {
 		
 		if (totalRedirects >= 5) return {
 			isError: true,

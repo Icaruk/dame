@@ -58,10 +58,15 @@ module.exports = function requestWeb({
 		
 		try {
 			
+			// Merge headers
+			headers = {...headers, ...options.headers};
+			delete options.headers;
+			
+			
 			const _fetchOptions = {
-				method: method,
-				headers: headers,
-				...options.requestOptions,
+				method,
+				headers,
+				...options,
 			};
 			if (method !== "GET") _fetchOptions.body = body;
 			
@@ -111,4 +116,3 @@ module.exports = function requestWeb({
 	});
 	
 };
-	

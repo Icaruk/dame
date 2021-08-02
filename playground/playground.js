@@ -1,6 +1,7 @@
 
 const dame = require("../lib/dame");
-// const fs = require("fs");
+const fs = require("fs");
+const qs = require("qs");
 
 
 dame.setConfig("default", "baseUrl", "https://rickandmortyapi.com/api");
@@ -17,11 +18,6 @@ dame.setConfig("test", "headers", {
 
 
 (async() => {
-	
-	
-	const dameRes = await dame.get("http://localhost:3000/redir");
-	console.log( dameRes );
-	
 	
 	// const res = await dame.get("/");
 	
