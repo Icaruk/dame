@@ -135,9 +135,13 @@ const {response} = dame.get(url, configGroup, options);
 - **url** `string`: Full URL or path.
 	- If you set a `baseUrl`, this `url` will be concatenated to it: `baseUrl + url`.
 	- If `url` starts with `"http://"` or `"https://"` the `baseUrl` from config will be ignored and url will be treated like a full url.
+
 <br>
+
 - **configGroup** `object` [optional]: Config group you want to use. If you skip this param "default" configGroup will be used.
+
 <br>
+
 - **options** `object`: See Options section.
 
 
@@ -158,11 +162,17 @@ const {response} = dame.post(url, body, configGroup, options);
 - **url** `string`: Full URL or path.
 	- If you set a `baseUrl`, this `url` will be concatenated to it: `baseUrl + url`.
 	- If `url` starts with `"http://"` or `"https://"` the `baseUrl` from config will be ignored and url will be treated like a full url.
+
 <br>
+
 - **body** `object`: The request body.
+
 <br>
+
 - **configGroup** `object` [optional]: Config group you want to use. If you skip this param "default" configGroup will be used.
+
 <br>
+
 - **options** `object`: See Options section.
 
 
