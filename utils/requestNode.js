@@ -2,6 +2,7 @@ const canReachGoogle = require("./canReachGoogle");
 const https = require("https");
 const http = require("http");
 const checkIsError = require("./checkIsError");
+const url = require("url");
 
 
 
@@ -31,7 +32,7 @@ module.exports = function requestNode({
 	fullUrl,
 	headers,
 	body,
-	options,
+	requestOptions,
 	config
 }) {
 	
@@ -67,102 +68,129 @@ module.exports = function requestNode({
 	
 	
 	
-	const requestOptions = {
+	const _requestOptions = {
 		method,
 		headers,
+		...requestOptions,
 	};
 	
 	
 	
-	return new Promise( resolve => {
+	const _request = (fullUrl, remainingRedirects) => {
 		
-		try {
+		
+		if (remainingRedirects <= 0) return {
+			isError: true,
+			code: 0,
+			status: "Error",
+			response: null,
+			error: "Too many redirects"
+		};
+		
+		
+		
+		return new Promise( resolve => {
 			
-			const req = protocol.request(fullUrl, requestOptions, res => {
+			try {
 				
-				let data = [];
-				
-				res.on('data', chunk => data.push(chunk));
-				res.on('end', () => {
+				const req = protocol.request(fullUrl, _requestOptions, res => {
 					
-					data = Buffer.concat(data);
+					let data = [];
 					
-					
-					const headers = res.headers;
-					
-					const contentType = headers && headers["content-type"];
-					const arrContentType = contentType && contentType.split("; "); // 'application/json; charset=utf-8'
-					const contentTypeLow = arrContentType && arrContentType.length > 0 && arrContentType[0].toLowerCase();
-					
-					
-					// https://www.iana.org/assignments/media-types/media-types.xhtml
-					
-					try {
-					if (contentTypeLow.startsWith("application/json")) {
-							const json = JSON.parse(data);
-							data = json; // sólo asginamos si se ha podido parsear
-						} else if (contentTypeLow.startsWith("text")) {
-							data.toString();
+					res.on('data', chunk => data.push(chunk));
+					res.on('end', () => {
+						
+						data = Buffer.concat(data);
+						const headers = res.headers;
+						
+						
+						// Compruebo redirect
+						if (res.statusCode > 300 && res.statusCode < 400) {
+							if (url.parse(headers.location).hostname) {
+								resolve(_request(headers.location, --remainingRedirects));
+							};
 						};
-					} catch (e) {};
-					
-					
-					
-					const isError = checkIsError(res.statusCode, options, config);
-					
-					
-					
-					resolve({
-						isError: isError,
-						code: res.statusCode,
-						status: res.statusMessage,
-						response: data,
+						
+						
+						
+						const contentType = headers && headers["content-type"];
+						const arrContentType = contentType && contentType.split("; "); // 'application/json; charset=utf-8'
+						const contentTypeLow = arrContentType && arrContentType.length > 0 && arrContentType[0].toLowerCase();
+						
+						
+						// https://www.iana.org/assignments/media-types/media-types.xhtml
+						
+						try {
+							if (contentTypeLow.startsWith("application/json")) {
+								const json = JSON.parse(data);
+								data = json; // sólo asginamos si se ha podido parsear
+							} else if (contentTypeLow.startsWith("text")) {
+								data.toString();
+							};
+						} catch (e) {};
+						
+						
+						
+						const isError = checkIsError(res.statusCode, _requestOptions, config);
+						
+						
+						
+						resolve({
+							isError: isError,
+							code: res.statusCode,
+							status: res.statusMessage,
+							response: data,
+						});
+						
 					});
 					
 				});
 				
-			});
-			
-			
-			
-			req.on('error', async err => {
 				
-				if (await canReachGoogle()) {
-					resolve({
-						isError: true,
-						code: -1,
-						status: "No response from server",
-						response: null,
-						error: err,
-					});
-				} else {
-					resolve({
-						isError: true,
-						code: -2,
-						status: "No internet connection",
-						response: null,
-						error: err,
-					});
-				};
 				
-			});
+				req.on('error', async err => {
+					
+					if (await canReachGoogle()) {
+						resolve({
+							isError: true,
+							code: -1,
+							status: "No response from server",
+							response: null,
+							error: err,
+						});
+					} else {
+						resolve({
+							isError: true,
+							code: -2,
+							status: "No internet connection",
+							response: null,
+							error: err,
+						});
+					};
+					
+				});
+				
+				
+				
+				if (body) req.write(body);
+				req.end();
+				
+				
+			} catch (err) {
+				resolve({
+					isError: true,
+					code: -999,
+					status: "Exception",
+					response: null,
+					error: err,
+				});
+			};
 			
-			
-			
-			if (body) req.write(body);
-			req.end();
-			
-			
-		} catch (err) {
-			resolve({
-				isError: true,
-				code: -999,
-				status: "Exception",
-				response: null,
-				error: err,
-			});
-		};
+		});
 		
-	});
+	};
+	
+	
+	return _request(fullUrl, 5);
 	
 };
