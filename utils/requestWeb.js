@@ -27,7 +27,6 @@ const checkIsError = require("./checkIsError");
 module.exports = function requestWeb({
 	method,
 	fullUrl,
-	headers,
 	body,
 	config,
 	options,
@@ -58,14 +57,8 @@ module.exports = function requestWeb({
 		
 		try {
 			
-			// Merge headers
-			headers = {...headers, ...options.headers};
-			delete options.headers;
-			
-			
 			const _fetchOptions = {
 				method,
-				headers,
 				...options,
 			};
 			if (method !== "GET") _fetchOptions.body = body;

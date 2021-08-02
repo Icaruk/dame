@@ -30,7 +30,6 @@ const url = require("url");
 module.exports = function requestNode({
 	method,
 	fullUrl,
-	headers,
 	body,
 	config,
 	options,
@@ -68,14 +67,8 @@ module.exports = function requestNode({
 	
 	
 	
-	// Merge headers
-	headers = {...headers, ...options.headers};
-	delete options.headers;
-	
-	
 	const _requestOptions = {
 		method,
-		headers,
 		...options,
 	};
 	
