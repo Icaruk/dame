@@ -31,7 +31,6 @@ module.exports = function requestWeb({
 	body,
 	config,
 	options,
-	requestOptions,
 }) {
 	
 	if (!["GET", "POST", "PUT", "DELETE", "PATCH"].includes(method)) {
@@ -62,7 +61,7 @@ module.exports = function requestWeb({
 			const _fetchOptions = {
 				method: method,
 				headers: headers,
-				...requestOptions,
+				...options.requestOptions,
 			};
 			if (method !== "GET") _fetchOptions.body = body;
 			

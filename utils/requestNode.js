@@ -34,7 +34,6 @@ module.exports = function requestNode({
 	body,
 	config,
 	options,
-	requestOptions,
 }) {
 	
 	if (!["GET", "POST", "PUT", "DELETE", "PATCH"].includes(method)) {
@@ -72,7 +71,7 @@ module.exports = function requestNode({
 	const _requestOptions = {
 		method,
 		headers,
-		...requestOptions,
+		...options.requestOptions,
 	};
 	
 	
