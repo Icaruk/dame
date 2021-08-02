@@ -29,8 +29,9 @@ module.exports = function requestWeb({
 	fullUrl,
 	headers,
 	body,
-	options,
 	config,
+	options,
+	requestOptions,
 }) {
 	
 	if (!["GET", "POST", "PUT", "DELETE", "PATCH"].includes(method)) {
@@ -58,14 +59,15 @@ module.exports = function requestWeb({
 		
 		try {
 			
-			const fetchOptions = {
+			const _fetchOptions = {
 				method: method,
 				headers: headers,
+				...requestOptions,
 			};
-			if (method !== "GET") fetchOptions.body = body;
+			if (method !== "GET") _fetchOptions.body = body;
 			
 			
-			let response = await window.fetch(fullUrl, fetchOptions);
+			let response = await window.fetch(fullUrl, _fetchOptions);
 			let data = response;
 			
 			

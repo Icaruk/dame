@@ -9,6 +9,7 @@ exports.get_simple = async () => {
 		const dameRes = await dame.get("https://gorest.co.in/public/v1/users");
 		const {code, isError, response } = dameRes;
 		
+		
 		expect(code).toBe(200);
 		expect(isError).toBe(false);
 		expect(response.meta.pagination.page).toBe(1);
@@ -46,6 +47,9 @@ exports.get_options_checkIsError = async () => {
 		const dameRes = await dame.get("https://gorest.co.in/public/v1/users", {
 			checkIsError: () => "abcd1234!",
 		});
+		
+		console.log( dameRes );
+		
 		const {code, isError, response } = dameRes;
 		
 		expect(code).toBe(200);

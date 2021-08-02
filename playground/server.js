@@ -13,6 +13,15 @@ app.get("/", (req, res) => {
 	});
 });
 
+app.get("/redir", (req, res) => {
+	res.redirect(301, "/redirected");
+});
+app.get("/redirected", (req, res) => {
+	res.send({
+		redirected: true,
+	})
+});
+
 app.post("/login", (req, res) => {
 	res.send({
 		query: req.query,

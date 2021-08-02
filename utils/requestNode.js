@@ -32,8 +32,9 @@ module.exports = function requestNode({
 	fullUrl,
 	headers,
 	body,
+	config,
+	options,
 	requestOptions,
-	config
 }) {
 	
 	if (!["GET", "POST", "PUT", "DELETE", "PATCH"].includes(method)) {
@@ -76,10 +77,12 @@ module.exports = function requestNode({
 	
 	
 	
-	const _request = (fullUrl, remainingRedirects) => {
+	const totalRedirects = 0;
+	
+	
+	const _request = (fullUrl,) => {
 		
-		
-		if (remainingRedirects <= 0) return {
+		if (totalRedirects >= 5) return {
 			isError: true,
 			code: 0,
 			status: "Error",
@@ -104,10 +107,18 @@ module.exports = function requestNode({
 						const headers = res.headers;
 						
 						
+						
 						// Compruebo redirect
 						if (res.statusCode > 300 && res.statusCode < 400) {
 							if (url.parse(headers.location).hostname) {
-								resolve(_request(headers.location, --remainingRedirects));
+								totalRedirects ++;
+								resolve(_request(headers.location));
+							} else {
+								const parsedUrl = url.parse(fullUrl);
+								const newUrl = `${parsedUrl.protocol}//${parsedUrl.host}${headers.location}`;
+								
+								totalRedirects ++;
+								resolve(_request(newUrl));
 							};
 						};
 						
@@ -131,7 +142,7 @@ module.exports = function requestNode({
 						
 						
 						
-						const isError = checkIsError(res.statusCode, _requestOptions, config);
+						const isError = checkIsError(res.statusCode, options, config);
 						
 						
 						
@@ -191,6 +202,6 @@ module.exports = function requestNode({
 	};
 	
 	
-	return _request(fullUrl, 5);
+	return _request(fullUrl);
 	
 };
