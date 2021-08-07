@@ -1,12 +1,13 @@
 require('esbuild').build({
 	entryPoints: [
-		"lib/dame.js",
+		"src/dame.js",
 	],
 	bundle: true,
 	minifyWhitespace: true,
-	minifySyntax: true,
+	minifySyntax: false,
 	minifyIdentifiers: false,
-	format: "esm",
-	external: ["http", "https", "dns"],
-	outdir: 'out',
+	format: "cjs",
+	platform: "neutral",
+	external: ["http", "https", "dns", "url"],
+	outdir: 'lib',
 }).catch(() => process.exit(1))

@@ -1,10 +1,3 @@
-const canReachGoogle = require("./canReachGoogle");
-const https = require("https");
-const http = require("http");
-const checkIsError = require("./checkIsError");
-const url = require("url");
-
-
 
 /**
  * @typedef Options
@@ -34,6 +27,12 @@ module.exports = function requestNode({
 	config,
 	instance,
 }) {
+	
+	const https = require("https");
+	const http = require("http");
+	const url = require("url");
+	
+	
 	
 	if (!["GET", "POST", "PUT", "DELETE", "PATCH"].includes(method)) {
 		return {
@@ -73,7 +72,7 @@ module.exports = function requestNode({
 	};
 	
 	
-	const totalRedirects = 0;
+	let totalRedirects = 0;
 	
 	
 	const _request = (fullUrl) => {
@@ -158,23 +157,31 @@ module.exports = function requestNode({
 				
 				req.on('error', async err => {
 					
-					if (await canReachGoogle()) {
-						resolve({
-							isError: true,
-							code: -1,
-							status: "No response from server",
-							response: null,
-							error: err,
-						});
-					} else {
-						resolve({
-							isError: true,
-							code: -2,
-							status: "No internet connection",
-							response: null,
-							error: err,
-						});
-					};
+					// if (await canReachGoogle()) {
+					// 	resolve({
+					// 		isError: true,
+					// 		code: -1,
+					// 		status: "No response from server",
+					// 		response: null,
+					// 		error: err,
+					// 	});
+					// } else {
+					// 	resolve({
+					// 		isError: true,
+					// 		code: -2,
+					// 		status: "No internet connection",
+					// 		response: null,
+					// 		error: err,
+					// 	});
+					// };
+					
+					resolve({
+						isError: true,
+						code: -1,
+						status: "No response from server",
+						response: null,
+						error: err,
+					});
 					
 				});
 				

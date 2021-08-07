@@ -15,7 +15,8 @@
 		"server": "nodemon ./playground/server.js",
 		"benchmark": "node ./benchmarks/benchmark.js",
 		"declaration:build": "tsc -b",
-		"build": "node ./build.js"
+		"build": "node ./build.js",
+		"publishDryRun": "npm publish --dry-run"
 	},
 	"keywords": [
 		"https",
@@ -44,7 +45,7 @@
 	"main": "lib/dame.js",
 	"files": [
 		"lib/dame.js",
-		"utils",
 		"types"
-	]
+	],
+	"types": "types"
 }

@@ -55,10 +55,10 @@ export type NewFnc = (config?: Config) => any;
 declare class Dame {
     constructor(constructorOptions?: {});
     baseUrl: any;
-    headers: any;
-    timeout: any;
-    checkIsError: any;
     options: any;
+    headers: any;
+    checkIsError: any;
+    timeout: any;
     /** @type {GetFnc} */
     get: GetFnc;
     /** @type {PostFnc} */
@@ -71,20 +71,23 @@ declare class Dame {
     delete: PostFnc;
     /**
      * Creates a new instance of dame with pre-set configuration.
-     * @param {Config} options
+     * @param {Config} config
+     * @param {string} [instanceName] If set, the instance will be saved on `dame.instances.<instanceName>`.
      * @returns
     */
-    new: (options: Config) => Dame;
+    new: (config: Config, instanceName?: string) => Dame;
+    instances: {};
 }
 export declare const baseUrl: any;
-export declare const headers: any;
-export declare const timeout: any;
-export declare const checkIsError: any;
 export declare const options: any;
+export declare const headers: any;
+export declare const checkIsError: any;
+export declare const timeout: any;
 export declare const get: GetFnc;
 export declare const post: PostFnc;
 export declare const put: PostFnc;
 export declare const patch: PostFnc;
 declare const _delete: PostFnc;
-export declare function _new(options: Config): Dame;
+export declare function _new(config: Config, instanceName?: string): Dame;
+export declare const instances: {};
 export { _delete as delete, _new as new };

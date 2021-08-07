@@ -1,9 +1,6 @@
 {
 	"files": [
-		"lib/dame.js"
-	],
-	"exclude": [
-		"utils"
+		"src/dame.js"
 	],
 	"compilerOptions": {
 		"module": "ES2020",

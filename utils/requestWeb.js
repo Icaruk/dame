@@ -1,8 +1,4 @@
 
-// const canReachGoogle = require("./canReachGoogle");
-
-
-
 /**
  * @typedef Options
  * @property {"GET" | "POST" | "PUT" | "DELETE" | "PATCH"} method
