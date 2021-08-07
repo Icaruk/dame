@@ -173,7 +173,7 @@ const {response} = dame.post(url, body, config);
 # Creating an instance
 
 ```js
-dame.new(options);
+const dameInstance = dame.new(options);
 ```
 
 
