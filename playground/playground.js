@@ -20,8 +20,10 @@ const qs = require("qs");
 (async() => {
 	
 	const dameRes = await dame.get("https://gorest.co.in/public/v1/users", {
-		checkIsError: () => "abcd1234!"
+		timeout: 1
 	});
+	
+	console.log( "dameRes", `(${typeof dameRes}): `, dameRes);
 	
 })();
 
