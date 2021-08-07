@@ -8,6 +8,7 @@ describe("GET web", () => {
 	
 	global.fetch = fetch;
 	
+	// test("mock", () => {});
 	
 	get_simple();
 	

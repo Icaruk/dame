@@ -8,6 +8,9 @@ const {get_simple, get_config_baseUrl, get_options_checkIsError, get_config_chec
 
 describe("GET node", () => {
 	
+	// test("mock", () => {});
+	
+	
 	get_simple();
 	
 	get_options_checkIsError();

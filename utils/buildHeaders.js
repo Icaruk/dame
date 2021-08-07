@@ -1,12 +1,12 @@
 
-module.exports = function buildHeaders(headers, config = {}) {
+module.exports = function buildHeaders(config, dameInstance = {}) {
 	
-	const configHeaders = config.headers;
+	const optionHeaders = config.headers;
+	const dameInstanceHeaders = dameInstance.headers;
 	
-	if (headers && configHeaders) return {...configHeaders, ...headers};
-	if (configHeaders) return configHeaders;
+	if (optionHeaders) return optionHeaders;
+	if (dameInstanceHeaders) return dameInstanceHeaders;
 	
-	
-	return headers;
+	return {};
 	
 };

@@ -1,12 +1,14 @@
 
-module.exports = function raceTimeout(promise, timeout, config = {}) {
+module.exports = function raceTimeout(promise, options, dameInstance) {
 	
-	// Timeout
-	let _timeout = timeout;
-	if (!_timeout && config.timeout) _timeout = config.timeout;
+	let timeout;
+	
+	if (dameInstance.timeout) timeout = dameInstance.timeout;
+	if (options.timeout) timeout = options.timeout;
 	
 	
-	if (_timeout) {
+	
+	if (timeout) {
 		return Promise.race([
 			new Promise( resolve => {
 				setTimeout(
@@ -16,7 +18,7 @@ module.exports = function raceTimeout(promise, timeout, config = {}) {
 						status: 'Timed out',
 						response: null,
 					}),
-					_timeout
+					timeout
 				);
 			}),
 			promise,

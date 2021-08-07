@@ -32,7 +32,7 @@ module.exports = function requestNode({
 	fullUrl,
 	body,
 	config,
-	options,
+	instance,
 }) {
 	
 	if (!["GET", "POST", "PUT", "DELETE", "PATCH"].includes(method)) {
@@ -69,7 +69,7 @@ module.exports = function requestNode({
 	
 	const _requestOptions = {
 		method,
-		...options,
+		...config,
 	};
 	
 	
@@ -138,7 +138,8 @@ module.exports = function requestNode({
 						
 						
 						
-						const isError = checkIsError(res.statusCode, options, config);
+						const checkIsError = config.checkIsError || instance.checkIsError;
+						const isError = checkIsError(res.statusCode);
 						
 						
 						

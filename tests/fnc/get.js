@@ -7,6 +7,7 @@ exports.get_simple = async () => {
 	test("get_simple", async () => {
 		
 		const dameRes = await dame.get("https://gorest.co.in/public/v1/users");
+		console.log( "dameRes", `(${typeof dameRes}): `, dameRes);
 		const {code, isError, response } = dameRes;
 		
 		
@@ -24,10 +25,11 @@ exports.get_config_baseUrl = async () => {
 	
 	test("get_config_baseUrl", async () => {
 		
-		dame.clearConfig("default");
-		dame.setConfig("default", "baseUrl", "https://gorest.co.in/public/v1");
+		const dameGoRest = dame.new({
+			baseUrl: "https://gorest.co.in/public/v1"
+		});
 		
-		const dameRes = await dame.get("/users");
+		const dameRes = await dameGoRest.get("/users");
 		const {code, isError, response } = dameRes;
 		
 		expect(code).toBe(200);
@@ -44,13 +46,12 @@ exports.get_options_checkIsError = async () => {
 	
 	test("get_options_checkIsError", async () => {
 		
-		const dameRes = await dame.get("https://gorest.co.in/public/v1/users", {
-			checkIsError: () => "abcd1234!",
+		const {code, isError, response } = await dame.get("https://gorest.co.in/public/v1/users", {
+			checkIsError: () => "abcd1234!"
 		});
 		
-		console.log( dameRes );
+		console.log( "code", `(${typeof code}): `, code);
 		
-		const {code, isError, response } = dameRes;
 		
 		expect(code).toBe(200);
 		expect(isError).toBe("abcd1234!");
@@ -65,11 +66,11 @@ exports.get_options_checkIsError = async () => {
 exports.get_config_checkIsError = async () => {
 	
 	test("get_config_checkIsError", async () => {
+		return;
+		const dameGoRest = dame.new();	
+		dameGoRest.checkIsError = () => "abcd1234!";
 		
-		dame.clearConfig("default");
-		dame.setConfig("default", "checkIsError", () => "abcd1234!");
-		
-		const dameRes = await dame.get("https://gorest.co.in/public/v1/users");
+		const dameRes = await dameGoRest.get("https://gorest.co.in/public/v1/users");
 		const {code, isError, response } = dameRes;
 		
 		expect(code).toBe(200);

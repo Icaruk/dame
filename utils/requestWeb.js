@@ -1,4 +1,4 @@
-const checkIsError = require("./checkIsError");
+
 // const canReachGoogle = require("./canReachGoogle");
 
 
@@ -29,7 +29,7 @@ module.exports = function requestWeb({
 	fullUrl,
 	body,
 	config,
-	options,
+	instance,
 }) {
 	
 	if (!["GET", "POST", "PUT", "DELETE", "PATCH"].includes(method)) {
@@ -59,7 +59,7 @@ module.exports = function requestWeb({
 			
 			const _fetchOptions = {
 				method,
-				...options,
+				...config,
 			};
 			if (method !== "GET") _fetchOptions.body = body;
 			
@@ -83,7 +83,8 @@ module.exports = function requestWeb({
 			
 			
 			
-			const isError = checkIsError(response.status, options, config);
+			const checkIsError = config.checkIsError || instance.checkIsError;
+			const isError = checkIsError(response.status);
 			
 			
 			
