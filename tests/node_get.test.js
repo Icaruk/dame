@@ -3,5 +3,6 @@
 */
 
 describe("node GET", () => {
-	require("./fnc/get")
+	require("./fnc/get");
+	require("./fnc/crud");
 });

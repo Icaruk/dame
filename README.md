@@ -16,15 +16,13 @@
 - 😀 **Easy** to use.
 - 🟢 **Node** (http & https) and 💻 **browser** (Fetch).
 - 👉 **Promise** API.
-- 🔌 **Offline** detection.
-- 😶 Distinction between offline and no response.
 - ⌛ Custom **timeout**.
 - 🎯 Automatic transforms to **JSON** data.
-- 📁 **Config groups** for base URL, headers and timeout.
+- 📁 **Configurable**.
 
 
 
-<br><br><br>
+<br><br>
 
 
 
@@ -40,10 +38,10 @@
 - [Methods](#methods)
   - [`get`](#get)
   - [`post`, `put`, `delete`, `patch`](#post-put-delete-patch)
-- [Options](#options)
 - [Config](#config)
-  - [Config examples](#config-examples)
-  - [Getting the config](#getting-the-config)
+- [Creating an instance](#creating-an-instance)
+  - [Examples](#examples)
+  - [Editing an instance](#editing-an-instance)
 - [Special statuses](#special-statuses)
 - [dame vs. others](#dame-vs-others)
 - [☝ Return to top](#a-nametable-of-contentsa-return-to-toptable-of-contents)
@@ -52,7 +50,7 @@
 
 
 
-<br><br><br>
+<br><br>
 
 
 
@@ -64,7 +62,7 @@ const dame = require("dame");
 
 
 
-<br><br><br>
+<br><br>
 
 
 
@@ -85,7 +83,7 @@ let {response} = dame.post("https://your.api.com/login", {
 
 
 
-<br><br><br>
+<br><br>
 
 
 
@@ -101,7 +99,7 @@ let {response} = dame.post("https://your.api.com/login", {
 }
 ```
 
-- **isError** `boolean`: True if code is >= 200 and < 300.
+- **isError** `boolean`: True if code is >= 200 and < 300 (this is configurable).
 - **code** `number`: Status code.
 - **status** `string`: Status.
 - **response** `any`: Response of the request.
@@ -118,7 +116,7 @@ let {isError, code, status, response} = dame.get("https://rickandmortyapi.com/ap
 
 
 
-<br><br><br>
+<br><br>
 
 
 
@@ -127,147 +125,88 @@ let {isError, code, status, response} = dame.get("https://rickandmortyapi.com/ap
 ## `get`
 
 ```js
-const {response} = dame.get(url, options);
-// or
-const {response} = dame.get(url, configGroup, options);
+const {response} = dame.get(url, config);
 ```
 
 - **url** `string`: Full URL or path.
 	- If you set a `baseUrl`, this `url` will be concatenated to it: `baseUrl + url`.
 	- If `url` starts with `"http://"` or `"https://"` the `baseUrl` from config will be ignored and url will be treated like a full url.
-
-<br>
-
-- **configGroup** `object` [optional]: Config group you want to use. If you skip this param "default" configGroup will be used.
-
-<br>
-
-- **options** `object`: See Options section.
+- **config** `object`: See [Config](#config).
 
 
 
-<br>
+<br><br>
 
 
 
 ## `post`, `put`, `delete`, `patch`
 
 ```js
-const {response} = dame.post(url, body, options);
-// or
-const {response} = dame.post(url, body, configGroup, options);
+const {response} = dame.post(url, body, config);
 ```
 
 
-- **url** `string`: Full URL or path.
-	- If you set a `baseUrl`, this `url` will be concatenated to it: `baseUrl + url`.
-	- If `url` starts with `"http://"` or `"https://"` the `baseUrl` from config will be ignored and url will be treated like a full url.
-
-<br>
-
+- **url** `string`:See [get](#get).
 - **body** `object`: The request body.
-
-<br>
-
-- **configGroup** `object` [optional]: Config group you want to use. If you skip this param "default" configGroup will be used.
-
-<br>
-
-- **options** `object`: See Options section.
+- **config** `object`: See [Config](#config).
 
 
 
-<br><br><br>
-
-
-
-# Options
-
-- **baseUrl** `string`: Base URL that will be concatenated with the `url` of the requests.
-- **headers** `object`: Headers that will be attached to the request.
-- **configGroup** `string`: Config group that will be used. If skipped `"default"` will be used.
-- **timeout** `object`: Number of miliseconds that must pass before timeout the request.
-- **checkIsError** `function<boolean>`: Function that will receive the status code (`number`) and must return `boolean`. Default `isError = !(code >= 200 && < 300)`.
-
-
-> If you are using a configGroup, the options you set on the request will take preference over the configGroup.
-
-
-
-<br><br><br>
+<br><br>
 
 
 
 # Config
 
-The config groups are pre-setted options, explained above.
+- **baseUrl** `string`: Base URL that will be concatenated with the `url` of the requests.
+- **headers** `object`: Headers that will be attached to the request.
+- **timeout** `object`: Number of miliseconds that must pass before timeout the request.
+- **checkIsError** `function<boolean>`: Function that will receive the status code (`number`) and must return `boolean`. Default `isError = !(code >= 200 && < 300)`.
+- Any option that fits on `request` or `fetch`.
 
-<br>
 
-**Usage**
+
+<br><br>
+
+
+
+# Creating an instance
 
 ```js
-dame.setConfig("configGroup", "key", "data");
+dame.new(options);
 ```
 
-Param | Type | Description
-:---: | :---: | :---:
-**configGroup** | `string` | Default is `"default"`.
-**key** | `object` | Same as the options.
-**data** | `object` | value
 
 
-<br>
+## Examples
 
-
-## Config examples
-
-
-Set default base URL and auth
+Set base URL
 ```js
-dame.setConfig("default", "baseUrl", "http://localhost:3000");
-dame.setConfig("default", "headers", {
-	Authorization: "Bearer your_token"
+const yourApi = dame.new({
+	"baseUrl": "http://localhost:3000",
 });
 ```
 
-Using default config
+Set headers
 ```js
-dame.get("/endpoint");
-// The full URL will be ---> http://localhost:3000/endpoint
-// The headers will be ---> Authorization: "Bearer your_token".
-```
-
-
-Set another configGroup
-```js
-dame.setConfig("myConfigGroup", "baseUrl", "https://rickandmortyapi.com/api");
-dame.setConfig("myConfigGroup", "headers", {
-	Authorization: "Bearer your_token"
+const yourApi = dame.new({
+	"headers": {
+		Authorization: "Bearer abc.123"
+	}
 });
 ```
 
-Using `"myConfigGroup"` config
-```js
-dame.get("/character/12", "myConfigGroup");
-// The full URL will be ---> https://rickandmortyapi.com/api/character/12
-// The headers will be ---> Authorization: "Bearer your_token".
 
+
+## Editing an instance
+
+```js
+yourApi.headers.Authorization: "Bearer new.token";
 ```
 
 
 
-## Getting the config
-
-```js
-dame.getConfig(); // all
-dame.getConfig("default"); // get default config
-dame.getConfig("yourConfig"); // get yourConfig config
-```
-
-
-
-<br><br><br>
+<br><br>
 
 
 
@@ -305,7 +244,7 @@ Offline
 
 
 
-<br><br><br>
+<br><br>
 
 
 
@@ -324,7 +263,7 @@ request 	|	❌ | ![](https://badgen.net/bundlephobia/dependency-count/request) 	
 
 
 
-<br><br><br>
+<br><br>
 
 
 

@@ -5,6 +5,12 @@ const port = 3000;
 app.use(express.json());
 
 
+
+const token = "E36gf.7VbDs.ZAcP90.BVd3Df";
+const users = {};
+
+
+
 app.get("/", (req, res) => {
 	res.send({
 		query: req.query,
@@ -22,17 +28,110 @@ app.get("/redirected", (req, res) => {
 	})
 });
 
+
+
 app.post("/login", (req, res) => {
-	res.send({
-		query: req.query,
-		body: req.body,
-		params: req.params,
-		headers: req.headers,
+	
+	const {username, password} = req.body;
+	
+	if (username === "Icaruk" && password === "1234") {
+		return res.send({
+			username: username,
+			token: token,
+		});
+	};
+	
+	res.status(401).send({
+		message: "Invalid credentials",
 	});
+	
+});
+
+
+
+app.post("/user", (req, res) => {
+	
+	const {authorization} = req.headers;
+	const {username, age} = req.body;
+	
+	
+	if (authorization !== ("Bearer" + token)) return res.status(401).send({message: "Invalid token"});
+	
+	
+	const userId = "id" + Date.now();
+	
+	users[userId] = {
+		username,
+		age,
+	};
+	
+	res.send({
+		message: "Invalid credentials",
+		id: userId,
+	});
+	
+});
+
+app.get("/user", (req, res) => {
+	
+	const {authorization} = req.headers;
+	const {id} = req.query;
+	
+	
+	if (authorization !== ("Bearer" + token)) return res.status(401).send({message: "Invalid token"});
+	
+	
+	if (users[id]) return res.send(users[id]);
+	return res.status(404).send({message: "User not found"});
+	
+});
+
+app.patch("/user", (req, res) => {
+	
+	const {authorization} = req.headers;
+	const {id} = req.query;
+	const {age} = req.body;
+	
+	
+	if (authorization !== ("Bearer" + token)) return res.status(401).send({message: "Invalid token"});
+	
+	
+	if (users[id]) {
+		users[id].age = age;
+		res.send(users[id]);
+		return;
+	};
+	
+	return res.status(404).send({message: "User not found"});
+	
+});
+
+app.delete("/user", (req, res) => {
+	
+	const {authorization} = req.headers;
+	const {id} = req.query;
+	
+	
+	if (authorization !== ("Bearer" + token)) return res.status(401).send({message: "Invalid token"});
+	
+	console.log( "users", `(${typeof users}): `, users);
+	console.log( "id", `(${typeof id}): `, id);
+	
+	
+	if (users[id]) {
+		delete users[id];
+		res.send({
+			message: `User ${id} has been deleted`
+		});
+		return;
+	};
+	
+	return res.status(404).send({message: "User not found"});
+	
 });
 
 
 
 app.listen(port, () => {
 	console.log(`Listening http://localhost:${port}`)
-})
+});

@@ -9,5 +9,6 @@ beforeAll( () => {
 
 
 describe("web GET", () => {
-	require("./fnc/get")
+	require("./fnc/get");
+	require("./fnc/crud");
 });
