@@ -9,6 +9,6 @@
 		"allowJs": true,
 		"declaration": true,
 		"emitDeclarationOnly": true,
-		"outDir": "types",
+		"outFile": "src/dame"
 	}
 }
