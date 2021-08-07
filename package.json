@@ -35,6 +35,7 @@
 	"devDependencies": {
 		"axios": "^0.21.1",
 		"esbuild": "^0.12.14",
+		"esbuild-plugin-d.ts": "^1.0.6",
 		"express": "^4.17.1",
 		"jest": "^26.5.3",
 		"nanobench": "^2.1.1",
@@ -42,10 +43,10 @@
 		"phin": "^3.6.0",
 		"typescript": "^4.1.3"
 	},
-	"main": "lib/dame.js",
+	"main": "dame.min.js",
 	"files": [
-		"lib/dame.js",
-		"lib/dame.d.ts"
+		"dame.min.js",
+		"dame.d.ts"
 	],
 	"types": "lib/dame.d.ts"
 }

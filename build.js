@@ -3,11 +3,11 @@ require('esbuild').build({
 		"src/dame.js",
 	],
 	bundle: true,
-	minifyWhitespace: true,
+	minifyWhitespace: false,
 	minifySyntax: false,
 	minifyIdentifiers: false,
 	format: "cjs",
 	platform: "neutral",
 	external: ["http", "https", "dns", "url"],
-	outdir: 'lib',
+	outfile: "dame.min.js",
 }).catch(() => process.exit(1))
