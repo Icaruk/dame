@@ -115,7 +115,7 @@ class Dame {
 	
 	
 	/** @type {GetFnc} */
-    get = function (url, config = {}) {
+    get(url, config = {}) {
 		
 		const fullUrl = buildUrl(url, this);
 		const headers = buildHeaders(config, this);
@@ -140,22 +140,22 @@ class Dame {
 	}
 	
 	/** @type {PostFnc} */
-    post = function () {
+    post() {
 		return postWrapper(arguments, "POST", this);
 	}
 	
 	/** @type {PostFnc} */
-    put = function () {
+    put() {
 		return postWrapper(arguments, "PUT", this);
 	}
 	
 	/** @type {PostFnc} */
-    patch = function () {
+    patch() {
 		return postWrapper(arguments, "PATCH", this);
 	}
 	
 	/** @type {PostFnc} */
-    delete = function () {
+    delete() {
 		return postWrapper(arguments, "DELETE", this);
 	}
 	
@@ -167,7 +167,7 @@ class Dame {
 	 * @param {string} [instanceName] If set, the instance will be saved on `dame.instances.<instanceName>`.
 	 * @returns 
 	*/
-	new = (config, instanceName) => {
+	new(config, instanceName) {
 		
 		const instance = new Dame(config);
 		if (instanceName) {
