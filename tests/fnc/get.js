@@ -1,4 +1,5 @@
 const dame = require("../../lib/dame");
+const fs = require("fs");
 
 //! https://gorest.co.in
 
@@ -114,5 +115,46 @@ test("get_pre_vs_config_timeout", async () => {
 	
 	expect(code).toBe(200);
 	expect(isError).toBe(false);
+	
+});
+
+
+
+test("get_image", async () => {
+	
+	const res = await dame.get("https://assets-global.website-files.com/5f4f67c5950db17954dd4f52/5f5b7ee442f1e5b9fee1c117_hacerse-una-casa.jpeg");
+	
+	const filePath = "./casa.jpeg";
+	fs.writeFileSync(filePath, res.response);
+	
+	
+	const exists = fs.existsSync(filePath);
+	expect(exists).toBe(true);
+	
+	fs.unlinkSync(filePath);
+	
+});
+
+
+
+test("get_merge_headers", async () => {
+	
+	const dameIns = dame.new({
+		headers: {
+			Authorization: "Bearer: abcd.1234"
+		},
+	});
+	
+	const {isError, code, response} = await dameIns.get("http://localhost:3000/", {
+		headers: {
+			CustomHeader: "1234",
+		}
+	});
+	
+	
+	expect(isError).toBe(false);
+	expect(code).toBe(200);
+	expect(response.headers.authorization).toBe("Bearer: abcd.1234");
+	expect(response.headers.customheader).toBe("1234");
 	
 });

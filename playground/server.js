@@ -114,9 +114,6 @@ app.delete("/user", (req, res) => {
 	
 	if (authorization !== ("Bearer" + token)) return res.status(401).send({message: "Invalid token"});
 	
-	console.log( "users", `(${typeof users}): `, users);
-	console.log( "id", `(${typeof id}): `, id);
-	
 	
 	if (users[id]) {
 		delete users[id];

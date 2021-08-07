@@ -17,8 +17,8 @@
 - 🟢 **Node** (http & https) and 💻 **browser** (Fetch).
 - 👉 **Promise** API.
 - ⌛ Custom **timeout**.
-- 🎯 Automatic transforms to **JSON** data.
-- 📁 **Configurable**.
+- 📄 Automatic transforms to **JSON** data.
+- 🔧 **Configurable**.
 
 
 
@@ -36,8 +36,8 @@
 - [Basic examples](#basic-examples)
 - [Response object](#response-object)
 - [Methods](#methods)
-  - [`get`](#get)
-  - [`post`, `put`, `delete`, `patch`](#post-put-delete-patch)
+  - [get](#get)
+  - [post, put, delete, patch](#post-put-delete-patch)
 - [Config](#config)
 - [Creating an instance](#creating-an-instance)
   - [Examples](#examples)
@@ -68,12 +68,12 @@ const dame = require("dame");
 
 # Basic examples
 
-`GET`
+**GET**
 ```js
 let {response} = dame.get("https://rickandmortyapi.com/api/location/1");
 ```
 
-`POST`
+**POST**
 ```js
 let {response} = dame.post("https://your.api.com/login", {
 	username: "Username",
@@ -122,7 +122,7 @@ let {isError, code, status, response} = dame.get("https://rickandmortyapi.com/ap
 
 # Methods
 
-## `get`
+## get
 
 ```js
 const {response} = dame.get(url, config);
@@ -139,7 +139,7 @@ const {response} = dame.get(url, config);
 
 
 
-## `post`, `put`, `delete`, `patch`
+## post, put, delete, patch
 
 ```js
 const {response} = dame.post(url, body, config);
@@ -173,8 +173,22 @@ const {response} = dame.post(url, body, config);
 # Creating an instance
 
 ```js
-const dameInstance = dame.new(options);
+const dameInstance = dame.new(config, instanceName?);
 ```
+
+- **config** `object`: See [Config](#config).
+- **instanceName** `string`: (optional) If filled, this instance will be saved on `dame.instances.<instanceName>`.
+
+---
+
+Removing a saved instance:
+```js
+delete dame.instances.<instanceNameToRemove>
+```
+
+
+
+<br>
 
 
 
@@ -196,6 +210,8 @@ const yourApi = dame.new({
 });
 ```
 
+
+<br>
 
 
 ## Editing an instance
