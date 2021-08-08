@@ -1,4 +1,4 @@
-const dame = require("../../lib/dame");
+const dame = require("../../src/dame");
 
 //! https://gorest.co.in
 

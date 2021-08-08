@@ -11,7 +11,7 @@
 	},
 	"homepage": "https://github.com/Icaruk",
 	"scripts": {
-		"test": "jest",
+		"test": "jest --detectOpenHandles",
 		"server": "nodemon ./playground/server.js",
 		"benchmark": "node ./benchmarks/benchmark.js",
 		"declaration:build": "tsc -b",
