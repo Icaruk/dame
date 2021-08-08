@@ -36,6 +36,7 @@
 	"devDependencies": {
 		"@rollup/plugin-commonjs": "^20.0.0",
 		"axios": "^0.21.1",
+		"body-parse": "^0.1.0",
 		"esbuild": "^0.12.14",
 		"esbuild-plugin-d.ts": "^1.0.6",
 		"express": "^4.17.1",
@@ -51,5 +52,6 @@
 		"dame.js",
 		"dame.d.ts"
 	],
-	"types": "dame.d.ts"
+	"types": "dame.d.ts",
+	"dependencies": {}
 }

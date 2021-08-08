@@ -109,7 +109,7 @@ test("get_pre_vs_config_timeout", async () => {
 	});
 	
 	const {code, isError} = await dameGoRest.get("https://gorest.co.in/public/v1/users", {
-		timeout: 20000,
+		timeout: 10000,
 	});
 	
 	

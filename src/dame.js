@@ -11,20 +11,27 @@ const postWrapper = (_arguments, method, dameInstance) => {
 	let [url, body = {}, config = {}] = _arguments;
 	
 	
-	if (body && typeof body === "object") body = JSON.stringify(body);
-	
 	const fullUrl = buildUrl(url, dameInstance);
-	const headers = buildHeaders(config, dameInstance);
-	
+	let headers = buildHeaders(config, dameInstance);
 	
 	
 	const fncRequest = (typeof window !== "undefined") ? require("../utils/requestWeb") : require("../utils/requestNode");
 	
 	
+	
+	if (!headers["Content-Type"]) headers["Content-Type"] = "application/json";
+	
+	if (
+		headers["Content-Type"] === "application/json" &&
+		body &&
+		typeof body === "object"
+	) {
+		body = JSON.stringify(body);
+	};
+	
 	config.headers = {
-		"Content-Type": "application/json",
-		"Content-Length": body.length,
 		...headers,
+		"Content-Length": body.length || 0,
 	};
 	
 	
