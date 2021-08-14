@@ -36,6 +36,23 @@ test("get_pre_baseUrl", async () => {
 
 
 
+test("get_pre_baseUrl_instance", async () => {
+	
+	dame.new({
+		baseUrl: "https://gorest.co.in/public/v1",
+	}, "instance01");
+	
+	const dameRes = await dame.instances.instance01.get("/users");
+	const {code, isError, response } = dameRes;
+	
+	expect(code).toBe(200);
+	expect(isError).toBe(false);
+	expect(response.meta.pagination.page).toBe(1);
+	
+});
+
+
+
 test("get_checkIsError", async () => {
 	
 	const {code, isError, response } = await dame.get("https://gorest.co.in/public/v1/users", {

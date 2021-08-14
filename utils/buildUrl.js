@@ -6,6 +6,7 @@ module.exports = function buildUrl(url, dameInstance) {
 	
 	if (dameInstance.baseUrl) return dameInstance.baseUrl + url;
 	
+	/* istanbul ignore next */ 
 	return url;
 	
 };
