@@ -77,7 +77,7 @@ module.exports = function requestNode({
 	
 	const _request = (fullUrl) => {
 		
-		if (totalRedirects >= 5) return {
+		if (totalRedirects >= 10) return {
 			isError: true,
 			code: 0,
 			status: "Error",
