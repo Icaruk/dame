@@ -6,7 +6,7 @@
 
 
 [![dame package size](https://packagephobia.now.sh/badge?p=dame)](https://packagephobia.now.sh/result?p=dame) [![dame package size minzipped](https://badgen.net/bundlephobia/minzip/dame)](https://badgen.net/bundlephobia/minzip/dame) [![dame dependency count](https://badgen.net/bundlephobia/dependency-count/dame)](https://badgen.net/bundlephobia/dependency-count/dame)
-[![Coverage Status](https://coveralls.io/repos/github/Icaruk/dame/badge.svg)](https://coveralls.io/github/Icaruk/dame)
+[![Coverage Status](https://coveralls.io/repos/github/Icaruk/dame/badge.svg?branch=master)](https://coveralls.io/github/Icaruk/dame?branch=master)
 
 <br>
 
