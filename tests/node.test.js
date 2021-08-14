@@ -2,7 +2,8 @@
 * @jest-environment node
 */
 
-describe("node GET", () => {
+describe("node", () => {
 	require("./fnc/get");
 	require("./fnc/crud");
+	require("./fnc/redirects");
 });

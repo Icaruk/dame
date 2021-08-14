@@ -8,7 +8,8 @@ beforeAll( () => {
 });
 
 
-describe("web GET", () => {
+describe("web", () => {
 	require("./fnc/get");
 	require("./fnc/crud");
+	require("./fnc/redirects");
 });

@@ -23,11 +23,11 @@ var buildUrl$1 = function buildUrl(url, dameInstance) {
 
 var buildHeaders$1 = function buildHeaders(config, dameInstance = {}) {
 	
-	const optionHeaders = config.headers;
+	const configHeaders = config.headers;
 	const dameInstanceHeaders = dameInstance.headers;
 	
-	if (optionHeaders && dameInstanceHeaders) return {...dameInstanceHeaders, ...optionHeaders};
-	if (optionHeaders) return optionHeaders;
+	if (configHeaders && dameInstanceHeaders) return {...dameInstanceHeaders, ...configHeaders};
+	if (configHeaders) return configHeaders;
 	if (dameInstanceHeaders) return dameInstanceHeaders;
 	
 	return {};
@@ -107,15 +107,6 @@ var requestWeb = function requestWeb({
 		};
 	}	
 	
-	// if (!window.navigator.onLine) return {
-	// 	isError: true,
-	// 	code: -2,
-	// 	status: "No internet connection",
-	// 	response: null,
-	// 	error: null,
-	// };
-	
-	
 	
 	return new Promise( async resolve => {
 		
@@ -126,6 +117,12 @@ var requestWeb = function requestWeb({
 				...config,
 			};
 			if (method !== "GET") _fetchOptions.body = body;
+			
+			
+			// Redirect options
+			const maxRedirects = instance.maxRedirects || options.maxRedirects || 5;
+			if (maxRedirects === 0) _fetchOptions.redirect = "error";
+			
 			
 			
 			let response = await window.fetch(fullUrl, _fetchOptions);
@@ -246,16 +243,18 @@ var requestNode = function requestNode({
 	
 	
 	let totalRedirects = 0;
+	const maxRedirects = instance.maxRedirects || options.maxRedirects || 5;
 	
 	
 	const _request = (fullUrl) => {
 		
-		if (totalRedirects >= 5) return {
+		if (maxRedirects > 0 && totalRedirects > maxRedirects) return {
 			isError: true,
 			code: 0,
 			status: "Error",
 			response: null,
-			error: "Too many redirects"
+			error: "Too many redirects",
+			redirectCount: totalRedirects,
 		};
 		
 		
@@ -275,18 +274,19 @@ var requestNode = function requestNode({
 						const headers = res.headers;
 						
 						
-						
 						// Compruebo redirect
-						if (res.statusCode > 300 && res.statusCode < 400) {
-							if (url.parse(headers.location).hostname) {
-								totalRedirects ++;
-								resolve(_request(headers.location));
-							} else {
-								const parsedUrl = url.parse(fullUrl);
-								const newUrl = `${parsedUrl.protocol}//${parsedUrl.host}${headers.location}`;
-								
-								totalRedirects ++;
-								resolve(_request(newUrl));
+						if (maxRedirects > 0) {
+							if (res.statusCode > 300 && res.statusCode < 400) {
+								if (url.parse(headers.location).hostname) {
+									totalRedirects ++;
+									resolve(_request(headers.location));
+								} else {
+									const parsedUrl = url.parse(fullUrl);
+									const newUrl = `${parsedUrl.protocol}//${parsedUrl.host}${headers.location}`;
+									
+									totalRedirects ++;
+									resolve(_request(newUrl));
+								};
 							};
 						};
 						
@@ -320,6 +320,7 @@ var requestNode = function requestNode({
 							code: res.statusCode,
 							status: res.statusMessage,
 							response: data,
+							redirectCount: totalRedirects,
 						});
 						
 					});
@@ -394,20 +395,26 @@ const postWrapper = (_arguments, method, dameInstance) => {
 	let [url, body = {}, config = {}] = _arguments;
 	
 	
-	if (body && typeof body === "object") body = JSON.stringify(body);
-	
 	const fullUrl = buildUrl(url, dameInstance);
-	const headers = buildHeaders(config, dameInstance);
-	
+	let headers = buildHeaders(config, dameInstance);
 	
 	
 	const fncRequest = (typeof window !== "undefined") ? requestWeb : requestNode;
 	
 	
+	
+	if (!headers["Content-Type"]) headers["Content-Type"] = "application/json";
+	
+	if (
+		headers["Content-Type"] === "application/json" &&
+		body &&
+		typeof body === "object"
+	) {
+		body = JSON.stringify(body);
+	}	
 	config.headers = {
-		"Content-Type": "application/json",
-		"Content-Length": body.length,
 		...headers,
+		"Content-Length": body.length || 0,
 	};
 	
 	
@@ -477,21 +484,12 @@ class Dame {
 	
 	constructor(constructorOptions = {}) {
 		
-		const {
-			baseUrl,
-			options = {},
-			headers = {},
-			checkIsError = fncCheckIsError,
-			timeout
-		} = constructorOptions;
-		
-		
-		
-		this.baseUrl = baseUrl;
-		this.options = options;
-		this.headers = headers;
-		this.checkIsError = checkIsError;
-		this.timeout = timeout;
+		this.baseUrl = constructorOptions.baseUrl;
+		this.options = constructorOptions.options || {};
+		this.headers = constructorOptions.headers || {};
+		this.checkIsError = constructorOptions.checkIsError || fncCheckIsError;
+		this.timeout = constructorOptions.timeout;
+		this.maxRedirects = constructorOptions.maxRedirects || 5;
 		
 	};
 	

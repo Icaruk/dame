@@ -46,15 +46,18 @@ app.get("/", (req, res) => {
 app.get("/redir", (req, res) => {
 	
 	let {
-		times = 0
+		extra = 0
 	} = req.query;
 	
-	times = +times;
+	extra = +extra;
 	
-	console.log( "times", `(${typeof times}): `, times);
-	if (times > 0) return res.redirect(301, `/redir?times=${--times}`);
 	
-	res.redirect(301, "/redirected");
+	if (extra > 0) {
+		return res.redirect(301, `/redir?extra=${--extra}`);
+	} else {
+		res.redirect(301, "/redirected");
+	};
+	
 });
 app.get("/redirected", (req, res) => {
 	res.send({
@@ -164,9 +167,6 @@ app.delete("/user", (req, res) => {
 
 
 app.post('/image', (req, res) => {
-
-	console.log("req.files", `(${typeof req.files}): `, req.files);
-
 	res.json('/image api');
 });
 

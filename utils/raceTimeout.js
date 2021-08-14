@@ -1,11 +1,10 @@
 
+const buildTimeout = require("./buildTimeout");
+
+
 module.exports = function raceTimeout(promise, options, dameInstance) {
 	
-	let timeout;
-	
-	if (dameInstance.timeout) timeout = dameInstance.timeout;
-	if (options.timeout) timeout = options.timeout;
-	
+	let timeout = buildTimeout(options, dameInstance);
 	
 	
 	if (timeout) {

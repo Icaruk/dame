@@ -5,9 +5,10 @@
 </div>
 
 
-[![dame package size](https://packagephobia.now.sh/badge?p=dame)](https://packagephobia.now.sh/result?p=dame) [![dame package size minzipped](https://badgen.net/bundlephobia/minzip/dame)](https://badgen.net/bundlephobia/minzip/dame)
-[![dame dependency count](https://badgen.net/bundlephobia/dependency-count/dame)](https://badgen.net/bundlephobia/dependency-count/dame)
+[![dame package size](https://packagephobia.now.sh/badge?p=dame)](https://packagephobia.now.sh/result?p=dame) [![dame package size minzipped](https://badgen.net/bundlephobia/minzip/dame)](https://badgen.net/bundlephobia/minzip/dame) [![dame dependency count](https://badgen.net/bundlephobia/dependency-count/dame)](https://badgen.net/bundlephobia/dependency-count/dame)
+[![Coverage Status](https://coveralls.io/repos/github/Icaruk/dame/badge.svg)](https://coveralls.io/github/Icaruk/dame)
 
+<br>
 
 **dame** minimalistic HTTP client for the browser and Node.js
 
@@ -19,6 +20,7 @@
 - ⌛ Custom **timeout**.
 - 📄 Automatic transforms to **JSON** data.
 - 🔧 **Configurable**.
+- ⏭ Follows **redirects**.
 
 
 
@@ -95,7 +97,8 @@ let {response} = dame.post("https://your.api.com/login", {
 	code: 200,
 	status: "OK",
 	response: {...},
-	error: null
+	error: null,
+	redirectCount: 3,
 }
 ```
 
@@ -104,6 +107,7 @@ let {response} = dame.post("https://your.api.com/login", {
 - **status** `string`: Status.
 - **response** `any`: Response of the request.
 - **error** `any`: If there was any error during the request it will be here.
+- **redirectCount** `number`: How many redirects have been followed. Not present if there have been no redirects.
 
 <br>
 
@@ -163,6 +167,7 @@ const {response} = dame.post(url, body, config);
 - **timeout** `object`: Number of miliseconds that must pass before timeout the request.
 - **checkIsError** `function<boolean>`: Function that will receive the status code (`number`) and must return `boolean`. Default `isError = !(code >= 200 && < 300)`.
 - Any option that fits on [request](https://nodejs.org/api/https.html#https_https_request_url_options_callback) or [fetch](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch).
+- **maxRedirects** `number`: Max redirects to follow. Default 20. Use 0 to disable redirects.
 
 
 

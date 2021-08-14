@@ -1,4 +1,8 @@
 
+const buildMaxRedirects = require("./buildMaxRedirects");
+
+
+
 /**
  * @typedef Options
  * @property {"GET" | "POST" | "PUT" | "DELETE" | "PATCH"} method
@@ -72,17 +76,22 @@ module.exports = function requestNode({
 	};
 	
 	
+	
+	// Redirect config
 	let totalRedirects = 0;
+	let maxRedirects = buildMaxRedirects(config, instance);
+	
 	
 	
 	const _request = (fullUrl) => {
 		
-		if (totalRedirects >= 10) return {
+		if (maxRedirects > 0 && totalRedirects > maxRedirects) return {
 			isError: true,
 			code: 0,
 			status: "Error",
 			response: null,
-			error: "Too many redirects"
+			error: "Too many redirects",
+			redirectCount: totalRedirects,
 		};
 		
 		
@@ -102,18 +111,19 @@ module.exports = function requestNode({
 						const headers = res.headers;
 						
 						
-						
 						// Compruebo redirect
-						if (res.statusCode > 300 && res.statusCode < 400) {
-							if (url.parse(headers.location).hostname) {
-								totalRedirects ++;
-								resolve(_request(headers.location));
-							} else {
-								const parsedUrl = url.parse(fullUrl);
-								const newUrl = `${parsedUrl.protocol}//${parsedUrl.host}${headers.location}`;
-								
-								totalRedirects ++;
-								resolve(_request(newUrl));
+						if (maxRedirects > 0) {
+							if (res.statusCode > 300 && res.statusCode < 400) {
+								if (url.parse(headers.location).hostname) {
+									totalRedirects ++;
+									resolve(_request(headers.location));
+								} else {
+									const parsedUrl = url.parse(fullUrl);
+									const newUrl = `${parsedUrl.protocol}//${parsedUrl.host}${headers.location}`;
+									
+									totalRedirects ++;
+									resolve(_request(newUrl));
+								};
 							};
 						};
 						
@@ -147,6 +157,7 @@ module.exports = function requestNode({
 							code: res.statusCode,
 							status: res.statusMessage,
 							response: data,
+							redirectCount: totalRedirects,
 						});
 						
 					});

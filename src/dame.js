@@ -63,7 +63,8 @@ const postWrapper = (_arguments, method, dameInstance) => {
 /**
  * @typedef Config
  * @property {Object} headers
- * @property {number} timeout Number of miliseconds for the timeout.
+ * @property {number} [timeout] Number of miliseconds for the timeout.
+ * @property {number} [maxRedirects=20] Max redirects to follow. Default 20. Use 0 to disable redirects.
  * @property {*} requestOptions Request or fetch extra options.
 */
 
@@ -101,21 +102,12 @@ class Dame {
 	
 	constructor(constructorOptions = {}) {
 		
-		const {
-			baseUrl,
-			options = {},
-			headers = {},
-			checkIsError = fncCheckIsError,
-			timeout
-		} = constructorOptions;
-		
-		
-		
-		this.baseUrl = baseUrl;
-		this.options = options;
-		this.headers = headers;
-		this.checkIsError = checkIsError;
-		this.timeout = timeout;
+		this.baseUrl = constructorOptions.baseUrl;
+		this.options = constructorOptions.options || {};
+		this.headers = constructorOptions.headers || {};
+		this.checkIsError = constructorOptions.checkIsError || fncCheckIsError;
+		this.timeout = constructorOptions.timeout;
+		this.maxRedirects = constructorOptions.maxRedirects || 20;
 		
 	};
 	
@@ -130,8 +122,8 @@ class Dame {
 		config.headers = headers;
 		
 		
-		const fncRequest = (typeof window !== "undefined") ? require("../utils/requestWeb") : require("../utils/requestNode");
-		
+		const hasWindow = typeof window !== "undefined";
+		const fncRequest = hasWindow ? require("../utils/requestWeb") : require("../utils/requestNode");
 		
 		
 		let promise = fncRequest({
@@ -142,7 +134,8 @@ class Dame {
 		});
 		
 		
-		return raceTimeout(promise, config, this);
+		if (hasWindow) return promise;
+		else return raceTimeout(promise, config, this);
 		
 	}
 	

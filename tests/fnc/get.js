@@ -67,18 +67,17 @@ test("get_pre_checkIsError", async () => {
 
 
 
-
 test("get_timeout", async () => {
 	
-	const {code, status, isError, response } = await dame.get("https://gorest.co.in/public/v1/users", {
+	const res = await dame.get("http://gorest.co.in/public/v1/users", {
 		timeout: 1
 	});
+	const {code, status, isError, response } = res;
 	
-	
-	expect(code).toBe(0);
 	expect(isError).toBe(true);
-	expect(response).toBe(null);
+	expect(code).toBe(0);
 	expect(status).toBe("Timed out");
+	expect(response).toBe(null);
 	
 });
 
@@ -90,7 +89,9 @@ test("get_pre_timeout", async () => {
 		timeout: 1,
 	});
 	
-	const {code, status, isError, response } = await dameGoRest.get("https://gorest.co.in/public/v1/users");
+	
+	const dameRes = await dameGoRest.get("https://gorest.co.in/public/v1/users");
+	const {code, isError, response, status} = dameRes;
 	
 	
 	expect(code).toBe(0);
@@ -108,13 +109,15 @@ test("get_pre_vs_config_timeout", async () => {
 		timeout: 1,
 	});
 	
-	const {code, isError} = await dameGoRest.get("https://gorest.co.in/public/v1/users", {
-		timeout: 10000,
+	const res = await dameGoRest.get("https://gorest.co.in/public/v1/users", {
+		timeout: 6000,
 	});
 	
+	const {isError, code} = res;
 	
-	expect(code).toBe(200);
+	
 	expect(isError).toBe(false);
+	expect(code).toBe(200);
 	
 });
 
