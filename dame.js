@@ -1,14 +1,14 @@
 'use strict';
 
-var require$$0 = require('https');
-var require$$1 = require('http');
-var require$$2 = require('url');
+var require$$1 = require('https');
+var require$$2 = require('http');
+var require$$3 = require('url');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
-var require$$0__default = /*#__PURE__*/_interopDefaultLegacy(require$$0);
 var require$$1__default = /*#__PURE__*/_interopDefaultLegacy(require$$1);
 var require$$2__default = /*#__PURE__*/_interopDefaultLegacy(require$$2);
+var require$$3__default = /*#__PURE__*/_interopDefaultLegacy(require$$3);
 
 var buildUrl$1 = function buildUrl(url, dameInstance) {
 	
@@ -34,13 +34,18 @@ var buildHeaders$1 = function buildHeaders(config, dameInstance = {}) {
 	
 };
 
+var buildTimeout$2 = function buildTimeout(config, instance) {
+	if (config.timeout) return config.timeout;
+	if (instance.timeout) return instance.timeout;
+	return null;
+};
+
+const buildTimeout$1 = buildTimeout$2;
+
+
 var raceTimeout$1 = function raceTimeout(promise, options, dameInstance) {
 	
-	let timeout;
-	
-	if (dameInstance.timeout) timeout = dameInstance.timeout;
-	if (options.timeout) timeout = options.timeout;
-	
+	let timeout = buildTimeout$1(options, dameInstance);
 	
 	
 	if (timeout) {
@@ -67,6 +72,20 @@ var checkIsError = function checkIsError(code) {
 	if (!code) return true;
 	return !(code >= 200 && code < 300);
 };
+
+var buildMaxRedirects$2 = function buildMaxRedirects(config, instance) {
+	
+	if (config.maxRedirects !== null && config.maxRedirects !== undefined) {
+		return config.maxRedirects;
+	} else {
+		return  instance.maxRedirects;
+	}	
+};
+
+const buildMaxRedirects$1 = buildMaxRedirects$2;
+const buildTimeout = buildTimeout$2;
+
+
 
 /**
  * @typedef Options
@@ -114,49 +133,106 @@ var requestWeb = function requestWeb({
 			
 			const _fetchOptions = {
 				method,
+				redirect: "manual",
 				...config,
 			};
 			if (method !== "GET") _fetchOptions.body = body;
 			
 			
-			// Redirect options
-			const maxRedirects = instance.maxRedirects || options.maxRedirects || 5;
-			if (maxRedirects === 0) _fetchOptions.redirect = "error";
+			
+			// Redirect config
+			let totalRedirects = 0;
+			let maxRedirects = buildMaxRedirects$1(config, instance);
+			
+			
+			// Timeout
+			_fetchOptions.timeout = buildTimeout(config, instance);
 			
 			
 			
-			let response = await window.fetch(fullUrl, _fetchOptions);
-			let data = response;
-			
-			
-			const contentType = response.headers.get("Content-Type").split("; "); // 'application/json; charset=utf-8';
-			const contentTypeLow = contentType[0].toLowerCase();
-			
-			
-			try {
-				if (contentTypeLow.startsWith("application/json")) {
-					const json = await response.json();
-					data = json;
-				} else if (contentTypeLow.startsWith("text")) {
-					data.toString();
+			const _request = async (fullUrl) => {
+				
+				if (maxRedirects > 0 && totalRedirects > maxRedirects) return resolve({
+					isError: true,
+					code: 0,
+					status: "Error",
+					response: null,
+					error: "Too many redirects",
+					redirected: true,
+					redirectCount: totalRedirects,
+				});
+				
+				
+				
+				let response = await window.fetch(fullUrl, _fetchOptions);
+				const responseHeaders = response.headers;
+				const redirectLocation = responseHeaders.get("location");
+				
+				
+				// Compruebo redirect
+				if (maxRedirects > 0) {
+					if (response.status > 300 && response.status < 400) {
+						
+						const url = new URL(redirectLocation);
+						
+						if (url.hostname) {
+							totalRedirects ++;
+							return _request(redirectLocation);
+						} else {
+							const newUrl = `${url.protocol}//${url.host}${redirectLocation}`;
+							
+							totalRedirects ++;
+							return _request(newUrl);
+						};
+					};
 				};
-			} catch (err) {};
+				
+				
+				let data = response;
+				const contentType = response.headers.get("Content-Type").split("; "); // 'application/json; charset=utf-8';
+				const contentTypeLow = contentType[0].toLowerCase();
+				
+				
+				try {
+					if (contentTypeLow.startsWith("application/json")) {
+						const json = await response.json();
+						data = json;
+					} else if (contentTypeLow.startsWith("text")) {
+						data.toString();
+					};
+				} catch (err) {};
+				
+				
+				
+				const checkIsError = config.checkIsError || instance.checkIsError;
+				const isError = checkIsError(response.status);
+				
+				
+				
+				resolve({
+					isError: isError,
+					code: response.status,
+					status: response.statusText,
+					response: data,
+					redirectCount: totalRedirects,
+				});
+				
+			};
 			
 			
+			return await _request(fullUrl);
 			
-			const checkIsError = config.checkIsError || instance.checkIsError;
-			const isError = checkIsError(response.status);
-			
-			
-			
-			resolve({
-				isError: isError,
-				code: response.status,
-				status: response.statusText,
-				response: data,
-			});
 			
 		} catch (err) {
+			
+			if (err.type === "request-timeout") {
+				resolve({
+					isError: true,
+					code: 0,
+					status: 'Timed out',
+					response: null,
+				});				
+			}			
 			
 			resolve({
 				isError: true,
@@ -170,6 +246,10 @@ var requestWeb = function requestWeb({
 	});
 	
 };
+
+const buildMaxRedirects = buildMaxRedirects$2;
+
+
 
 /**
  * @typedef Options
@@ -200,9 +280,9 @@ var requestNode = function requestNode({
 	instance,
 }) {
 	
-	const https = require$$0__default['default'];
-	const http = require$$1__default['default'];
-	const url = require$$2__default['default'];
+	const https = require$$1__default['default'];
+	const http = require$$2__default['default'];
+	const url = require$$3__default['default'];
 	
 	
 	
@@ -242,8 +322,11 @@ var requestNode = function requestNode({
 	};
 	
 	
+	
+	// Redirect config
 	let totalRedirects = 0;
-	const maxRedirects = instance.maxRedirects || options.maxRedirects || 5;
+	let maxRedirects = buildMaxRedirects(config, instance);
+	
 	
 	
 	const _request = (fullUrl) => {
@@ -446,7 +529,8 @@ const postWrapper = (_arguments, method, dameInstance) => {
 /**
  * @typedef Config
  * @property {Object} headers
- * @property {number} timeout Number of miliseconds for the timeout.
+ * @property {number} [timeout] Number of miliseconds for the timeout.
+ * @property {number} [maxRedirects=20] Max redirects to follow. Default 20. Use 0 to disable redirects.
  * @property {*} requestOptions Request or fetch extra options.
 */
 
@@ -489,7 +573,7 @@ class Dame {
 		this.headers = constructorOptions.headers || {};
 		this.checkIsError = constructorOptions.checkIsError || fncCheckIsError;
 		this.timeout = constructorOptions.timeout;
-		this.maxRedirects = constructorOptions.maxRedirects || 5;
+		this.maxRedirects = constructorOptions.maxRedirects || 20;
 		
 	};
 	
@@ -504,8 +588,8 @@ class Dame {
 		config.headers = headers;
 		
 		
-		const fncRequest = (typeof window !== "undefined") ? requestWeb : requestNode;
-		
+		const hasWindow = typeof window !== "undefined";
+		const fncRequest = hasWindow ? requestWeb : requestNode;
 		
 		
 		let promise = fncRequest({
@@ -516,7 +600,8 @@ class Dame {
 		});
 		
 		
-		return raceTimeout(promise, config, this);
+		if (hasWindow) return promise;
+		else return raceTimeout(promise, config, this);
 		
 	}
 	

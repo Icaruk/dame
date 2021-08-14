@@ -19,9 +19,11 @@
 - 👉 **Promise** API.
 - ⌛ Custom **timeout**.
 - 📄 Automatic transforms to **JSON** data.
-- 🔧 **Configurable**.
 - ⏭ Follows **redirects**.
 
+<br>
+
+📃 [Changelog](https://github.com/Icaruk/dame/releases)
 
 
 <br><br>

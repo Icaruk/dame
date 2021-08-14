@@ -7,9 +7,9 @@
 		"url": "https://github.com/Icaruk/dame"
 	},
 	"bugs": {
-		"url": "https://github.com/Icaruk/dame"
+		"url": "https://github.com/Icaruk/dame/issues"
 	},
-	"homepage": "https://github.com/Icaruk",
+	"homepage": "https://github.com/Icaruk/dame",
 	"scripts": {
 		"test": "jest",
 		"test_coveralls": "jest && coveralls < coverage/lcov.info",
