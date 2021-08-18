@@ -1,68 +1,4 @@
-declare module "utils/buildUrl" {
-    function _exports(url: any, dameInstance: any): any;
-    export = _exports;
-}
-declare module "utils/buildHeaders" {
-    function _exports(config: any, dameInstance?: {}): any;
-    export = _exports;
-}
-declare module "utils/buildTimeout" {
-    function _exports(config: any, instance: any): any;
-    export = _exports;
-}
-declare module "utils/raceTimeout" {
-    function _exports(promise: any, options: any, dameInstance: any): any;
-    export = _exports;
-}
-declare module "utils/checkIsError" {
-    function _exports(code: any): boolean;
-    export = _exports;
-}
-declare module "utils/buildMaxRedirects" {
-    function _exports(config: any, instance: any): any;
-    export = _exports;
-}
-declare module "utils/requestWeb" {
-    export function _exports({ method, fullUrl, body, config, instance, }: RequestWebOptions): Promise<ResponseWeb>;
-    export type RequestWebOptions = {
-        method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
-        fullUrl: string;
-        body: any;
-        config: any;
-        /**
-         * Dame instance
-         */
-        instance: any;
-    };
-    export type ResponseWeb = {
-        isError: boolean;
-        code: number;
-        status: string;
-        response: any;
-        error: any | null;
-    };
-}
-declare module "utils/requestNode" {
-    export function _exports({ method, fullUrl, body, config, instance, }: RequestNodeOptions): Promise<ResponseNode>;
-    export type RequestNodeOptions = {
-        method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
-        fullUrl: string;
-        body: any;
-        config: any;
-        /**
-         * Dame instance
-         */
-        instance: any;
-    };
-    export type ResponseNode = {
-        isError: boolean;
-        code: number;
-        status: string;
-        response: any;
-        error: any | null;
-    };
-}
-declare module "src/dame" {
+declare module "dame" {
     export type Response = {
         isError: boolean;
         code: number;
@@ -98,6 +34,7 @@ declare module "src/dame" {
         patch: PostFnc;
         delete: PostFnc;
         new: NewFnc;
+        instances: Array<DameInstance>;
         baseUrl: string;
         options: any;
         headers: any;
@@ -151,6 +88,8 @@ declare module "src/dame" {
      * @property {PostFnc} delete
      * @property {NewFnc} new
      *
+     * @property {Array<DameInstance>} instances
+     *
      * @property {string} baseUrl
      * @property {*} options
      * @property {*} headers
@@ -166,26 +105,26 @@ declare module "src/dame" {
         checkIsError: any;
         timeout: any;
         maxRedirects: any;
+        instances: any[];
         get(url: any, config?: {}): any;
         post(...args: any[]): any;
         put(...args: any[]): any;
         patch(...args: any[]): any;
         delete(...args: any[]): any;
         new(config: any, instanceName: any): Dame;
-        instances: {};
     }
-    export const baseUrl: any;
-    export const options: any;
-    export const headers: any;
-    export const checkIsError: any;
-    export const timeout: any;
-    export const maxRedirects: any;
     export function get(url: any, config?: {}): any;
     export function post(...args: any[]): any;
     export function put(...args: any[]): any;
     export function patch(...args: any[]): any;
     function _delete(...args: any[]): any;
     function _new(config: any, instanceName: any): Dame;
-    export const instances: {};
     export { _delete as delete, _new as new };
+    export const baseUrl: any;
+    export const options: any;
+    export const headers: any;
+    export const checkIsError: any;
+    export const timeout: any;
+    export const maxRedirects: any;
+    export const instances: any[];
 }

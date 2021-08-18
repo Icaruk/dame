@@ -111,6 +111,8 @@ const postWrapper = (_arguments, method, dameInstance) => {
  * @property {PostFnc} delete
  * @property {NewFnc} new
  * 
+ * @property {Array<DameInstance>} instances
+ * 
  * @property {string} baseUrl
  * @property {*} options
  * @property {*} headers
@@ -129,6 +131,7 @@ class Dame {
 		this.checkIsError = constructorOptions.checkIsError || fncCheckIsError;
 		this.timeout = constructorOptions.timeout;
 		this.maxRedirects = constructorOptions.maxRedirects || 20;
+		this.instances = [];
 		
 	};
 	
