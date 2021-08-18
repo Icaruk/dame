@@ -17,6 +17,7 @@ var buildUrl$1 = function buildUrl(url, dameInstance) {
 	
 	if (dameInstance.baseUrl) return dameInstance.baseUrl + url;
 	
+	/* istanbul ignore next */ 
 	return url;
 	
 };
@@ -26,9 +27,12 @@ var buildHeaders$1 = function buildHeaders(config, dameInstance = {}) {
 	const configHeaders = config.headers;
 	const dameInstanceHeaders = dameInstance.headers;
 	
-	if (configHeaders && dameInstanceHeaders) return {...dameInstanceHeaders, ...configHeaders};
-	if (configHeaders) return configHeaders;
-	if (dameInstanceHeaders) return dameInstanceHeaders;
+	const configHeadersOk = configHeaders && Object.keys(configHeaders).length > 0;
+	const dameInstanceHeadersOk = dameInstanceHeaders && Object.keys(dameInstanceHeaders).length > 0;
+	
+	if (configHeadersOk && dameInstanceHeadersOk) return {...dameInstanceHeaders, ...configHeaders};
+	if (configHeadersOk) return configHeaders;
+	if (dameInstanceHeadersOk) return dameInstanceHeaders;
 	
 	return {};
 	
@@ -88,11 +92,12 @@ const buildTimeout = buildTimeout$2;
 
 
 /**
- * @typedef Options
+ * @typedef RequestWebOptions
  * @property {"GET" | "POST" | "PUT" | "DELETE" | "PATCH"} method
  * @property {string} fullUrl
- * @property {*} headers
  * @property {*} body
+ * @property {*} config
+ * @property {*} instance Dame instance
 */
 
 /**
@@ -105,7 +110,7 @@ const buildTimeout = buildTimeout$2;
 */
 
 /**
- * @param {Options}
+ * @param {RequestWebOptions}
  * @returns {Promise<ResponseWeb>}
 */
 var requestWeb = function requestWeb({
@@ -252,11 +257,12 @@ const buildMaxRedirects = buildMaxRedirects$2;
 
 
 /**
- * @typedef Options
+ * @typedef RequestNodeOptions
  * @property {"GET" | "POST" | "PUT" | "DELETE" | "PATCH"} method
  * @property {string} fullUrl
- * @property {*} headers
  * @property {*} body
+ * @property {*} config
+ * @property {*} instance Dame instance
 */
 
 /**
@@ -269,7 +275,7 @@ const buildMaxRedirects = buildMaxRedirects$2;
 */
 
 /**
- * @param {Options}
+ * @param {RequestNodeOptions}
  * @returns {Promise<ResponseNode>}
 */
 var requestNode = function requestNode({
@@ -557,12 +563,33 @@ const postWrapper = (_arguments, method, dameInstance) => {
 
 
 
+
 /**
+ * Creates a new instance of dame with pre-set configuration.
  * @callback NewFnc
- * @param {Config} [config] Config
+ * @param {Config} config 
+ * @param {string} [instanceName] If set, the instance will be saved on `dame.instances.<instanceName>`.
+ * @returns {DameInstance}
 */
 
 
+
+/**
+ * @typedef DameInstance
+ * @property {GetFnc} get
+ * @property {PostFnc} post
+ * @property {PostFnc} put
+ * @property {PostFnc} patch
+ * @property {PostFnc} delete
+ * @property {NewFnc} new
+ * 
+ * @property {string} baseUrl
+ * @property {*} options
+ * @property {*} headers
+ * @property {function} checkIsError
+ * @property {number} timeout
+ * @property {number} maxRedirects
+*/
 
 class Dame {
 	
@@ -579,7 +606,6 @@ class Dame {
 	
 	
 	
-	/** @type {GetFnc} */
     get(url, config = {}) {
 		
 		const fullUrl = buildUrl(url, this);
@@ -605,34 +631,22 @@ class Dame {
 		
 	}
 	
-	/** @type {PostFnc} */
     post() {
 		return postWrapper(arguments, "POST", this);
 	}
 	
-	/** @type {PostFnc} */
     put() {
 		return postWrapper(arguments, "PUT", this);
 	}
 	
-	/** @type {PostFnc} */
     patch() {
 		return postWrapper(arguments, "PATCH", this);
 	}
 	
-	/** @type {PostFnc} */
     delete() {
 		return postWrapper(arguments, "DELETE", this);
 	}
 	
-	
-	
-	/**
-	 * Creates a new instance of dame with pre-set configuration.
-	 * @param {Config} config 
-	 * @param {string} [instanceName] If set, the instance will be saved on `dame.instances.<instanceName>`.
-	 * @returns 
-	*/
 	new(config, instanceName) {
 		
 		const instance = new Dame(config);

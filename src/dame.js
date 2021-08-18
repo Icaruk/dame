@@ -91,12 +91,33 @@ const postWrapper = (_arguments, method, dameInstance) => {
 
 
 
+
 /**
+ * Creates a new instance of dame with pre-set configuration.
  * @callback NewFnc
- * @param {Config} [config] Config
+ * @param {Config} config 
+ * @param {string} [instanceName] If set, the instance will be saved on `dame.instances.<instanceName>`.
+ * @returns {DameInstance}
 */
 
 
+
+/**
+ * @typedef DameInstance
+ * @property {GetFnc} get
+ * @property {PostFnc} post
+ * @property {PostFnc} put
+ * @property {PostFnc} patch
+ * @property {PostFnc} delete
+ * @property {NewFnc} new
+ * 
+ * @property {string} baseUrl
+ * @property {*} options
+ * @property {*} headers
+ * @property {function} checkIsError
+ * @property {number} timeout
+ * @property {number} maxRedirects
+*/
 
 class Dame {
 	
@@ -113,7 +134,6 @@ class Dame {
 	
 	
 	
-	/** @type {GetFnc} */
     get(url, config = {}) {
 		
 		const fullUrl = buildUrl(url, this);
@@ -139,34 +159,22 @@ class Dame {
 		
 	}
 	
-	/** @type {PostFnc} */
     post() {
 		return postWrapper(arguments, "POST", this);
 	}
 	
-	/** @type {PostFnc} */
     put() {
 		return postWrapper(arguments, "PUT", this);
 	}
 	
-	/** @type {PostFnc} */
     patch() {
 		return postWrapper(arguments, "PATCH", this);
 	}
 	
-	/** @type {PostFnc} */
     delete() {
 		return postWrapper(arguments, "DELETE", this);
 	}
 	
-	
-	
-	/**
-	 * Creates a new instance of dame with pre-set configuration.
-	 * @param {Config} config 
-	 * @param {string} [instanceName] If set, the instance will be saved on `dame.instances.<instanceName>`.
-	 * @returns 
-	*/
 	new(config, instanceName) {
 		
 		const instance = new Dame(config);

@@ -5,11 +5,12 @@ const buildTimeout = require("./buildTimeout");
 
 
 /**
- * @typedef Options
+ * @typedef RequestWebOptions
  * @property {"GET" | "POST" | "PUT" | "DELETE" | "PATCH"} method
  * @property {string} fullUrl
- * @property {*} headers
  * @property {*} body
+ * @property {*} config
+ * @property {*} instance Dame instance
 */
 
 /**
@@ -22,7 +23,7 @@ const buildTimeout = require("./buildTimeout");
 */
 
 /**
- * @param {Options}
+ * @param {RequestWebOptions}
  * @returns {Promise<ResponseWeb>}
 */
 module.exports = function requestWeb({

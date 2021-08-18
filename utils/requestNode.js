@@ -4,11 +4,12 @@ const buildMaxRedirects = require("./buildMaxRedirects");
 
 
 /**
- * @typedef Options
+ * @typedef RequestNodeOptions
  * @property {"GET" | "POST" | "PUT" | "DELETE" | "PATCH"} method
  * @property {string} fullUrl
- * @property {*} headers
  * @property {*} body
+ * @property {*} config
+ * @property {*} instance Dame instance
 */
 
 /**
@@ -21,7 +22,7 @@ const buildMaxRedirects = require("./buildMaxRedirects");
 */
 
 /**
- * @param {Options}
+ * @param {RequestNodeOptions}
  * @returns {Promise<ResponseNode>}
 */
 module.exports = function requestNode({

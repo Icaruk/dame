@@ -23,13 +23,16 @@ declare module "utils/buildMaxRedirects" {
     export = _exports;
 }
 declare module "utils/requestWeb" {
-    function _exports({ method, fullUrl, body, config, instance, }: Options): Promise<ResponseWeb>;
-    export = _exports;
-    export type Options = {
+    export function _exports({ method, fullUrl, body, config, instance, }: RequestWebOptions): Promise<ResponseWeb>;
+    export type RequestWebOptions = {
         method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
         fullUrl: string;
-        headers: any;
         body: any;
+        config: any;
+        /**
+         * Dame instance
+         */
+        instance: any;
     };
     export type ResponseWeb = {
         isError: boolean;
@@ -40,13 +43,16 @@ declare module "utils/requestWeb" {
     };
 }
 declare module "utils/requestNode" {
-    function _exports({ method, fullUrl, body, config, instance, }: Options): Promise<ResponseNode>;
-    export = _exports;
-    export type Options = {
+    export function _exports({ method, fullUrl, body, config, instance, }: RequestNodeOptions): Promise<ResponseNode>;
+    export type RequestNodeOptions = {
         method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
         fullUrl: string;
-        headers: any;
         body: any;
+        config: any;
+        /**
+         * Dame instance
+         */
+        instance: any;
     };
     export type ResponseNode = {
         isError: boolean;
@@ -81,7 +87,24 @@ declare module "src/dame" {
     };
     export type GetFnc = (url: any, config?: Config) => Promise<Response>;
     export type PostFnc = (url: any, body: any, config?: Config) => Promise<Response>;
-    export type NewFnc = (config?: Config) => any;
+    /**
+     * Creates a new instance of dame with pre-set configuration.
+     */
+    export type NewFnc = (config: Config, instanceName?: string) => DameInstance;
+    export type DameInstance = {
+        get: GetFnc;
+        post: PostFnc;
+        put: PostFnc;
+        patch: PostFnc;
+        delete: PostFnc;
+        new: NewFnc;
+        baseUrl: string;
+        options: any;
+        headers: any;
+        checkIsError: Function;
+        timeout: number;
+        maxRedirects: number;
+    };
     /**
      * @typedef Response
      * @property {boolean} isError
@@ -113,8 +136,27 @@ declare module "src/dame" {
      * @returns {Promise<Response>}
     */
     /**
+     * Creates a new instance of dame with pre-set configuration.
      * @callback NewFnc
-     * @param {Config} [config] Config
+     * @param {Config} config
+     * @param {string} [instanceName] If set, the instance will be saved on `dame.instances.<instanceName>`.
+     * @returns {DameInstance}
+    */
+    /**
+     * @typedef DameInstance
+     * @property {GetFnc} get
+     * @property {PostFnc} post
+     * @property {PostFnc} put
+     * @property {PostFnc} patch
+     * @property {PostFnc} delete
+     * @property {NewFnc} new
+     *
+     * @property {string} baseUrl
+     * @property {*} options
+     * @property {*} headers
+     * @property {function} checkIsError
+     * @property {number} timeout
+     * @property {number} maxRedirects
     */
     class Dame {
         constructor(constructorOptions?: {});
@@ -124,23 +166,12 @@ declare module "src/dame" {
         checkIsError: any;
         timeout: any;
         maxRedirects: any;
-        /** @type {GetFnc} */
-        get(url: any, config?: {}): Promise<Response>;
-        /** @type {PostFnc} */
-        post(...args: any[]): Promise<Response>;
-        /** @type {PostFnc} */
-        put(...args: any[]): Promise<Response>;
-        /** @type {PostFnc} */
-        patch(...args: any[]): Promise<Response>;
-        /** @type {PostFnc} */
-        delete(...args: any[]): Promise<Response>;
-        /**
-         * Creates a new instance of dame with pre-set configuration.
-         * @param {Config} config
-         * @param {string} [instanceName] If set, the instance will be saved on `dame.instances.<instanceName>`.
-         * @returns
-        */
-        new(config: Config, instanceName?: string): Dame;
+        get(url: any, config?: {}): any;
+        post(...args: any[]): any;
+        put(...args: any[]): any;
+        patch(...args: any[]): any;
+        delete(...args: any[]): any;
+        new(config: any, instanceName: any): Dame;
         instances: {};
     }
     export const baseUrl: any;
@@ -149,23 +180,12 @@ declare module "src/dame" {
     export const checkIsError: any;
     export const timeout: any;
     export const maxRedirects: any;
-    /** @type {GetFnc} */
-    export function get(url: any, config?: {}): Promise<Response>;
-    /** @type {PostFnc} */
-    export function post(...args: any[]): Promise<Response>;
-    /** @type {PostFnc} */
-    export function put(...args: any[]): Promise<Response>;
-    /** @type {PostFnc} */
-    export function patch(...args: any[]): Promise<Response>;
-    /** @type {PostFnc} */
-    function _delete(...args: any[]): Promise<Response>;
-    /**
-     * Creates a new instance of dame with pre-set configuration.
-     * @param {Config} config
-     * @param {string} [instanceName] If set, the instance will be saved on `dame.instances.<instanceName>`.
-     * @returns
-    */
-    function _new(config: Config, instanceName?: string): Dame;
+    export function get(url: any, config?: {}): any;
+    export function post(...args: any[]): any;
+    export function put(...args: any[]): any;
+    export function patch(...args: any[]): any;
+    function _delete(...args: any[]): any;
+    function _new(config: any, instanceName: any): Dame;
     export const instances: {};
     export { _delete as delete, _new as new };
 }
