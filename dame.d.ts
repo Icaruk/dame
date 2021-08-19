@@ -1,34 +1,13 @@
-
 declare module "dame" {
-    export type Response = {
-        isError: boolean;
-        code: number;
-        status: string;
-        response: any;
-        error: any | null;
-    };
-    export type Config = {
-        headers: any;
-        /**
-         * Number of miliseconds for the timeout.
-         */
-        timeout?: number;
-        /**
-         * Max redirects to follow. Default 20. Use 0 to disable redirects.
-         */
-        maxRedirects?: number;
-        /**
-         * Request or fetch extra options.
-         */
-        requestOptions: any;
-    };
-    export type GetFnc = (url: any, config?: Config) => Promise<Response>;
-    export type PostFnc = (url: any, body: any, config?: Config) => Promise<Response>;
+    export = dame;
     /**
-     * Creates a new instance of dame with pre-set configuration.
-     */
-    export type NewFnc = (config: Config, instanceName?: string) => DameInstance;
-    export type DameInstance = {
+     * @type {DameInstance}
+    */
+    const dame: DameInstance;
+    namespace dame {
+        export { Response, Config, GetFnc, PostFnc, NewFnc, DameInstance };
+    }
+    type DameInstance = {
         get: GetFnc;
         post: PostFnc;
         put: PostFnc;
@@ -43,76 +22,32 @@ declare module "dame" {
         timeout: number;
         maxRedirects: number;
     };
-    /**
-     * @typedef Response
-     * @property {boolean} isError
-     * @property {number} code
-     * @property {string} status
-     * @property {*} response
-     * @property {* | null} error
-    */
-    /**
-     * @typedef Config
-     * @property {Object} headers
-     * @property {number} [timeout] Number of miliseconds for the timeout.
-     * @property {number} [maxRedirects=20] Max redirects to follow. Default 20. Use 0 to disable redirects.
-     * @property {*} requestOptions Request or fetch extra options.
-    */
-    /**
-     * @callback GetFnc
-     * @param {Url} url Full URL or path. If it starts with `http://` or `https://` it will be treated as full URL. Otherwise it will be concatenated with `baseUrl`.
-     * @param {Config} [config] Config
-     *
-     * @returns {Promise<Response>}
-    */
-    /**
-     * @callback PostFnc
-     * @param {Url} url Full URL or path. If it starts with `http://` or `https://` it will be treated as full URL. Otherwise it will be concatenated with `baseUrl`.
-     * @param {Object} body Body of the request.
-     * @param {Config} [config] Config
-     *
-     * @returns {Promise<Response>}
-    */
+    type Response = {
+        isError: boolean;
+        code: number;
+        status: string;
+        response: any;
+        error: any | null;
+    };
+    type Config = {
+        headers: any;
+        /**
+         * Number of miliseconds for the timeout.
+         */
+        timeout?: number;
+        /**
+         * Max redirects to follow. Default 20. Use 0 to disable redirects.
+         */
+        maxRedirects?: number;
+        /**
+         * Request or fetch extra options.
+         */
+        requestOptions: any;
+    };
+    type GetFnc = (url: any, config?: Config) => Promise<Response>;
+    type PostFnc = (url: any, body: any, config?: Config) => Promise<Response>;
     /**
      * Creates a new instance of dame with pre-set configuration.
-     * @callback NewFnc
-     * @param {Config} config
-     * @param {string} [instanceName] If set, the instance will be saved on `dame.instances.<instanceName>`.
-     * @returns {DameInstance}
-    */
-    /**
-     * @typedef DameInstance
-     * @property {GetFnc} get
-     * @property {PostFnc} post
-     * @property {PostFnc} put
-     * @property {PostFnc} patch
-     * @property {PostFnc} delete
-     * @property {NewFnc} new
-     *
-     * @property {Array<DameInstance>} instances
-     *
-     * @property {string} baseUrl
-     * @property {*} options
-     * @property {*} headers
-     * @property {function} checkIsError
-     * @property {number} timeout
-     * @property {number} maxRedirects
-    */
-    class Dame {
-        constructor(constructorOptions?: {});
-		get: GetFnc;
-        post: PostFnc;
-        put: PostFnc;
-        patch: PostFnc;
-        delete: PostFnc;
-        new: NewFnc;
-        instances: Array<DameInstance>;
-        baseUrl: string;
-        options: any;
-        headers: any;
-        checkIsError: Function;
-        timeout: number;
-        maxRedirects: number;
-    }
+     */
+    type NewFnc = (config: Config, instanceName?: string) => DameInstance;
 }
-
