@@ -4,7 +4,7 @@ const app = express();
 const fs = require("fs");
 
 
-const port = 3000;
+const port = 3200;
 
 app.use(express.json());
 app.use(express.urlencoded({
@@ -32,8 +32,6 @@ const users = {};
 
 
 // -------------------------------------------------------------------------------------------------------------------------------
-
-
 
 app.get("/", (req, res) => {
 	res.send({
@@ -90,9 +88,9 @@ app.post("/user", (req, res) => {
 
 	const { authorization } = req.headers;
 	const { username, age } = req.body;
-
-
-	if (authorization !== ("Bearer" + token)) return res.status(401).send({ message: "Invalid token" });
+	
+	
+	if (authorization !== ("Bearer " + token)) return res.status(401).send({ message: "Invalid token" });
 
 
 	const userId = "id" + Date.now();
@@ -115,7 +113,7 @@ app.get("/user", (req, res) => {
 	const { id } = req.query;
 
 
-	if (authorization !== ("Bearer" + token)) return res.status(401).send({ message: "Invalid token" });
+	if (authorization !== ("Bearer " + token)) return res.status(401).send({ message: "Invalid token" });
 
 
 	if (users[id]) return res.send(users[id]);
@@ -130,7 +128,7 @@ app.patch("/user", (req, res) => {
 	const { age } = req.body;
 
 
-	if (authorization !== ("Bearer" + token)) return res.status(401).send({ message: "Invalid token" });
+	if (authorization !== ("Bearer " + token)) return res.status(401).send({ message: "Invalid token" });
 
 
 	if (users[id]) {
@@ -147,9 +145,9 @@ app.delete("/user", (req, res) => {
 
 	const { authorization } = req.headers;
 	const { id } = req.query;
+	
 
-
-	if (authorization !== ("Bearer" + token)) return res.status(401).send({ message: "Invalid token" });
+	if (authorization !== ("Bearer " + token)) return res.status(401).send({ message: "Invalid token" });
 
 
 	if (users[id]) {

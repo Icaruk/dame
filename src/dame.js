@@ -106,7 +106,7 @@ const postWrapper = (url, body, config = {}, method, dameInstance) => {
  * @property {PostFnc} post
  * @property {PostFnc} put
  * @property {PostFnc} patch
- * @property {PostFnc} delete
+ * @property {GetFnc} delete
  * @property {NewFnc} new
  * 
  * @property {Array<DameInstance>} instances

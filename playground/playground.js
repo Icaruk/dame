@@ -7,12 +7,10 @@ const qs = require("qs");
 
 (async() => {
 	
-	const dameGoRest = dame.new({
-		timeout: 1,
-	});
-	
-	const res = await dameGoRest.get("https://gorest.co.in/public/v1/users", {
-		timeout: 4000,
+	const res = await dame.delete("http://localhost:3200/user", {
+		headers: {
+			Authorization: "Bearer E36gf.7VbDs.ZAcP90.BVd3Df"
+		}
 	});
 	
 	console.log( res );

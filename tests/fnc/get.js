@@ -165,7 +165,7 @@ test("get_merge_headers", async () => {
 		},
 	});
 	
-	const {isError, code, response} = await dameIns.get("http://localhost:3000/", {
+	const {isError, code, response} = await dameIns.get("http://localhost:3200/", {
 		headers: {
 			CustomHeader: "1234",
 		}

@@ -40,15 +40,15 @@
 - [Basic examples](#basic-examples)
 - [Response object](#response-object)
 - [Methods](#methods)
-  - [get](#get)
-  - [post, put, delete, patch](#post-put-delete-patch)
+	- [get](#get)
+	- [post, put, delete, patch](#post-put-delete-patch)
 - [Config](#config)
 - [Creating an instance](#creating-an-instance)
-  - [Examples](#examples)
-  - [Editing an instance](#editing-an-instance)
+	- [Examples](#examples)
+	- [Editing an instance](#editing-an-instance)
 - [Special statuses](#special-statuses)
 - [dame vs. others](#dame-vs-others)
-- [☝ Return to top](#a-nametable-of-contentsa-return-to-toptable-of-contents)
+- [<a name='table-of-contents'></a>☝ Return to top](#-return-to-top)
 
 <!-- /code_chunk_output -->
 

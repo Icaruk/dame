@@ -5,7 +5,7 @@ const dame = require("../../src/dame");
 
 
 const dameApi = dame.new({
-	baseUrl: "http://localhost:3000",
+	baseUrl: "http://localhost:3200",
 });
 
 
@@ -38,7 +38,7 @@ test("login_ok", async () => {
 	expect(response.token).toBeTruthy();
 	
 	
-	dameApi.headers.Authorization = "Bearer" + response.token;
+	dameApi.headers.Authorization = "Bearer " + response.token;
 	
 });
 

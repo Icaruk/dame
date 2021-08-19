@@ -10,6 +10,6 @@ beforeAll( () => {
 
 describe("web", () => {
 	require("./fnc/get");
-	// require("./fnc/crud");
-	// require("./fnc/redirects");
+	require("./fnc/crud");
+	require("./fnc/redirects");
 });

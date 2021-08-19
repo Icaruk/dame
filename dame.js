@@ -479,10 +479,7 @@ const fncCheckIsError = checkIsError;
 
 
 
-const postWrapper = (_arguments, method, dameInstance) => {
-	
-	let [url, body = {}, config = {}] = _arguments;
-	
+const postWrapper = (url, body, config = {}, method, dameInstance) => {
 	
 	const fullUrl = buildUrl(url, dameInstance);
 	let headers = buildHeaders(config, dameInstance);
@@ -494,19 +491,20 @@ const postWrapper = (_arguments, method, dameInstance) => {
 	
 	if (!headers["Content-Type"]) headers["Content-Type"] = "application/json";
 	
+	config.headers = {
+		...headers,
+	};
+	
+	
 	if (
 		headers["Content-Type"] === "application/json" &&
 		body &&
 		typeof body === "object"
 	) {
 		body = JSON.stringify(body);
+		config.headers["Content-Length"] = body.length || 0;
 	}	
-	config.headers = {
-		...headers,
-		"Content-Length": body.length || 0,
-	};
-	
-	
+
 	
 	let promise = fncRequest({
 		method: method,
@@ -580,8 +578,10 @@ const postWrapper = (_arguments, method, dameInstance) => {
  * @property {PostFnc} post
  * @property {PostFnc} put
  * @property {PostFnc} patch
- * @property {PostFnc} delete
+ * @property {GetFnc} delete
  * @property {NewFnc} new
+ * 
+ * @property {Array<DameInstance>} instances
  * 
  * @property {string} baseUrl
  * @property {*} options
@@ -591,6 +591,11 @@ const postWrapper = (_arguments, method, dameInstance) => {
  * @property {number} maxRedirects
 */
 
+
+
+/**
+ * @type {DameInstance}
+*/
 class Dame {
 	
 	constructor(constructorOptions = {}) {
@@ -601,6 +606,7 @@ class Dame {
 		this.checkIsError = constructorOptions.checkIsError || fncCheckIsError;
 		this.timeout = constructorOptions.timeout;
 		this.maxRedirects = constructorOptions.maxRedirects || 20;
+		this.instances = [];
 		
 	};
 	
@@ -631,20 +637,20 @@ class Dame {
 		
 	}
 	
-    post() {
-		return postWrapper(arguments, "POST", this);
+    post(url, body, config) {
+		return postWrapper(url, body, config, "POST", this);
 	}
 	
-    put() {
-		return postWrapper(arguments, "PUT", this);
+    put(url, body, config) {
+		return postWrapper(url, body, config, "PUT", this);
 	}
 	
-    patch() {
-		return postWrapper(arguments, "PATCH", this);
+    patch(url, body, config) {
+		return postWrapper(url, body, config, "PATCH", this);
 	}
 	
-    delete() {
-		return postWrapper(arguments, "DELETE", this);
+    delete(url, config) {
+		return postWrapper(url, null, config, "DELETE", this);
 	}
 	
 	new(config, instanceName) {
@@ -661,6 +667,11 @@ class Dame {
 }
 
 
-var dame = new Dame();
+/**
+ * @type {DameInstance}
+*/
+const dame = new Dame();
 
-module.exports = dame;
+var dame_1 = dame;
+
+module.exports = dame_1;

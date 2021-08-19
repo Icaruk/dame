@@ -5,7 +5,7 @@ const fs = require("fs");
 
 test("1 redirect", async () => {
 	
-	const dameRes = await dame.get("http://localhost:3000/redir?extra=0");
+	const dameRes = await dame.get("http://localhost:3200/redir?extra=0");
 	const {code, isError, response, redirectCount } = dameRes;
 	
 	
@@ -20,7 +20,7 @@ test("1 redirect", async () => {
 
 test("5 redirect", async () => {
 	
-	const dameRes = await dame.get("http://localhost:3000/redir?extra=4");
+	const dameRes = await dame.get("http://localhost:3200/redir?extra=4");
 	const {code, isError, redirectCount } = dameRes;
 	
 	
@@ -34,7 +34,7 @@ test("5 redirect", async () => {
 
 test("5 redirect max 2", async () => {
 	
-	const dameRes = await dame.get("http://localhost:3000/redir?extra=4", {
+	const dameRes = await dame.get("http://localhost:3200/redir?extra=4", {
 		maxRedirects: 2,
 	});
 	const {code, isError, redirectCount } = dameRes;
@@ -50,7 +50,7 @@ test("5 redirect max 2", async () => {
 
 test("5 redirect but maxRedirects=0 response=301", async () => {
 	
-	const dameRes = await dame.get("http://localhost:3000/redir?extra=4", {
+	const dameRes = await dame.get("http://localhost:3200/redir?extra=4", {
 		maxRedirects: 0,
 	});
 	const {code, isError, redirectCount } = dameRes;

@@ -1,3 +1,4 @@
+
 declare module "dame" {
     export = dame;
     /**
@@ -12,7 +13,7 @@ declare module "dame" {
         post: PostFnc;
         put: PostFnc;
         patch: PostFnc;
-        delete: PostFnc;
+        delete: GetFnc;
         new: NewFnc;
         instances: Array<DameInstance>;
         baseUrl: string;
