@@ -1,3 +1,4 @@
+
 declare module "dame" {
     export type Response = {
         isError: boolean;
@@ -99,32 +100,19 @@ declare module "dame" {
     */
     class Dame {
         constructor(constructorOptions?: {});
-        baseUrl: any;
+		get: GetFnc;
+        post: PostFnc;
+        put: PostFnc;
+        patch: PostFnc;
+        delete: PostFnc;
+        new: NewFnc;
+        instances: Array<DameInstance>;
+        baseUrl: string;
         options: any;
         headers: any;
-        checkIsError: any;
-        timeout: any;
-        maxRedirects: any;
-        instances: any[];
-        get(url: any, config?: {}): any;
-        post(...args: any[]): any;
-        put(...args: any[]): any;
-        patch(...args: any[]): any;
-        delete(...args: any[]): any;
-        new(config: any, instanceName: any): Dame;
+        checkIsError: Function;
+        timeout: number;
+        maxRedirects: number;
     }
-    export function get(url: any, config?: {}): any;
-    export function post(...args: any[]): any;
-    export function put(...args: any[]): any;
-    export function patch(...args: any[]): any;
-    function _delete(...args: any[]): any;
-    function _new(config: any, instanceName: any): Dame;
-    export { _delete as delete, _new as new };
-    export const baseUrl: any;
-    export const options: any;
-    export const headers: any;
-    export const checkIsError: any;
-    export const timeout: any;
-    export const maxRedirects: any;
-    export const instances: any[];
 }
+
