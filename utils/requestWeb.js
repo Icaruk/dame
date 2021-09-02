@@ -125,7 +125,7 @@ module.exports = function requestWeb({
 						case "text": data = await response.text(); break;
 						case "arraybuffer": data = await response.arrayBuffer(); break;
 						case "blob": data = await response.blob(); break;
-						case "stream": data = await response.blob(); break;
+						// case "stream": data = await response.blob(); break;
 					};
 					
 				} catch (err) {};

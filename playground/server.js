@@ -12,6 +12,15 @@ app.use(express.urlencoded({
 }));
 
 
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+    next();
+});
+
+
 
 // -------------------------------------------------------------------------------------------------------------------------------
 
@@ -166,6 +175,14 @@ app.delete("/user", (req, res) => {
 
 app.post('/image', (req, res) => {
 	res.json('/image api');
+});
+
+
+app.get('/file', (req, res) => {
+	
+	const buf = fs.readFileSync("./playground/media/nonono bueno sí.jpg");
+	res.send(buf);
+	
 });
 
 

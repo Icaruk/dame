@@ -199,12 +199,21 @@ var requestWeb = function requestWeb({
 				
 				
 				try {
-					if (contentTypeLow.startsWith("application/json")) {
-						const json = await response.json();
-						data = json;
-					} else if (contentTypeLow.startsWith("text")) {
-						data.toString();
+					// if (contentTypeLow.startsWith("application/json")) {
+					// 	const json = await response.json();
+					// 	data = json;
+					// } else if (contentTypeLow.startsWith("text")) {
+					// 	data.toString();
+					// };
+					
+					switch ( (config.responseType || "").toLowerCase() ) {
+						case "json": data = await response.json(); break;
+						case "text": data = await response.text(); break;
+						case "arraybuffer": data = await response.arrayBuffer(); break;
+						case "blob": data = await response.blob(); break;
+						// case "stream": data = await response.blob(); break;
 					};
+					
 				} catch (err) {};
 				
 				
@@ -535,6 +544,7 @@ const postWrapper = (url, body, config = {}, method, dameInstance) => {
  * @property {Object} headers
  * @property {number} [timeout] Number of miliseconds for the timeout.
  * @property {number} [maxRedirects=20] Max redirects to follow. Default 20. Use 0 to disable redirects.
+ * @property {"arraybuffer" | "stream" | "json" | "text"} [responseType="json"] **Browser only**. Default `"json"`. Type of the data that the server will respond with.
  * @property {*} requestOptions Request or fetch extra options.
 */
 

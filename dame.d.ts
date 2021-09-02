@@ -1,4 +1,3 @@
-
 declare module "dame" {
     export = dame;
     /**
@@ -40,6 +39,10 @@ declare module "dame" {
          * Max redirects to follow. Default 20. Use 0 to disable redirects.
          */
         maxRedirects?: number;
+        /**
+         * **Browser only**. Default `"json"`. Type of the data that the server will respond with.
+         */
+        responseType?: "arraybuffer" | "stream" | "json" | "text";
         /**
          * Request or fetch extra options.
          */
