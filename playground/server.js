@@ -180,7 +180,8 @@ app.post('/image', (req, res) => {
 
 app.get('/file', (req, res) => {
 	
-	const buf = fs.readFileSync("./playground/media/nonono bueno sí.jpg");
+	// const buf = fs.readFileSync("./playground/media/nonono bueno sí.jpg");
+	const buf = fs.readFileSync("./playground/media/asd.pdf");
 	res.send(buf);
 	
 });

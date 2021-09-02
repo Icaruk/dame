@@ -222,14 +222,16 @@ var requestWeb = function requestWeb({
 				const isError = checkIsError(response.status);
 				
 				
-				
-				resolve({
+				const end = {
 					isError: isError,
 					code: response.status,
 					status: response.statusText,
 					response: data,
-					redirectCount: totalRedirects,
-				});
+				};
+				if (totalRedirects > 0) end.redirectCount = totalRedirects;
+				
+				
+				resolve(end);
 				
 			};
 			
@@ -412,14 +414,16 @@ var requestNode = function requestNode({
 						const isError = checkIsError(res.statusCode);
 						
 						
-						
-						resolve({
+						const end = {
 							isError: isError,
 							code: res.statusCode,
 							status: res.statusMessage,
 							response: data,
-							redirectCount: totalRedirects,
-						});
+						};
+						if (totalRedirects > 0) end.redirectCount = totalRedirects;
+						
+						
+						resolve(end);
 						
 					});
 					

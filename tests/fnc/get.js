@@ -142,7 +142,7 @@ test("get_pre_vs_config_timeout", async () => {
 
 test("get_image", async () => {
 	
-	const res = await dame.get("https://assets-global.website-files.com/5f4f67c5950db17954dd4f52/5f5b7ee442f1e5b9fee1c117_hacerse-una-casa.jpeg");
+	const res = await dame.get("https://assets-global.website-files.com/5f4f67c5950db17954dd4f52/5f5b7ee442f1e5b9fee1c117_hacerse-una-casa.jpeg", {responseType: ""});
 	
 	const filePath = "./casa.jpeg";
 	fs.writeFileSync(filePath, res.response);
