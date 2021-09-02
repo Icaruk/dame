@@ -113,12 +113,21 @@ module.exports = function requestWeb({
 				
 				
 				try {
-					if (contentTypeLow.startsWith("application/json")) {
-						const json = await response.json();
-						data = json;
-					} else if (contentTypeLow.startsWith("text")) {
-						data.toString();
+					// if (contentTypeLow.startsWith("application/json")) {
+					// 	const json = await response.json();
+					// 	data = json;
+					// } else if (contentTypeLow.startsWith("text")) {
+					// 	data.toString();
+					// };
+					
+					switch ( (config.responseType || "").toLowerCase() ) {
+						case "json": data = await response.json(); break;
+						case "text": data = await response.text(); break;
+						case "arraybuffer": data = await response.arrayBuffer(); break;
+						case "blob": data = await response.blob(); break;
+						case "stream": data = await response.blob(); break;
 					};
+					
 				} catch (err) {};
 				
 				

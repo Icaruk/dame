@@ -63,6 +63,7 @@ const postWrapper = (url, body, config = {}, method, dameInstance) => {
  * @property {Object} headers
  * @property {number} [timeout] Number of miliseconds for the timeout.
  * @property {number} [maxRedirects=20] Max redirects to follow. Default 20. Use 0 to disable redirects.
+ * @property {"arraybuffer" | "stream" | "json" | "text"} [responseType="json"] Default `"json"`. Type of the data that the server will respond with.
  * @property {*} requestOptions Request or fetch extra options.
 */
 
