@@ -170,6 +170,7 @@ const {response} = dame.post(url, body, config);
 - **checkIsError** `function<boolean>`: Function that will receive the status code (`number`) and must return `boolean`. Default `isError = !(code >= 200 && < 300)`.
 - Any option that fits on [request](https://nodejs.org/api/https.html#https_https_request_url_options_callback) or [fetch](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch).
 - **maxRedirects** `number`: Max redirects to follow. Default 20. Use 0 to disable redirects.
+- **responseType** `"arraybuffer" | "stream" | "json" | "text"`: **Browser only**. Default `"json"`. Type of the data that the server will respond with.
 
 
 
