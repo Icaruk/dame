@@ -8,8 +8,6 @@ test("1 redirect", async () => {
 	const dameRes = await dame.get("http://localhost:3200/redir?extra=0");
 	const {code, isError, response, redirectCount } = dameRes;
 	
-	console.log( "response", `(${typeof response}): `, response);
-	
 	expect(code).toBe(200);
 	expect(isError).toBe(false);
 	expect(response.redirected).toBe(true);

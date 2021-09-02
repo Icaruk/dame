@@ -199,20 +199,28 @@ var requestWeb = function requestWeb({
 				
 				
 				try {
-					// if (contentTypeLow.startsWith("application/json")) {
-					// 	const json = await response.json();
-					// 	data = json;
-					// } else if (contentTypeLow.startsWith("text")) {
-					// 	data.toString();
-					// };
 					
-					switch ( (config.responseType || "").toLowerCase() ) {
-						case "json": data = await response.json(); break;
-						case "text": data = await response.text(); break;
-						case "arraybuffer": data = await response.arrayBuffer(); break;
-						case "blob": data = await response.blob(); break;
-						// case "stream": data = await response.blob(); break;
+					if (contentTypeLow.startsWith("application/json")) {
+						
+						const json = await response.json();
+						data = json;
+						if (!config.responseType) config.responseType = "json";
+						
+					} else if (contentTypeLow.startsWith("text")) {
+						
+						// data.toString();
+						if (!config.responseType) config.responseType = "text";
+						
 					};
+					
+					
+					// switch ( (config.responseType || "").toLowerCase() ) {
+					// 	case "json": data = await response.json(); break;
+					// 	case "text": data = await response.text(); break;
+					// 	case "arraybuffer": data = await response.arrayBuffer(); break;
+					// 	case "blob": data = await response.blob(); break;
+					// 	// case "stream": data = await response.blob(); break;
+					// };
 					
 				} catch (err) {};
 				
@@ -222,16 +230,14 @@ var requestWeb = function requestWeb({
 				const isError = checkIsError(response.status);
 				
 				
-				const end = {
+				
+				resolve({
 					isError: isError,
 					code: response.status,
 					status: response.statusText,
 					response: data,
-				};
-				if (totalRedirects > 0) end.redirectCount = totalRedirects;
-				
-				
-				resolve(end);
+					redirectCount: totalRedirects,
+				});
 				
 			};
 			
@@ -247,7 +253,7 @@ var requestWeb = function requestWeb({
 					code: 0,
 					status: 'Timed out',
 					response: null,
-				});				
+				});
 			}			
 			
 			resolve({
@@ -414,16 +420,14 @@ var requestNode = function requestNode({
 						const isError = checkIsError(res.statusCode);
 						
 						
-						const end = {
+						
+						resolve({
 							isError: isError,
 							code: res.statusCode,
 							status: res.statusMessage,
 							response: data,
-						};
-						if (totalRedirects > 0) end.redirectCount = totalRedirects;
-						
-						
-						resolve(end);
+							redirectCount: totalRedirects,
+						});
 						
 					});
 					
