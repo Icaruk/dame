@@ -57,7 +57,7 @@ test("5 redirect but maxRedirects=0 response=301", async () => {
 	
 	expect(code).toBe(301);
 	expect(isError).toBe(true);
-	expect(redirectCount).toBe(0);
+	expect(redirectCount).toBe(undefined);
 	
 });
 

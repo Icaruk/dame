@@ -144,14 +144,16 @@ module.exports = function requestWeb({
 				const isError = checkIsError(response.status);
 				
 				
-				
-				resolve({
+				const resol = {
 					isError: isError,
 					code: response.status,
 					status: response.statusText,
 					response: data,
-					redirectCount: totalRedirects,
-				});
+				};
+				if (totalRedirects > 0) resol.redirectCount = totalRedirects;
+				
+				
+				resolve(resol);
 				
 			};
 			

@@ -202,8 +202,8 @@ var requestWeb = function requestWeb({
 					
 					if (contentTypeLow.startsWith("application/json")) {
 						
-						const json = await response.json();
-						data = json;
+						// const json = await response.json();
+						// data = json;
 						if (!config.responseType) config.responseType = "json";
 						
 					} else if (contentTypeLow.startsWith("text")) {
@@ -214,13 +214,13 @@ var requestWeb = function requestWeb({
 					};
 					
 					
-					// switch ( (config.responseType || "").toLowerCase() ) {
-					// 	case "json": data = await response.json(); break;
-					// 	case "text": data = await response.text(); break;
-					// 	case "arraybuffer": data = await response.arrayBuffer(); break;
-					// 	case "blob": data = await response.blob(); break;
-					// 	// case "stream": data = await response.blob(); break;
-					// };
+					switch ( (config.responseType || "").toLowerCase() ) {
+						case "json": data = await response.json(); break;
+						case "text": data = await response.text(); break;
+						case "arraybuffer": data = await response.arrayBuffer(); break;
+						case "blob": data = await response.blob(); break;
+						// case "stream": data = await response.blob(); break;
+					};
 					
 				} catch (err) {};
 				
@@ -230,14 +230,16 @@ var requestWeb = function requestWeb({
 				const isError = checkIsError(response.status);
 				
 				
-				
-				resolve({
+				const resol = {
 					isError: isError,
 					code: response.status,
 					status: response.statusText,
 					response: data,
-					redirectCount: totalRedirects,
-				});
+				};
+				if (totalRedirects > 0) resol.redirectCount = totalRedirects;
+				
+				
+				resolve(resol);
 				
 			};
 			
@@ -420,14 +422,16 @@ var requestNode = function requestNode({
 						const isError = checkIsError(res.statusCode);
 						
 						
-						
-						resolve({
+						const resol = {
 							isError: isError,
 							code: res.statusCode,
 							status: res.statusMessage,
 							response: data,
-							redirectCount: totalRedirects,
-						});
+						};
+						if (totalRedirects > 0) resol.redirectCount = totalRedirects;
+						
+						
+						resolve(resol);
 						
 					});
 					

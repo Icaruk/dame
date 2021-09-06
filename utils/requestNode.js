@@ -152,14 +152,16 @@ module.exports = function requestNode({
 						const isError = checkIsError(res.statusCode);
 						
 						
-						
-						resolve({
+						const resol = {
 							isError: isError,
 							code: res.statusCode,
 							status: res.statusMessage,
 							response: data,
-							redirectCount: totalRedirects,
-						});
+						};
+						if (totalRedirects > 0) resol.redirectCount = totalRedirects;
+						
+						
+						resolve(resol);
 						
 					});
 					
