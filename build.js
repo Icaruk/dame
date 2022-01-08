@@ -8,6 +8,6 @@ require('esbuild').build({
 	minifyIdentifiers: false,
 	format: "cjs",
 	platform: "neutral",
-	external: ["http", "https", "dns", "url"],
+	external: ["http", "https", "url"],
 	outfile: "dame.min.js",
 }).catch(() => process.exit(1))
