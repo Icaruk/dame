@@ -108,32 +108,38 @@ module.exports = function requestWeb({
 				
 				
 				let data = response;
-				const contentType = response.headers.get("Content-Type").split("; "); // 'application/json; charset=utf-8';
-				const contentTypeLow = contentType[0].toLowerCase();
+				
+				const contentTypeRaw = responseHeaders.get("Content-Type"); // null o algo como 'application/json; charset=utf-8'
+				const contentType = contentTypeRaw && contentTypeRaw.split("; "); // 'application/json; charset=utf-8' → ['application/json', 'charset=utf-8']
+				const contentTypeLow = contentType && contentType[0].toLowerCase(); // 'application/json'
 				
 				
 				try {
 					
-					if (contentTypeLow.startsWith("application/json")) {
+					if (contentTypeLow) {
 						
-						// const json = await response.json();
-						// data = json;
-						if (!config.responseType) config.responseType = "json";
+						if (contentTypeLow.startsWith("application/json")) {
+							
+							// const json = await response.json();
+							// data = json;
+							if (!config.responseType) config.responseType = "json";
+							
+						} else if (contentTypeLow.startsWith("text")) {
+							
+							// data.toString();
+							if (!config.responseType) config.responseType = "text";
+							
+						};
 						
-					} else if (contentTypeLow.startsWith("text")) {
 						
-						// data.toString();
-						if (!config.responseType) config.responseType = "text";
+						switch ( (config.responseType || "").toLowerCase() ) {
+							case "json": data = await response.json(); break;
+							case "text": data = await response.text(); break;
+							case "arraybuffer": data = await response.arrayBuffer(); break;
+							case "blob": data = await response.blob(); break;
+							// case "stream": data = await response.blob(); break;
+						};
 						
-					};
-					
-					
-					switch ( (config.responseType || "").toLowerCase() ) {
-						case "json": data = await response.json(); break;
-						case "text": data = await response.text(); break;
-						case "arraybuffer": data = await response.arrayBuffer(); break;
-						case "blob": data = await response.blob(); break;
-						// case "stream": data = await response.blob(); break;
 					};
 					
 				} catch (err) {};
