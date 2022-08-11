@@ -16,7 +16,6 @@
 		"server": "nodemon ./playground/server.js",
 		"benchmark": "node ./benchmarks/benchmark.js",
 		"declaration:build": "tsc -b",
-		"esbuild": "node ./build.js",
 		"rollup": "rollup -c",
 		"publishDryRun": "npm publish --dry-run"
 	},
@@ -40,8 +39,6 @@
 		"axios": "^0.21.4",
 		"body-parse": "^0.1.0",
 		"coveralls": "^3.1.1",
-		"esbuild": "^0.13.2",
-		"esbuild-plugin-d.ts": "^1.0.6",
 		"express": "^4.17.1",
 		"jest": "^27.2.2",
 		"nanobench": "^2.1.1",
