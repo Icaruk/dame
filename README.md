@@ -43,6 +43,7 @@
 	- [get](#get)
 	- [post, put, delete, patch](#post-put-delete-patch)
 - [Config](#config)
+- [Configuring base instance](#configuring-base-instance)
 - [Creating an instance](#creating-an-instance)
 	- [Examples](#examples)
 	- [Editing an instance](#editing-an-instance)
@@ -166,7 +167,7 @@ const {response} = dame.post(url, body, config);
 
 - **baseUrl** `string`: Base URL that will be concatenated with the `url` of the requests.
 - **headers** `object`: Headers that will be attached to the request.
-- **timeout** `object`: Number of miliseconds that must pass before timeout the request.
+- **timeout** `number`: Number of miliseconds that must pass before timeout the request.
 - **checkIsError** `function<boolean>`: Function that will receive the status code (`number`) and must return `boolean`. Default `isError = !(code >= 200 && < 300)`.
 - Any option that fits on [request](https://nodejs.org/api/https.html#https_https_request_url_options_callback) or [fetch](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch).
 - **maxRedirects** `number`: Max redirects to follow. Default 20. Use 0 to disable redirects.
@@ -176,6 +177,39 @@ const {response} = dame.post(url, body, config);
 
 <br><br>
 
+
+
+# Configuring base instance
+
+
+Syntax:
+
+```js
+dame.<configKey> = <value>;
+```
+
+- **configKey**: any key from [Config](#config).
+- **value**: any value that fits on the config key.
+
+
+
+Examples:
+```js
+dame.baseUrl = "http://localhost:3010";
+dame.headers.Authorization = `Bearer abcd.1234`;
+dame.timeout = 5000;
+```
+
+Then you'll be able to:
+
+```js
+dame.get("/protectedRoute");
+// url will be → http://localhost:3010/protectedRoute
+// headers will be → {Authorization: "Bearer abcd.1234"}
+```
+
+
+<br><br>
 
 
 # Creating an instance
