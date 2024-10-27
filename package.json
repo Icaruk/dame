@@ -1,6 +1,6 @@
 {
 	"name": "dame",
-	"version": "1.2.6",
+	"version": "1.2.7",
 	"description": "minimalistic HTTP client for browser and node",
 	"repository": {
 		"type": "git",
@@ -50,6 +50,9 @@
 		"vitest": "^2.1.3"
 	},
 	"main": "dame.js",
-	"files": ["dame.js", "dame.d.ts"],
+	"files": [
+		"dame.js",
+		"dame.d.ts"
+	],
 	"types": "dame.d.ts"
 }
