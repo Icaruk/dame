@@ -1,8 +1,74 @@
-declare module "dame" {
+declare module "utils/buildUrl" {
+    function _exports(url: any, dameInstance: any): any;
+    export = _exports;
+}
+declare module "utils/buildHeaders" {
+    function _exports(config: any, dameInstance?: {}): any;
+    export = _exports;
+}
+declare module "utils/buildTimeout" {
+    function _exports(config: any, instance: any): any;
+    export = _exports;
+}
+declare module "utils/raceTimeout" {
+    function _exports(promise: any, options: any, dameInstance: any): any;
+    export = _exports;
+}
+declare module "utils/checkIsError" {
+    function _exports(code: any): boolean;
+    export = _exports;
+}
+declare module "utils/buildMaxRedirects" {
+    function _exports(config: any, instance: any): any;
+    export = _exports;
+}
+declare module "utils/requestWeb" {
+    function _exports({ method, fullUrl, body, config, instance, }: RequestWebOptions): Promise<ResponseWeb>;
+    export = _exports;
+    export type RequestWebOptions = {
+        method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
+        fullUrl: string;
+        body: any;
+        config: any;
+        /**
+         * Dame instance
+         */
+        instance: any;
+    };
+    export type ResponseWeb = {
+        isError: boolean;
+        code: number;
+        status: string;
+        response: any;
+        error: any | null;
+    };
+}
+declare module "utils/requestNode" {
+    function _exports({ method, fullUrl, body, config, instance, }: RequestNodeOptions): Promise<ResponseNode>;
+    export = _exports;
+    export type RequestNodeOptions = {
+        method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
+        fullUrl: string;
+        body: any;
+        config: any;
+        /**
+         * Dame instance
+         */
+        instance: any;
+    };
+    export type ResponseNode = {
+        isError: boolean;
+        code: number;
+        status: string;
+        response: any;
+        error: any | null;
+    };
+}
+declare module "src/dame" {
     export = dame;
     /**
      * @type {DameInstance}
-    */
+     */
     const dame: DameInstance;
     namespace dame {
         export { Response, Config, GetFnc, PostFnc, NewFnc, DameInstance };
@@ -48,8 +114,8 @@ declare module "dame" {
          */
         requestOptions: any;
     };
-    type GetFnc = (url: any, config?: Config) => Promise<Response>;
-    type PostFnc = (url: any, body: any, config?: Config) => Promise<Response>;
+    type GetFnc = (url: Url, config?: Config) => Promise<Response>;
+    type PostFnc = (url: Url, body: any, config?: Config) => Promise<Response>;
     /**
      * Creates a new instance of dame with pre-set configuration.
      */

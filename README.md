@@ -40,16 +40,16 @@
 - [Basic examples](#basic-examples)
 - [Response object](#response-object)
 - [Methods](#methods)
-	- [get](#get)
-	- [post, put, delete, patch](#post-put-delete-patch)
+  - [get, delete](#get-delete)
+  - [post, put, patch](#post-put-patch)
 - [Config](#config)
 - [Configuring base instance](#configuring-base-instance)
 - [Creating an instance](#creating-an-instance)
-	- [Examples](#examples)
-	- [Editing an instance](#editing-an-instance)
+  - [Examples](#examples)
+  - [Editing an instance](#editing-an-instance)
 - [Special statuses](#special-statuses)
 - [dame vs. others](#dame-vs-others)
-- [<a name='table-of-contents'></a>☝ Return to top](#-return-to-top)
+- [☝ Return to top](#a-nametable-of-contentsa-return-to-toptable-of-contents)
 
 <!-- /code_chunk_output -->
 
@@ -75,12 +75,12 @@ const dame = require("dame");
 
 **GET**
 ```js
-let {response} = dame.get("https://rickandmortyapi.com/api/location/1");
+const {response} = dame.get("https://rickandmortyapi.com/api/location/1");
 ```
 
 **POST**
 ```js
-let {response} = dame.post("https://your.api.com/login", {
+const {response} = dame.post("https://your.api.com/login", {
 	username: "Username",
 	password: "****",
 });
@@ -118,7 +118,7 @@ The response can be destructured like this:
 
 
 ```js
-let {isError, code, status, response} = dame.get("https://rickandmortyapi.com/api/location/1");
+const {isError, code, status, response} = dame.get("https://rickandmortyapi.com/api/location/1");
 ```
 
 
@@ -129,10 +129,11 @@ let {isError, code, status, response} = dame.get("https://rickandmortyapi.com/ap
 
 # Methods
 
-## get
+## get, delete
 
 ```js
 const {response} = dame.get(url, config);
+const {response} = dame.delete(url, config);
 ```
 
 - **url** `string`: Full URL or path.
@@ -146,10 +147,12 @@ const {response} = dame.get(url, config);
 
 
 
-## post, put, delete, patch
+## post, put, patch
 
 ```js
 const {response} = dame.post(url, body, config);
+const {response} = dame.put(url, body, config);
+const {response} = dame.patch(url, body, config);
 ```
 
 

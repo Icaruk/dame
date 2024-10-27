@@ -1,9 +1,9 @@
 /**
-* @jest-environment node
-*/
+ * @jest-environment node
+ */
 
 describe("node", () => {
-	require("./fnc/get");
-	require("./fnc/crud");
-	require("./fnc/redirects");
+	require("./fnc/get.test.js");
+	require("./fnc/crud.test.js");
+	require("./fnc/redirects.test.js");
 });

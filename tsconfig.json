@@ -10,5 +10,9 @@
 		"declaration": true,
 		"emitDeclarationOnly": true,
 		"outFile": "dame",
+		"lib": [
+			"ES2020",
+			"DOM"
+		]
 	}
 }
